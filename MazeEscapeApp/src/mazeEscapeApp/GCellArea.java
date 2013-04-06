@@ -30,20 +30,28 @@ public class GCellArea extends RectangleFigure {
 
 		maze = m;
 	}
+	/*
+	 * Used by handleClick to check if two cells are adjacent.
+	 */
+	private boolean areCellsAdjacent(GCellArea cell1, GCellArea cell2) {
+		GCellArea[] adjCells = cell1.getAdjacentGCells();
+
+		for (GCellArea gc : adjCells) {
+			if (gc != null && gc.getRow() == cell2.getRow()
+					&& gc.getColumn() == cell2.getColumn()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Handles the clicks on any given grid cell.
 	 */
 	private void handleClick() {
 		// Don't allow the user to move away from end cell after reached.
-		if (maze.isReachedEndCell() == true) {
 
-		} else if (this == maze.getEndCell()
-				&& maze.isReachedEndCell() == false) {
-			maze.setReachedEndCell(true);
-			System.out.println("You win!");
-			score++;
-		} else if (maze.isFirstClick() == true) {
+		if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
 			maze.setCurrentlySelected(maze.getStartCell());
 			maze.getStartCell().setAttribute(
@@ -51,20 +59,25 @@ public class GCellArea extends RectangleFigure {
 			maze.setFirstClick(false);
 			System.out.println("First Click");
 			score++;
+		} else if (maze.isReachedEndCell() == true) {
+
+		} else if (this == maze.getEndCell()
+				&& maze.isReachedEndCell() == false
+				&& areCellsAdjacent(maze.getCurrentlySelected(), this)) {
+			maze.setReachedEndCell(true);
+			System.out.println("You win.");
+			score++;
 		} else {
 			// Essentially, check to see if the currently selected gridcell is
 			// adjacent to the newly selected cell. If so, then move; otherwise,
 			// let nothing happen.
-			GCellArea[] adjCells = maze.getCurrentlySelected()
-					.getAdjacentGCells();
-			for (GCellArea gc : adjCells) {
-				if (gc != null && gc.getRow() == this.row
-						&& gc.getColumn() == this.column) {
-					maze.setCurrentlySelected(this);
-					this.setAttribute(FigureAttributeConstant.FILL_COLOR,
-							Color.CYAN);
-					score++;
-				}
+
+			if (areCellsAdjacent(maze.getCurrentlySelected(), this)) {
+				maze.setCurrentlySelected(this);
+				this.setAttribute(FigureAttributeConstant.FILL_COLOR,
+						Color.CYAN);
+				score++;
+
 			}
 		}
 
