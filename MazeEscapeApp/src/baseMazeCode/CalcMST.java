@@ -7,66 +7,67 @@ import AdjacencyListGraph.*;
 import java.util.*;
 
 public class CalcMST {
-	private ALGraph graph; // The graph to find the MST
-	private ALGraph mst; // The output minimum spanning tree
-	private VertexList vertices; // The list of vertices in the input graph
-	// private HeapPQ<Double,MyEntry<Vertex,Edge>> pq; //The priority queue
-	// based heap
-	private SmartHeapPQ pq; // A "smarter" priority queue based heap
-	private VertexList newVertices; // A list of new vertices created by this
-									// class
-	private boolean debug = false; // An internal toggle to aid debugging
-
+	private ALGraph graph; 			// The graph to find the MST
+	private ALGraph mst; 	  		// The output minimum spanning tree
+	private VertexList vertices; 	// The list of vertices in the input graph
+	private SmartHeapPQ pq; 		// A "smarter" priority queue based heap
+	private VertexList newVertices; // A list of new vertices created by this class
+	
 	public CalcMST(ALGraph g) {
 		newVertices = new VertexList();
 		graph = g;
 		mst = new ALGraph();
-		// pq=new HeapPQ<Double, MyEntry<Vertex,Edge>>();
 		pq = new SmartHeapPQ();
 		vertices = graph.vertices();
 	}
 
 	public ALGraph solve() {
-		// TODO Make sure vertices >0
-		if (debug)
-			System.out.println("Solve Activated");
+		//Get the initial vertex
 		Vertex v = vertices.get(0);
 
 		// Set the label of the initial vertex to 0
 		v.setLabel(0);
 
+		//This loop sets the label of all the other vertices to +Infinity
+		//Then it inserts it into pq
 		for (Vertex u : vertices) {
-			// Set all the label of all the other vertices to +Infinity
+			// If the vertex != v, then set its label to +Infinity
 			if (u != v) {
 				u.setLabel(Double.POSITIVE_INFINITY);
-				if (debug)
-					System.out.println("Setting label: Vertex "
-							+ u.getElement());
 			}
 
+			//Store the vertex in a key/value pair
 			MyEntry<Vertex, Edge> tempEntry = new MyEntry<Vertex, Edge>(u, null);
+			
+			//Insert the key/value pair into pq
 			pq.insert(u.getLabel(), tempEntry);
-			if (debug)
-				System.out.println("Insert: " + u.getElement());
 		}
 
 		while (!(pq.isEmpty())) {
 			// Remove the smallest entry from the priority queue
 			Entry<Double, MyEntry<Vertex, Edge>> min = pq.removeMin();
-
-			// Extract the Vertex and Edge from the extracted entry
+			
+			/*Note about naming conventions:
+			  The "c" in names like "cVertex" stands for "current"
+			  Aka this is the current vertex.
+			  Later on there will also be an "o" in some of the names.
+			  The "o" stands for "opposite. So oVertex is a vertex
+			  opposite to the "current" vertex.*/
+			
+			// Extract the Vertex and Edge from the key/value pair
 			Vertex cVertex = min.getValue().getKey();
 			Edge cEdge = min.getValue().getValue();
 
 			// Insert the Vertex and/or Edge into the MST
 			if (cEdge == null) {
-				if (debug)
-					System.out.println("Inserting Vertex Only...");
+				//If the current vertex doesn't have an edge associated with it,
+				//we can just insert it into the MST graph.
 				Vertex newVertex = mst.insertVertex(cVertex.getElement());
 				newVertices.add(newVertex);
 			} else {
-				if (debug)
-					System.out.println("Inserting both Vertex and Edge...");
+				//If the current vertex does have an edge associated with it, then
+				//we have to insert the vertex, and then connect the edge between
+				//its corresponding vertices.
 				Vertex newVertex = mst.insertVertex(cVertex.getElement());
 				newVertices.add(newVertex);
 				mst.insertEdge(findNewVertex(cEdge.getVertex1()),
@@ -74,42 +75,29 @@ public class CalcMST {
 						cEdge.getIdentity());
 			}
 
-			if (debug)
-				System.out.println("cVertex: " + cVertex.getElement());
-			if (debug)
-				System.out.println("cVertex Incidence List Size: "
-						+ cVertex.getIncidenceList().size());
-
-			// Iterates through the IncidenceList
+			// Iterates through the IncidenceList (the list of all vertices incident to the current vertex)
 			for (IncidenceNode n : cVertex.getIncidenceList()) {
+				//*** Declarations for variables that be used momentarily... ***
+				//An arraylist that will be used to store the vertices that aren't the one that we're looking for
 				ArrayList<Entry<Double, MyEntry<Vertex, Edge>>> tempArr = new ArrayList<Entry<Double, MyEntry<Vertex, Edge>>>();
+				//A boolean for the search later
 				boolean found = false;
+				//The entry opposite from the current one (we will find this later, thus it's null for now)
 				Entry<Double, MyEntry<Vertex, Edge>> oEntry = null;
+				//The edge connected to our current vertex:
 				Edge oEdge = n.getEdge();
-				Vertex oVertex = (n.getEdge().getVertex1() == cVertex) ? n
-						.getEdge().getVertex2() : n.getEdge().getVertex1();
-
-				if (debug)
-					System.out.println("oEdge: " + oEdge.getIdentity());
-				if (debug)
-					System.out.println("oVertex: " + oVertex.getElement());
-
-				int removed = 0;
-
+				//The vertex opposite from our current one:
+				Vertex oVertex = (n.getEdge().getVertex1() == cVertex) ? n.getEdge().getVertex2() : n.getEdge().getVertex1();
+				//*** End declarations ***
+				
 				// Searches through the heap to see if the vertex is in there
 				while (pq.size() > 0) {
-					if (debug)
-						System.out.println("Searching for "
-								+ oVertex.getElement() + "... | removed="
-								+ removed + " tempArr.size(): "
-								+ tempArr.size());
-					Entry<Double, MyEntry<Vertex, Edge>> tempEntry = pq
-							.removeMin();
-					removed++;
-
+					//Create a temporary entry to hold the candidate entry that's being checked
+					Entry<Double, MyEntry<Vertex, Edge>> tempEntry = pq.removeMin();
+					
+					//If the entry in tempEntry is the one that we're looking for,
+					//then store it in oEntry. Otherwise toss it in our arraylist.
 					if (tempEntry.getValue().getKey() == oVertex) {
-						if (debug)
-							System.out.println("Found value!");
 						oEntry = tempEntry;
 						found = true;
 						break;
@@ -119,33 +107,20 @@ public class CalcMST {
 					}
 				}
 
-				if (found == false)
-					if (debug)
-						System.out.println("oVertex not in heap.");
+				//Toss all of the vertices that we don't need back into pq
 				int max = tempArr.size();
 				for (int x = 0; x < max; x++) {
-					if (debug)
-						System.out.println("Inserting back to PQ... | x=" + x);
-					pq.insert(tempArr.get(x).getKey(), tempArr.get(x)
-							.getValue());
+					pq.insert(tempArr.get(x).getKey(), tempArr.get(x).getValue());
 				}
-				// found=oVertex.getHeapStatus();
-				// System.out.println("oVertex.getHeapStatus(): " +
-				// oVertex.getHeapStatus());
+
+				//If the while loop from above found the vertex that we're looking for,
+				//this code will execute.
 				if (found) {
-					// oEntry=oVertex.getParentEntry();
 					if ((int) oEdge.getWeight() < oVertex.getLabel()) {
-						// Reassign the label in the vertex (if it was in the
-						// heap)
-						if (debug)
-							System.out.print("Setting oVertex label from "
-									+ oVertex.getLabel());
+						// Reassign the label in the vertex
+						//Remember, there's a chance that oVertex is equal to +Infinity
 						oVertex.setLabel((int) oEdge.getWeight());
-						if (debug)
-							System.out.println(" to " + oVertex.getLabel()
-									+ "\nReinserting into PQ");
-						oEntry.setValue(new MyEntry<Vertex, Edge>(oVertex,
-								oEdge));
+						oEntry.setValue(new MyEntry<Vertex, Edge>(oVertex, oEdge));
 						oEntry.setKey(oVertex.getLabel());
 						pq.insert(oEntry.getKey(), oEntry.getValue());
 					} else {
