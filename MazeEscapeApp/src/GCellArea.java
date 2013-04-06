@@ -16,6 +16,7 @@ import org.jhotdraw.util.CollectionsFactory;
 public class GCellArea extends RectangleFigure {
 	private static final long serialVersionUID = 4658070300128221307L;
 	private int row, column;
+	public static int score;
 
 	public GCellArea() {
 		super();
@@ -36,6 +37,7 @@ public class GCellArea extends RectangleFigure {
 				&& MazeEscapeApp.isReachedEndCell() == false) {
 			MazeEscapeApp.setReachedEndCell(true);
 			System.out.println("You win.");
+			score++;
 		} else if (MazeEscapeApp.isFirstClick() == true) {
 			// The first click should be the startCell.
 			MazeEscapeApp.setCurrentlySelected( MazeEscapeApp.getStartCell());
@@ -43,6 +45,7 @@ public class GCellArea extends RectangleFigure {
 					FigureAttributeConstant.FILL_COLOR, Color.CYAN);
 			MazeEscapeApp.setFirstClick(false);
 			System.out.println("First Click");
+			score++;
 		} else {
 			// Essentially, check to see if the currently selected gridcell is
 			// adjacent to the newly selected cell. If so, then move; otherwise,
@@ -55,6 +58,7 @@ public class GCellArea extends RectangleFigure {
 					MazeEscapeApp.setCurrentlySelected(this);
 					this.setAttribute(FigureAttributeConstant.FILL_COLOR,
 							Color.CYAN);
+					score++;
 				}
 			}
 		}
@@ -121,6 +125,14 @@ public class GCellArea extends RectangleFigure {
 
 	public void setColumn(int column) {
 		this.column = column;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public int getScore() {
+		return score;
 	}
 
 }

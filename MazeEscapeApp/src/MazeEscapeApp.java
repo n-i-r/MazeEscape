@@ -33,18 +33,23 @@ public class MazeEscapeApp extends DrawApplication {
 	// Currently selected grid cell (used for game; user grid selection)
 	private static GCellArea currentlySelected;
 	private static GCellArea startCell, endCell;
+	
 	// Used in handleClick. Checks to see if first selected cell
 	private static boolean isFirstClick = true;
 	private static boolean reachedEndCell = false;
+	
+	// Used for calculation of score
+	private static boolean on = true;
+	private static int timePassed = 0;
+	private static int timeScore = 0;
 
 	private static final long serialVersionUID = 8276520671195082139L;
 
 	public MazeEscapeApp() {
 		super("MazeEscapeApp");
-
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// Instantiate and open window
 		DrawApplication window = new MazeEscapeApp();
 		window.open();
@@ -66,6 +71,39 @@ public class MazeEscapeApp extends DrawApplication {
 
 		// Update the DrawingView to show updated information
 		view.repairDamage();
+		
+		// Calculates the final maze score
+		calculateScore();
+	}
+	
+	/**
+	 * Calculates the score based on amount of steps taken combined with time 
+	 * taken to reach the end
+	 */
+	public static void calculateScore() throws InterruptedException {
+		while (on == true) {
+			Thread thread = new Thread();
+			thread.start();
+			timePassed++;
+			// Checks if end of the maze has been reached
+			if (isReachedEndCell() == true) {
+				// Calculates bonus points if reached within allotted maze time
+				if (timePassed < timeScore) {
+					int score = endCell.getScore();
+					System.out.println(score);
+					System.out.println(timePassed);
+					score = score*(timeScore-timePassed);
+					System.out.println("Your score is: "+score+"!");
+					on = false;
+				}
+				else {
+					int score = endCell.getScore();
+					System.out.println("Your score is: "+score+"!");
+					on = false;
+				}
+			}
+			thread.sleep(1000);
+		}
 	}
 
 	/**
@@ -166,10 +204,13 @@ public class MazeEscapeApp extends DrawApplication {
 	public static void setDifficulty(String difficulty) {
 		if (difficulty.equals("Easy")) {
 			lengthMaze = 10;
+			timeScore = 15;
 		} else if (difficulty.equals("Medium")) {
 			lengthMaze = 15;
+			timeScore = 30;
 		} else if (difficulty.equals("Hard")) {
 			lengthMaze = 30;
+			timeScore = 60;
 		}
 	}
 	
