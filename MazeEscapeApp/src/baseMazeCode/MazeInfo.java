@@ -1,3 +1,4 @@
+package baseMazeCode;
 
 public class MazeInfo {
 	private int n;

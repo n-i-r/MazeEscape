@@ -1,3 +1,4 @@
+package baseMazeCode;
 //GraphGen takes in a file with the maze details. It parses the file and creates the
 //graph equivalent. It returns a key/value pair with the graph and the maze info.
 

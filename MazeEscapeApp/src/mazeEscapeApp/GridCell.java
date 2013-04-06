@@ -1,3 +1,4 @@
+package mazeEscapeApp;
 import java.awt.Point;
 import org.jhotdraw.framework.DrawingView;
 
@@ -10,21 +11,26 @@ import org.jhotdraw.framework.DrawingView;
  * 
  */
 public class GridCell {
+	private MazeEscape maze;
 	private GCellLine _up, _down, _left, _right;
 	// True if line is on screen
 	private boolean isUp, isDown, isLeft, isRight;
-	private final int SCALEFACTOR = MazeEscapeApp.getGcellPixelLength();
+	private final int SCALEFACTOR;
 	private DrawingView _view;
 	public static final String UP = "up", DOWN = "down", LEFT = "left",
 			RIGHT = "right";
 
-	public GridCell(int x, int y, DrawingView view) {
+	public GridCell(int x, int y, MazeEscape m) {
+		maze = m;
+		
 		// Instantiate the lines and view members
 		_up = new GCellLine();
 		_down = new GCellLine();
 		_left = new GCellLine();
 		_right = new GCellLine();
-		_view = view;
+		_view = maze.view();
+		
+		SCALEFACTOR = maze.getgCellPixelLength();
 
 		// Set the line's points
 		_up.setPoints(new Point(x, y), new Point(x + SCALEFACTOR, y));

@@ -1,3 +1,4 @@
+package baseMazeCode;
 //CalcDFS uses a depth first search algorithm to find a path through the graph
 
 import AdjacencyListGraph.*;

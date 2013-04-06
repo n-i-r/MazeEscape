@@ -1,3 +1,4 @@
+package mazeEscapeApp;
 import java.util.List;
 
 import org.jhotdraw.figures.LineFigure;
@@ -5,7 +6,9 @@ import org.jhotdraw.framework.HandleEnumeration;
 import org.jhotdraw.standard.HandleEnumerator;
 import org.jhotdraw.util.CollectionsFactory;
 
-
+/*
+ * Essentially a non-modifiable line figure
+ */
 public class GCellLine extends LineFigure {
 	private static final long serialVersionUID = 8940548985446361162L;
 	

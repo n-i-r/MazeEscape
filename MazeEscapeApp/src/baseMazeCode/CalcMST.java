@@ -1,3 +1,4 @@
+package baseMazeCode;
 //CalcMST implements the PrimJarnik Algorithm to generate the minimum spanning tree
 //for the maze-graph.
 

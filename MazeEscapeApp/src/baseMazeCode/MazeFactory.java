@@ -1,3 +1,4 @@
+package baseMazeCode;
 import AdjacencyListGraph.ALGraph;
 import HeapPriorityQueue.MyEntry;
 

@@ -1,3 +1,4 @@
+package mazeEscapeApp;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -17,13 +18,16 @@ public class GCellArea extends RectangleFigure {
 	private static final long serialVersionUID = 4658070300128221307L;
 	private int row, column;
 	public static int score;
+	private MazeEscape maze;
 
 	public GCellArea() {
 		super();
 	}
 
-	public GCellArea(Point origin, Point corner) {
+	public GCellArea(Point origin, Point corner, MazeEscape m) {
 		super(origin, corner);
+		
+		maze = m;
 	}
 
 	/**
@@ -31,31 +35,31 @@ public class GCellArea extends RectangleFigure {
 	 */
 	private void handleClick() {
 		// Don't allow the user to move away from end cell after reached.
-		if (MazeEscapeApp.isReachedEndCell() == true) {
+		if (maze.isReachedEndCell() == true) {
 
-		} else if (this == MazeEscapeApp.getEndCell()
-				&& MazeEscapeApp.isReachedEndCell() == false) {
-			MazeEscapeApp.setReachedEndCell(true);
+		} else if (this == maze.getEndCell()
+				&& maze.isReachedEndCell() == false) {
+			maze.setReachedEndCell(true);
 			System.out.println("You win.");
 			score++;
-		} else if (MazeEscapeApp.isFirstClick() == true) {
+		} else if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
-			MazeEscapeApp.setCurrentlySelected( MazeEscapeApp.getStartCell());
-			MazeEscapeApp.getStartCell().setAttribute(
+			maze.setCurrentlySelected( maze.getStartCell());
+			maze.getStartCell().setAttribute(
 					FigureAttributeConstant.FILL_COLOR, Color.CYAN);
-			MazeEscapeApp.setFirstClick(false);
+			maze.setFirstClick(false);
 			System.out.println("First Click");
 			score++;
 		} else {
 			// Essentially, check to see if the currently selected gridcell is
 			// adjacent to the newly selected cell. If so, then move; otherwise,
 			// let nothing happen.
-			GCellArea[] adjCells = MazeEscapeApp.getCurrentlySelected()
+			GCellArea[] adjCells = maze.getCurrentlySelected()
 					.getAdjacentGCells();
 			for (GCellArea gc : adjCells) {
 				if (gc != null && gc.getRow() == this.row
 						&& gc.getColumn() == this.column) {
-					MazeEscapeApp.setCurrentlySelected(this);
+					maze.setCurrentlySelected(this);
 					this.setAttribute(FigureAttributeConstant.FILL_COLOR,
 							Color.CYAN);
 					score++;
@@ -90,22 +94,22 @@ public class GCellArea extends RectangleFigure {
 	public GCellArea[] getAdjacentGCells() {
 		GCellArea[] adjacentCells = new GCellArea[4];
 
-		GridCell[][] gCells = MazeEscapeApp.getGridCells();
+		GridCell[][] gCells = maze.getGridCells();
 
 		// North, South, East, West
 		if (row > 0 && !gCells[row][column].isUp()) {
-			adjacentCells[0] = MazeEscapeApp.getgCellClickableArea()[row - 1][column];
+			adjacentCells[0] = maze.getgCellClickableArea()[row - 1][column];
 		}
-		if (row < MazeEscapeApp.getgCellClickableArea().length - 1
+		if (row < maze.getgCellClickableArea().length - 1
 				&& !gCells[row][column].isDown()) {
-			adjacentCells[1] = MazeEscapeApp.getgCellClickableArea()[row + 1][column];
+			adjacentCells[1] = maze.getgCellClickableArea()[row + 1][column];
 		}
-		if (column < MazeEscapeApp.getgCellClickableArea().length - 1
+		if (column < maze.getgCellClickableArea().length - 1
 				&& !gCells[row][column].isRight()) {
-			adjacentCells[2] = MazeEscapeApp.getgCellClickableArea()[row][column + 1];
+			adjacentCells[2] = maze.getgCellClickableArea()[row][column + 1];
 		}
 		if (column > 0 && !gCells[row][column].isLeft()) {
-			adjacentCells[3] = MazeEscapeApp.getgCellClickableArea()[row][column - 1];
+			adjacentCells[3] = maze.getgCellClickableArea()[row][column - 1];
 		}
 
 		return adjacentCells;

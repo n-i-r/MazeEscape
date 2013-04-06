@@ -1,3 +1,4 @@
+package baseMazeCode;
 import java.util.*;
 import AdjacencyListGraph.*;
 import java.io.*;
