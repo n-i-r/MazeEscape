@@ -1,6 +1,7 @@
 package mazeEscapeApp;
 
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 
 import org.jhotdraw.application.DrawApplication;
 
@@ -28,8 +29,10 @@ public class MazeEscape extends DrawApplication {
 
 	// Used for calculation of score
 	private boolean on = true;
+	private int levelPoints = 0;
 	private int timePassed = 0;
 	private int timeScore = 0;
+	private int steps = 0;
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
@@ -52,17 +55,23 @@ public class MazeEscape extends DrawApplication {
 			timePassed++;
 			// Checks if end of the maze has been reached
 			if (isReachedEndCell() == true) {
-				// Calculates bonus points if reached within allotted maze time
-				if (timePassed < timeScore) {
-					int score = endCell.getScore();
-					System.out.println(score);
-					System.out.println(timePassed);
-					score = score * (timeScore - timePassed);
-					System.out.println("Your score is: " + score + "!");
+				// Calculates maze points as well as completion accuracy
+				if (timePassed <= timeScore) {
+					double score = endCell.score;
+					int points = timeScore - timePassed + levelPoints;
+					double accuracy = steps/score * 100;
+					WinnerScreen win = new WinnerScreen();
+					win.writeOutput(accuracy, points);
+					//System.out.println("Your score is: " + points + "!");
+					//System.out.println("Maze completion accuracy is: " + accuracy +"%!");
 					on = false;
 				} else {
-					int score = endCell.getScore();
-					System.out.println("Your score is: " + score + "!");
+					double score = endCell.score;
+					double accuracy = steps/score * 100;
+					WinnerScreen win = new WinnerScreen();
+					win.writeOutput(accuracy, levelPoints);
+					//System.out.println("Your score is: " + levelPoints + "!");
+					//System.out.println("Maze completion accuracy: " + accuracy +"%!");
 					on = false;
 				}
 			}
@@ -73,13 +82,16 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficulty(String difficulty) {
 		if (difficulty.equals("Easy")) {
 			lengthMaze = 10;
-			timeScore = 15;
+			timeScore = 30;
+			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
 			lengthMaze = 15;
-			timeScore = 30;
+			timeScore = 45;
+			levelPoints = 100;
 		} else if (difficulty.equals("Hard")) {
 			lengthMaze = 30;
-			timeScore = 60;
+			timeScore = 90;
+			levelPoints = 200;
 		}
 	}
 
@@ -163,6 +175,10 @@ public class MazeEscape extends DrawApplication {
 
 	public void setReachedEndCell(boolean reachedEndCell) {
 		this.reachedEndCell = reachedEndCell;
+	}
+	
+	public void setSteps(int mSteps) {
+		this.steps  = mSteps;
 	}
 
 }

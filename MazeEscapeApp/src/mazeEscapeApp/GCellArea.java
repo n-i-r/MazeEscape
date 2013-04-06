@@ -41,7 +41,7 @@ public class GCellArea extends RectangleFigure {
 		} else if (this == maze.getEndCell()
 				&& maze.isReachedEndCell() == false) {
 			maze.setReachedEndCell(true);
-			System.out.println("You win.");
+			System.out.println("You win!");
 			score++;
 		} else if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
@@ -130,14 +130,6 @@ public class GCellArea extends RectangleFigure {
 
 	public void setColumn(int column) {
 		this.column = column;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public int getScore() {
-		return score;
 	}
 
 }

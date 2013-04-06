@@ -21,6 +21,7 @@ import HeapPriorityQueue.MyEntry;
 public class GUIDrawer {
 	private MazeEscape mazeEscape;
 	private DrawingView view;
+	private static final int SHIFT = 50;
 
 	public GUIDrawer(MazeEscape m) {
 		mazeEscape = m;
@@ -35,19 +36,18 @@ public class GUIDrawer {
 		for (int r = 0; r < n; r++) {
 			for (int c = 0; c < n; c++) {
 				mazeEscape.getgCellClickableArea()[r][c] = new GCellArea(
-						new Point(c * mazeEscape.getgCellPixelLength(), r
-								* mazeEscape.getgCellPixelLength()), new Point(
-								c * mazeEscape.getgCellPixelLength()
-										+ mazeEscape.getgCellPixelLength(), r
-										* mazeEscape.getgCellPixelLength()
-										+ mazeEscape.getgCellPixelLength()),
-						mazeEscape);
+						new Point(SHIFT + c * mazeEscape.getgCellPixelLength(),
+								SHIFT + r * mazeEscape.getgCellPixelLength()),
+						new Point(SHIFT + c * mazeEscape.getgCellPixelLength()
+								+ mazeEscape.getgCellPixelLength(), SHIFT + r
+								* mazeEscape.getgCellPixelLength()
+								+ mazeEscape.getgCellPixelLength()), mazeEscape);
 				mazeEscape.getgCellClickableArea()[r][c].setRow(r);
 				mazeEscape.getgCellClickableArea()[r][c].setColumn(c);
 
 				view.add(mazeEscape.getgCellClickableArea()[r][c]);
-				mazeEscape.getGridCells()[r][c] = new GridCell(c
-						* mazeEscape.getgCellPixelLength(), r
+				mazeEscape.getGridCells()[r][c] = new GridCell(SHIFT + c
+						* mazeEscape.getgCellPixelLength(), SHIFT + r
 						* mazeEscape.getgCellPixelLength(), mazeEscape);
 			}
 		}
@@ -60,11 +60,12 @@ public class GUIDrawer {
 	public void generateAndDrawMaze() {
 		// Create factory and maze of size length * length (or n * n)
 		MazeFactory mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
-		MyEntry<MazeInfo, ALGraph> mazeParts = mazeFactory
-				.generateMaze();
+		MyEntry<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
 		// Retrieve relevant info and minimum spanning tree
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();
+		int steps = mazeFactory.getMinimumSteps();
+		mazeEscape.setSteps(steps);
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
@@ -126,4 +127,5 @@ public class GUIDrawer {
 				mazeEscape.getGridCells()[r2][c2].removeLine(GridCell.DOWN);
 			}
 	}
+
 }
