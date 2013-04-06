@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="C:/Users/Mohamed Bhura/Documents/My Work/CSE 2102/Lab/jhotdraw60b1/batik-1.7/batik.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Mohamed Bhura/Documents/My Work/CSE 2102/Lab/jhotdraw60b1/jdo2-api-2.2.jar"/>
+	<classpathentry kind="lib" path="batik-1.7.zip"/>
+	<classpathentry kind="lib" path="jdo2-api-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
