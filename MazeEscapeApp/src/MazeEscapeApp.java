@@ -41,14 +41,7 @@ public class MazeEscapeApp extends DrawApplication {
 
 	public MazeEscapeApp() {
 		super("MazeEscapeApp");
-		//This better work!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-		//FOR THE KINGDOM!!!!!!!!!!!!!!!!!!!!
-		//AHHHHHHHHHHHHH!!!!!!!!
-		
-		// FOR SPARTA! 
-		// FOR THE EMPIRE!!!!
-		
-		// OMG DID I DEW IT?
+
 	}
 
 	public static void main(String[] args) {
