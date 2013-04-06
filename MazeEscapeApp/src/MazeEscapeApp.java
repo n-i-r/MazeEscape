@@ -44,6 +44,8 @@ public class MazeEscapeApp extends DrawApplication {
 		//This better work!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 		//FOR THE KINGDOM!!!!!!!!!!!!!!!!!!!!
 		//AHHHHHHHHHHHHH!!!!!!!!
+		
+		// FOR SPARTA! 
 	}
 
 	public static void main(String[] args) {
