@@ -1,4 +1,5 @@
 package mazeEscapeApp;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -26,7 +27,7 @@ public class GCellArea extends RectangleFigure {
 
 	public GCellArea(Point origin, Point corner, MazeEscape m) {
 		super(origin, corner);
-		
+
 		maze = m;
 	}
 
@@ -44,7 +45,7 @@ public class GCellArea extends RectangleFigure {
 			score++;
 		} else if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
-			maze.setCurrentlySelected( maze.getStartCell());
+			maze.setCurrentlySelected(maze.getStartCell());
 			maze.getStartCell().setAttribute(
 					FigureAttributeConstant.FILL_COLOR, Color.CYAN);
 			maze.setFirstClick(false);
@@ -130,11 +131,11 @@ public class GCellArea extends RectangleFigure {
 	public void setColumn(int column) {
 		this.column = column;
 	}
-	
+
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
 	public int getScore() {
 		return score;
 	}

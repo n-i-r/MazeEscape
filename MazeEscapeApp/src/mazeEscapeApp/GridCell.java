@@ -1,4 +1,5 @@
 package mazeEscapeApp;
+
 import java.awt.Point;
 import org.jhotdraw.framework.DrawingView;
 
@@ -22,14 +23,14 @@ public class GridCell {
 
 	public GridCell(int x, int y, MazeEscape m) {
 		maze = m;
-		
+
 		// Instantiate the lines and view members
 		_up = new GCellLine();
 		_down = new GCellLine();
 		_left = new GCellLine();
 		_right = new GCellLine();
 		_view = maze.view();
-		
+
 		SCALEFACTOR = maze.getgCellPixelLength();
 
 		// Set the line's points
@@ -46,47 +47,41 @@ public class GridCell {
 		_view.add(_left);
 		_view.add(_right);
 		isUp = isDown = isLeft = isRight = true;
-		
+
 	}
 
 	public void addLine(String side) {
-		if (side.equals(UP)){
+		if (side.equals(UP)) {
 			_view.add(_up);
 			isUp = true;
-		}
-		else if (side.equals(DOWN)){
+		} else if (side.equals(DOWN)) {
 			_view.add(_down);
 			isDown = true;
-		}
-		else if (side.equals(LEFT)){
+		} else if (side.equals(LEFT)) {
 			_view.add(_left);
 			isLeft = true;
-		}
-		else if (side.equals(RIGHT)){
+		} else if (side.equals(RIGHT)) {
 			_view.add(_right);
 			isRight = true;
 		}
 	}
 
 	public void removeLine(String side) {
-		if (side.equals(UP)){
+		if (side.equals(UP)) {
 			_view.remove(_up);
 			isUp = false;
-		}
-		else if (side.equals(DOWN)){
+		} else if (side.equals(DOWN)) {
 			_view.remove(_down);
 			isDown = false;
-		}
-		else if (side.equals(LEFT)){
+		} else if (side.equals(LEFT)) {
 			_view.remove(_left);
 			isLeft = false;
-		}
-		else if (side.equals(RIGHT)){
+		} else if (side.equals(RIGHT)) {
 			_view.remove(_right);
 			isRight = false;
 		}
 	}
-	
+
 	public boolean isUp() {
 		return isUp;
 	}

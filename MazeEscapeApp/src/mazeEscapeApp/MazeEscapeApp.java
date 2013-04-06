@@ -1,4 +1,5 @@
 package mazeEscapeApp;
+
 import org.jhotdraw.framework.DrawingView;
 
 /**

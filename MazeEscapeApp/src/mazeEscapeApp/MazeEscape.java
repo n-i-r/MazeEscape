@@ -1,4 +1,5 @@
 package mazeEscapeApp;
+
 import javax.swing.JMenuBar;
 
 import org.jhotdraw.application.DrawApplication;
@@ -6,7 +7,7 @@ import org.jhotdraw.application.DrawApplication;
 /*
  * Class represents an instance of a mazeEscape game. No GUI involved here.
  */
-public class MazeEscape extends DrawApplication{
+public class MazeEscape extends DrawApplication {
 	private static final long serialVersionUID = 5843503278232195529L;
 	// The row, column arrays storing the clickable areas and respective
 	// GridCell frames
@@ -20,27 +21,27 @@ public class MazeEscape extends DrawApplication{
 	// Currently selected grid cell (used for game; user grid selection)
 	private GCellArea currentlySelected;
 	private GCellArea startCell, endCell;
-	
+
 	// Used in handleClick. Checks to see if first selected cell
 	private boolean isFirstClick = true;
 	private boolean reachedEndCell = false;
-	
+
 	// Used for calculation of score
 	private boolean on = true;
 	private int timePassed = 0;
 	private int timeScore = 0;
 
-	public MazeEscape(String difficulty){
+	public MazeEscape(String difficulty) {
 		super("MazeEscape");
-		
+
 		setDifficulty(difficulty);
-		
+
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
 	}
-	
+
 	/**
-	 * Calculates the score based on amount of steps taken combined with time 
+	 * Calculates the score based on amount of steps taken combined with time
 	 * taken to reach the end
 	 */
 	@SuppressWarnings("static-access")
@@ -56,13 +57,12 @@ public class MazeEscape extends DrawApplication{
 					int score = endCell.getScore();
 					System.out.println(score);
 					System.out.println(timePassed);
-					score = score*(timeScore-timePassed);
-					System.out.println("Your score is: "+score+"!");
+					score = score * (timeScore - timePassed);
+					System.out.println("Your score is: " + score + "!");
 					on = false;
-				}
-				else {
+				} else {
 					int score = endCell.getScore();
-					System.out.println("Your score is: "+score+"!");
+					System.out.println("Your score is: " + score + "!");
 					on = false;
 				}
 			}
@@ -70,8 +70,6 @@ public class MazeEscape extends DrawApplication{
 		}
 	}
 
-
-	
 	public void setDifficulty(String difficulty) {
 		if (difficulty.equals("Easy")) {
 			lengthMaze = 10;
@@ -84,15 +82,14 @@ public class MazeEscape extends DrawApplication{
 			timeScore = 60;
 		}
 	}
-	
-	
+
 	/*
-	 * Getters and setters below here 
+	 * Getters and setters below here
 	 */
-	
+
 	// No menus created
 	@Override
-	protected void createMenus(JMenuBar mb){
+	protected void createMenus(JMenuBar mb) {
 		super.createMenus(mb);
 	}
 
