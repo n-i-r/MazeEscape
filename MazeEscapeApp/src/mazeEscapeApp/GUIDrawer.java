@@ -59,9 +59,9 @@ public class GUIDrawer {
 	 */
 	public void generateAndDrawMaze() {
 		// Create factory and maze of size length * length (or n * n)
-		MazeFactory mazeFactory = new MazeFactory();
+		MazeFactory mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
 		MyEntry<MazeInfo, ALGraph> mazeParts = mazeFactory
-				.generateMaze(mazeEscape.getLengthMaze());
+				.generateMaze();
 		// Retrieve relevant info and minimum spanning tree
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();
