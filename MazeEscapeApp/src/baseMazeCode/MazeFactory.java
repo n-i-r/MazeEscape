@@ -66,5 +66,4 @@ public class MazeFactory {
 	{
 		return n;
 	}
-
 }
