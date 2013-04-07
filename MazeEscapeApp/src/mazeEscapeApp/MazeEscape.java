@@ -4,6 +4,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
 import org.jhotdraw.application.DrawApplication;
+import org.jhotdraw.framework.Tool;
 
 /*
  * Class represents an instance of a mazeEscape game. No GUI involved here.
@@ -114,11 +115,14 @@ public class MazeEscape extends DrawApplication {
 	
 	protected void createTools(JToolBar tBar)
 	{
-
-		super.createTools(tBar);
+		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
-		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit See Solution", fb));
-
+		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit + See Solution", fb));
+	}
+	
+	protected Tool createDefaultTool()
+	{
+		return new MazeNavigateTool(this);
 	}
 		
 

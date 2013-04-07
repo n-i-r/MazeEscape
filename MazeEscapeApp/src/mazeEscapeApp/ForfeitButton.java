@@ -1,17 +1,13 @@
 package mazeEscapeApp;
 
 import java.awt.event.MouseEvent;
-
 import javax.swing.JOptionPane;
-import javax.swing.JToolBar;
-
 import org.jhotdraw.framework.DrawingEditor;
 import org.jhotdraw.standard.*;
 
 public class ForfeitButton extends AbstractTool {
 
 	private GUIDrawer guiDrawer;
-	private MazeEscape mazeEscape;
 
 	public ForfeitButton(DrawingEditor newDrawingEditor, GUIDrawer gd, MazeEscape me) {
 		super(newDrawingEditor);
