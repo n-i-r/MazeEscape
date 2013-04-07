@@ -66,4 +66,9 @@ public class MazeFactory {
 	{
 		return n;
 	}
+	
+	public VertexList getVertexSoln()
+	{
+		return vSoln;
+	}
 }

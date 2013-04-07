@@ -5,7 +5,7 @@ import org.jhotdraw.framework.DrawingView;
 /**
  * Main class for the MazeEscape game.
  * 
- * @author ammadshaikh
+ * @author TrollFace
  * 
  */
 

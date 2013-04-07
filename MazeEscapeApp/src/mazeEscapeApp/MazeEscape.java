@@ -1,8 +1,11 @@
 package mazeEscapeApp;
 
 import javax.swing.JMenuBar;
+import mazeEscapeUtils.*;
+import javax.swing.JToolBar;
 
 import org.jhotdraw.application.DrawApplication;
+import org.jhotdraw.framework.Tool;
 
 /*
  * Class represents an instance of a mazeEscape game. No GUI involved here.
@@ -34,6 +37,10 @@ public class MazeEscape extends DrawApplication {
 	private int timeScore = 0;
 	private int minSteps = 0;
 	private int stepsTaken = 0;
+	
+	//Used for the toolbar code
+	private GUIDrawer guiDrawer;
+	private ForfeitButton fb;
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
@@ -107,6 +114,26 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
+	
+	protected void createTools(JToolBar tBar)
+	{
+		//Instantiate the tools
+		setDefaultTool(createDefaultTool());
+		fb = new ForfeitButton(this, guiDrawer, this);
+		QuitButton qb = new QuitButton(this);
+		ResetButton rb = new ResetButton(this);
+		
+		//Put the relevant tools on the toolbar
+		tBar.add(createToolButton(IMAGES+"POLYGON", "Reset Game", rb));
+		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit + See Solution", fb));
+		tBar.add(createToolButton(IMAGES+"TRIANGLE", "Quit Game", qb));
+	}
+	
+	protected Tool createDefaultTool()
+	{
+		return new MazeNavigateTool(this);
+	}
+		
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
@@ -118,6 +145,13 @@ public class MazeEscape extends DrawApplication {
 	 * Getters and setters below here
 	 */
 
+	
+	public void setGUIDrawer(GUIDrawer gd)
+	{
+		guiDrawer = gd;
+		fb.setGUIDrawer(guiDrawer);
+	}
+	
 	public GCellArea[][] getgCellClickableArea() {
 		return gCellClickableArea;
 	}

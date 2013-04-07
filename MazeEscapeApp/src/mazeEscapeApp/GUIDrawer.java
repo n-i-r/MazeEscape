@@ -69,6 +69,7 @@ public class GUIDrawer {
 		ALGraph mst = mazeParts.getValue();
 		int steps = mazeFactory.getMinimumSteps();
 		mazeEscape.setSteps(steps);
+		mazeEscape.setGUIDrawer(this);
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
@@ -133,13 +134,19 @@ public class GUIDrawer {
 	
 	public void drawSolution()
 	{
-		/*VertexList vSoln = mazeFactory.getSolnVertices();
+		//Get the list of "solution" vertices from the mazeFactory
+		//TODO: change this to come from the Solver (unless we don't mind ignoring our UML lol)
+		VertexList vSoln = mazeFactory.getVertexSoln();
 		
+		//Iteraate through the VertexList and change the color of the relevant cells
 		for(Vertex v : vSoln)
 		{
 			Coordinate c = v.getElement();
-			//mazeEscape.getGridCells()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
-		}*/
+		    mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+		}
+		
+		//Refresh the view so we can see the solution
+		mazeEscape.view().repairDamage();
 		
 	}
 	
