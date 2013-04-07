@@ -76,7 +76,7 @@ public class MazeEscape extends DrawApplication {
 					// "!");
 					// System.out.println("Maze completion accuracy: " +
 					// accuracy +"%!");
-					on = false;	
+					on = false;
 				}
 			}
 			thread.sleep(1000);
@@ -107,7 +107,6 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
-
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
