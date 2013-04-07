@@ -13,6 +13,8 @@ import AdjacencyListGraph.ALGraph;
 import AdjacencyListGraph.Coordinate;
 import AdjacencyListGraph.Edge;
 import AdjacencyListGraph.EdgeList;
+import AdjacencyListGraph.Vertex;
+import AdjacencyListGraph.VertexList;
 import HeapPriorityQueue.MyEntry;
 
 /*
@@ -22,10 +24,12 @@ public class GUIDrawer {
 	private MazeEscape mazeEscape;
 	private DrawingView view;
 	private static final int SHIFT = 50;
+	private MazeFactory mazeFactory;
 
 	public GUIDrawer(MazeEscape m) {
 		mazeEscape = m;
 		view = m.view();
+		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
 	}
 
 	/**
@@ -58,8 +62,7 @@ public class GUIDrawer {
 	 * representation by removing unnecessary edges, or walls in the maze
 	 */
 	public void generateAndDrawMaze() {
-		// Create factory and maze of size length * length (or n * n)
-		MazeFactory mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
+		// Create maze of size length * length (or n * n)
 		MyEntry<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
 		// Retrieve relevant info and minimum spanning tree
 		MazeInfo mazeInfo = mazeParts.getKey();
@@ -127,5 +130,17 @@ public class GUIDrawer {
 				mazeEscape.getGridCells()[r2][c2].removeLine(GridCell.DOWN);
 			}
 	}
-
+	
+	public void drawSolution()
+	{
+		/*VertexList vSoln = mazeFactory.getSolnVertices();
+		
+		for(Vertex v : vSoln)
+		{
+			Coordinate c = v.getElement();
+			//mazeEscape.getGridCells()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+		}*/
+		
+	}
+	
 }
