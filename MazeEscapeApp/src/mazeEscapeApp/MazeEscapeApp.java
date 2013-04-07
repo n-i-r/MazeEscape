@@ -51,15 +51,11 @@ public class MazeEscapeApp {
 	/**
 	 * Creates a new game. Used for every instance after the first one.
 	 */
-	public static void newGame(){
-		String difficulty = maze.getDifficulty();
-		MazeEscape newMaze = new MazeEscape(difficulty);
-	
-		// For some reason, exiting and releasing resources didn't seem to work.
-		maze.setVisible(false);
-		
-		createMaze (newMaze, difficulty);
+	public static void newGame(MazeEscape m){
+		m.setVisible(false);
+		MazeEscape newMaze = new MazeEscape("Easy");
+		createMaze (newMaze, "Easy");
 		maze = newMaze;
+		m.exit();
 	}
-	
 }

@@ -60,31 +60,34 @@ public class MazeEscape extends DrawApplication {
 				if (timePassed <= timeScore) {
 					double score = endCell.score;
 					int points = timeScore - timePassed + levelPoints;
-					double accuracy = steps/score * 100;
+					double accuracy = steps / score * 100;
 					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, points);
-					//System.out.println("Your score is: " + points + "!");
-					//System.out.println("Maze completion accuracy is: " + accuracy +"%!");
+					// System.out.println("Your score is: " + points + "!");
+					// System.out.println("Maze completion accuracy is: " +
+					// accuracy +"%!");
 					on = false;
 				} else {
 					double score = endCell.score;
-					double accuracy = steps/score * 100;
+					double accuracy = steps / score * 100;
 					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, levelPoints);
-					//System.out.println("Your score is: " + levelPoints + "!");
-					//System.out.println("Maze completion accuracy: " + accuracy +"%!");
+					// System.out.println("Your score is: " + levelPoints +
+					// "!");
+					// System.out.println("Maze completion accuracy: " +
+					// accuracy +"%!");
 					on = false;
 				}
 			}
 			thread.sleep(1000);
 		}
 	}
-	
-	public String getDifficulty(){
+
+	public String getDifficulty() {
 		return difficulty;
 	}
-	
-	public void setDifficulty(String d){
+
+	public void setDifficulty(String d) {
 		difficulty = d;
 	}
 
@@ -104,11 +107,8 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
-	
-	/**
-	 * Creates the standard menus. Clients override this
-	 * method to add additional menus.
-	 */
+
+
 	@Override
 	protected void createMenus(JMenuBar mb) {
 		addMenuIfPossible(mb, createFileMenu());
@@ -190,9 +190,9 @@ public class MazeEscape extends DrawApplication {
 	public void setReachedEndCell(boolean reachedEndCell) {
 		this.reachedEndCell = reachedEndCell;
 	}
-	
+
 	public void setSteps(int mSteps) {
-		this.steps  = mSteps;
+		this.steps = mSteps;
 	}
 
 	public boolean isOn() {

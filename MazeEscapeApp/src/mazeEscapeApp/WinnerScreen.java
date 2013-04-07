@@ -62,7 +62,7 @@ public class WinnerScreen {
 		// If yes option selected, new maze will generate
 		int value = ((Integer) optionPane.getValue()).intValue();
 		if (value == JOptionPane.YES_OPTION) {
-			MazeEscapeApp.newGame();
+			MazeEscapeApp.newGame(maze);
 		// If no option selected, program will close.
 		} else if (value == JOptionPane.NO_OPTION) {
 			maze.exit();
