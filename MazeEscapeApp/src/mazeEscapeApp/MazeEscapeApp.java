@@ -10,9 +10,20 @@ import org.jhotdraw.framework.DrawingView;
  */
 
 public class MazeEscapeApp {
-	public static void main(String[] args) throws InterruptedException {
-		// Instantiate and open window
-		MazeEscape maze = new MazeEscape("Easy");
+	private static MazeEscape maze;
+	
+	public static void main(String[] args){
+		maze = new MazeEscape("Easy");
+
+		createMaze (maze, "Easy");
+	}
+	
+	/*
+	 * Creates a new maze of the given difficulty level
+	 * 
+	 * @return maze - the MazeEscape instance create
+	 */
+	public static void createMaze(MazeEscape maze, String difficulty){
 		maze.open();
 		maze.setSize(900, 900);
 		DrawingView view = maze.view();
@@ -28,8 +39,27 @@ public class MazeEscapeApp {
 
 		// Refresh view
 		view.repairDamage();
-
+		
 		// Calculates the final maze score
-		maze.calculateScore();
+		try {
+			maze.calculateScore();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	/**
+	 * Creates a new game. Used for every instance after the first one.
+	 */
+	public static void newGame(){
+		String difficulty = maze.getDifficulty();
+		MazeEscape newMaze = new MazeEscape(difficulty);
+	
+		// For some reason, exiting and releasing resources didn't seem to work.
+		maze.setVisible(false);
+		
+		createMaze (newMaze, difficulty);
+		maze = newMaze;
+	}
+	
 }

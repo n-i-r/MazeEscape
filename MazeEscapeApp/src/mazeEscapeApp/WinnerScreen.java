@@ -16,9 +16,12 @@ import javax.swing.JOptionPane;
 public class WinnerScreen {
 	private double accuracy;
 	private int points;
+	private MazeEscape maze;
 
-	public WinnerScreen() {
+	public WinnerScreen(MazeEscape m) {
 		super();
+		
+		maze = m;
 	}
 
 	/**
@@ -59,12 +62,11 @@ public class WinnerScreen {
 		// If yes option selected, new maze will generate
 		int value = ((Integer) optionPane.getValue()).intValue();
 		if (value == JOptionPane.YES_OPTION) {
-			// todo
+			MazeEscapeApp.newGame();
 		// If no option selected, program will close.
 		} else if (value == JOptionPane.NO_OPTION) {
-			//todo
+			maze.exit();
 		}
-
 	}
 
 }

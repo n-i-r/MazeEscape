@@ -18,6 +18,7 @@ public class MazeEscape extends DrawApplication {
 	// For an n * n maze, length = width = n
 	private int lengthMaze;
 	private int gCellPixelLength = 35;
+	private String difficulty;
 
 	// Currently selected grid cell (used for game; user grid selection)
 	private GCellArea currentlySelected;
@@ -37,7 +38,7 @@ public class MazeEscape extends DrawApplication {
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
 
-		setDifficulty(difficulty);
+		setDifficultyMode(difficulty);
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
@@ -60,7 +61,7 @@ public class MazeEscape extends DrawApplication {
 					double score = endCell.score;
 					int points = timeScore - timePassed + levelPoints;
 					double accuracy = steps/score * 100;
-					WinnerScreen win = new WinnerScreen();
+					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, points);
 					//System.out.println("Your score is: " + points + "!");
 					//System.out.println("Maze completion accuracy is: " + accuracy +"%!");
@@ -68,7 +69,7 @@ public class MazeEscape extends DrawApplication {
 				} else {
 					double score = endCell.score;
 					double accuracy = steps/score * 100;
-					WinnerScreen win = new WinnerScreen();
+					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, levelPoints);
 					//System.out.println("Your score is: " + levelPoints + "!");
 					//System.out.println("Maze completion accuracy: " + accuracy +"%!");
@@ -78,10 +79,19 @@ public class MazeEscape extends DrawApplication {
 			thread.sleep(1000);
 		}
 	}
+	
+	public String getDifficulty(){
+		return difficulty;
+	}
+	
+	public void setDifficulty(String d){
+		difficulty = d;
+	}
 
-	public void setDifficulty(String difficulty) {
+	public void setDifficultyMode(String difficulty) {
+		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze = 10;
+			lengthMaze = 3;
 			timeScore = 30;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
@@ -94,16 +104,20 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
+	
+	/**
+	 * Creates the standard menus. Clients override this
+	 * method to add additional menus.
+	 */
+	@Override
+	protected void createMenus(JMenuBar mb) {
+		addMenuIfPossible(mb, createFileMenu());
+		addMenuIfPossible(mb, createEditMenu());
+	}
 
 	/*
 	 * Getters and setters below here
 	 */
-
-	// No menus created
-	@Override
-	protected void createMenus(JMenuBar mb) {
-		super.createMenus(mb);
-	}
 
 	public GCellArea[][] getgCellClickableArea() {
 		return gCellClickableArea;
@@ -179,6 +193,14 @@ public class MazeEscape extends DrawApplication {
 	
 	public void setSteps(int mSteps) {
 		this.steps  = mSteps;
+	}
+
+	public boolean isOn() {
+		return on;
+	}
+
+	public void setOn(boolean on) {
+		this.on = on;
 	}
 
 }
