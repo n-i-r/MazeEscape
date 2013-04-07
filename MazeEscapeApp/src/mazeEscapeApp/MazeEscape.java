@@ -1,7 +1,6 @@
 package mazeEscapeApp;
 
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 
 import org.jhotdraw.application.DrawApplication;
 
