@@ -35,6 +35,7 @@ public class MazeNavigateTool extends SelectionTool {
 		}
 		else if (figure != null && !isValidMove(figure))
 		{
+			//TODO: Change the Wait cursor to a Restricted cursor (or even Default would be better)
 			view.setCursor(new AWTCursor(java.awt.Cursor.WAIT_CURSOR));
 		}
 		else {

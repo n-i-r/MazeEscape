@@ -38,6 +38,7 @@ public class MazeEscape extends DrawApplication {
 	private int minSteps = 0;
 	private int stepsTaken = 0;
 	
+	//Used for the toolbar code
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
 
@@ -100,7 +101,7 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficultyMode(String difficulty) {
 		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze = 2;
+			lengthMaze =60;
 			timeScore = 30;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
@@ -116,11 +117,13 @@ public class MazeEscape extends DrawApplication {
 	
 	protected void createTools(JToolBar tBar)
 	{
+		//Instantiate the tools
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
 		QuitButton qb = new QuitButton(this);
 		ResetButton rb = new ResetButton(this);
 		
+		//Put the relevant tools on the toolbar
 		tBar.add(createToolButton(IMAGES+"POLYGON", "Reset Game", rb));
 		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit + See Solution", fb));
 		tBar.add(createToolButton(IMAGES+"TRIANGLE", "Quit Game", qb));

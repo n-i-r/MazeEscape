@@ -134,13 +134,18 @@ public class GUIDrawer {
 	
 	public void drawSolution()
 	{
+		//Get the list of "solution" vertices from the mazeFactory
+		//TODO: change this to come from the Solver (unless we don't mind ignoring our UML lol)
 		VertexList vSoln = mazeFactory.getVertexSoln();
 		
+		//Iteraate through the VertexList and change the color of the relevant cells
 		for(Vertex v : vSoln)
 		{
 			Coordinate c = v.getElement();
 		    mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
 		}
+		
+		//Refresh the view so we can see the solution
 		mazeEscape.view().repairDamage();
 		
 	}
