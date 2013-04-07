@@ -23,7 +23,7 @@ public class MazeEscapeApp {
 	 * 
 	 * @return maze - the MazeEscape instance create
 	 */
-	public static void createMaze(MazeEscape maze, String difficulty){
+	public static void createMaze(MazeEscape maze, String difficulty) {
 		maze.open();
 		maze.setSize(900, 900);
 		DrawingView view = maze.view();

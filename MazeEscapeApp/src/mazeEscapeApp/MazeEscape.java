@@ -1,10 +1,17 @@
 package mazeEscapeApp;
 
+import java.awt.Color;
+
 import javax.swing.JMenuBar;
-import mazeEscapeUtils.*;
 import javax.swing.JToolBar;
 
+import mazeEscapeUtils.ForfeitButton;
+import mazeEscapeUtils.MazeNavigateTool;
+import mazeEscapeUtils.QuitButton;
+import mazeEscapeUtils.ResetButton;
+
 import org.jhotdraw.application.DrawApplication;
+import org.jhotdraw.framework.FigureAttributeConstant;
 import org.jhotdraw.framework.Tool;
 
 /*
@@ -37,6 +44,12 @@ public class MazeEscape extends DrawApplication {
 	private int timeScore = 0;
 	private int minSteps = 0;
 	private int stepsTaken = 0;
+
+	// Used for displaying time and steps
+	private MazeText stepCount;
+	private MazeText timeCount;
+	private String time;
+	private String count;
 	
 	//Used for the toolbar code
 	private GUIDrawer guiDrawer;
@@ -60,6 +73,8 @@ public class MazeEscape extends DrawApplication {
 		while (on == true) {
 			Thread thread = new Thread();
 			thread.start();
+			// Displays the time and steps taken by user
+			displayTimeAndSteps();
 			timePassed++;
 			// Checks if end of the maze has been reached
 			if (isReachedEndCell() == true) {
@@ -89,6 +104,25 @@ public class MazeEscape extends DrawApplication {
 			thread.sleep(1000);
 		}
 	}
+	
+	/**
+	 * Displays the time passed and steps taken on the maze
+	 */
+	public void displayTimeAndSteps() {
+		timeCount = new MazeText();
+		timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+		timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
+		time = Integer.toString(timePassed);
+		timeCount.setText("Time: " + time + " sec");
+
+		stepCount = new MazeText(20, 20);
+		stepCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+		stepCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
+		count = Integer.toString(stepsTaken);
+		stepCount.setText("Steps taken: " +count);
+		this.view().add(timeCount);
+		this.view().add(stepCount);
+	}
 
 	public String getDifficulty() {
 		return difficulty;
@@ -101,7 +135,7 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficultyMode(String difficulty) {
 		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze =60;
+			lengthMaze =10;
 			timeScore = 30;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
@@ -242,6 +276,8 @@ public class MazeEscape extends DrawApplication {
 
 	public void setStepsTaken(int stepsTaken) {
 		this.stepsTaken = stepsTaken;
+		count = Integer.toString(stepsTaken);
+		stepCount.setText("Steps taken: " +count);
 	}
 
 }

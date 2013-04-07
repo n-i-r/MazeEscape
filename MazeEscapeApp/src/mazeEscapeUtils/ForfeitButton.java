@@ -12,10 +12,12 @@ import org.jhotdraw.standard.*;
 public class ForfeitButton extends AbstractTool {
 
 	private GUIDrawer guiDrawer;
+	private MazeEscape maze;
 
 	public ForfeitButton(DrawingEditor newDrawingEditor, GUIDrawer gd, MazeEscape me) {
 		super(newDrawingEditor);
 		guiDrawer = gd;
+		maze = me;
 	}
 
 	public void setGUIDrawer(GUIDrawer gd) {
@@ -27,7 +29,7 @@ public class ForfeitButton extends AbstractTool {
 				"You have now lost the game. Click OK to see the solution. Click anywhere for more options.");
 
 			guiDrawer.drawSolution();
-			
+			maze.setOn(false);
 			//TODO: Insert other "game over" code here to lock the maze
 	}
 	
