@@ -5,11 +5,6 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import mazeEscapeUtils.ForfeitButton;
-import mazeEscapeUtils.MazeNavigateTool;
-import mazeEscapeUtils.QuitButton;
-import mazeEscapeUtils.ResetButton;
-
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.FigureAttributeConstant;
 import org.jhotdraw.framework.Tool;
@@ -135,7 +130,7 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficultyMode(String difficulty) {
 		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze =10;
+			lengthMaze = 5;
 			timeScore = 30;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
