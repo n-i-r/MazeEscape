@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * 
  */
 public class WinnerScreen {
-	private double accuracy;
+	private int accuracy;
 	private int points;
 	private MazeEscape maze;
 
@@ -29,13 +29,13 @@ public class WinnerScreen {
 	 * @param points
 	 */
 	public void writeOutput(double accuracy, int points) {
-		this.accuracy = accuracy;
+		this.accuracy = (int) accuracy;
 		this.points = points;
 
 		// Creates message and options for dialog box
 		final JOptionPane optionPane = new JOptionPane(
-				"Your completion accuracy is " + accuracy + "%!\n"
-						+ "Your maze score is " + points + " points!\n"
+				"Your completion accuracy is " + this.accuracy + "%!\n"
+						+ "Your maze score is " + this.points + " points!\n"
 						+ "Play Again?", JOptionPane.QUESTION_MESSAGE,
 				JOptionPane.YES_NO_OPTION);
 
