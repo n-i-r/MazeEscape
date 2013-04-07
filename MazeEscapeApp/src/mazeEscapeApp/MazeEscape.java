@@ -33,7 +33,8 @@ public class MazeEscape extends DrawApplication {
 	private int levelPoints = 0;
 	private int timePassed = 0;
 	private int timeScore = 0;
-	private int steps = 0;
+	private int minSteps = 0;
+	private int stepsTaken = 0;
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
@@ -58,9 +59,9 @@ public class MazeEscape extends DrawApplication {
 			if (isReachedEndCell() == true) {
 				// Calculates maze points as well as completion accuracy
 				if (timePassed <= timeScore) {
-					double score = endCell.score;
+					double score = getStepsTaken();
 					int points = timeScore - timePassed + levelPoints;
-					double accuracy = steps / score * 100;
+					double accuracy = minSteps / score * 100;
 					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, points);
 					// System.out.println("Your score is: " + points + "!");
@@ -68,15 +69,15 @@ public class MazeEscape extends DrawApplication {
 					// accuracy +"%!");
 					on = false;
 				} else {
-					double score = endCell.score;
-					double accuracy = steps / score * 100;
+					double score = getStepsTaken();
+					double accuracy = minSteps / score * 100;
 					WinnerScreen win = new WinnerScreen(this);
 					win.writeOutput(accuracy, levelPoints);
 					// System.out.println("Your score is: " + levelPoints +
 					// "!");
 					// System.out.println("Maze completion accuracy: " +
 					// accuracy +"%!");
-					on = false;
+					on = false;	
 				}
 			}
 			thread.sleep(1000);
@@ -94,7 +95,7 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficultyMode(String difficulty) {
 		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze = 3;
+			lengthMaze = 2;
 			timeScore = 30;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
@@ -192,7 +193,7 @@ public class MazeEscape extends DrawApplication {
 	}
 
 	public void setSteps(int mSteps) {
-		this.steps = mSteps;
+		this.minSteps = mSteps;
 	}
 
 	public boolean isOn() {
@@ -201,6 +202,14 @@ public class MazeEscape extends DrawApplication {
 
 	public void setOn(boolean on) {
 		this.on = on;
+	}
+
+	public int getStepsTaken() {
+		return stepsTaken;
+	}
+
+	public void setStepsTaken(int stepsTaken) {
+		this.stepsTaken = stepsTaken;
 	}
 
 }
