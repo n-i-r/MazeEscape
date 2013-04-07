@@ -1,10 +1,8 @@
 package mazeEscapeApp;
 
 import javax.swing.JMenuBar;
+import mazeEscapeUtils.*;
 import javax.swing.JToolBar;
-
-import mazeEscapeUtils.ForfeitButton;
-import mazeEscapeUtils.MazeNavigateTool;
 
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.Tool;
@@ -120,7 +118,12 @@ public class MazeEscape extends DrawApplication {
 	{
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
+		QuitButton qb = new QuitButton(this);
+		ResetButton rb = new ResetButton(this);
+		
+		tBar.add(createToolButton(IMAGES+"POLYGON", "Reset Game", rb));
 		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit + See Solution", fb));
+		tBar.add(createToolButton(IMAGES+"TRIANGLE", "Quit Game", qb));
 	}
 	
 	protected Tool createDefaultTool()
