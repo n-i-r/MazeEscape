@@ -38,6 +38,7 @@ public class MazeEscape extends DrawApplication {
 	
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
+	private JToolBar toolbar;
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
@@ -116,9 +117,19 @@ public class MazeEscape extends DrawApplication {
 	{
 
 		super.createTools(tBar);
-		fb = new ForfeitButton(this, guiDrawer);
+		fb = new ForfeitButton(this, guiDrawer, this);
 		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit See Solution", fb));
+		
+		toolbar=tBar;
 	}
+	
+	protected void gameOverTools()
+	{
+		QuitButton qb = new QuitButton(this);
+		toolbar.add(createToolButton(IMAGES+"BORDDEC", "Quit", qb));
+		toolbar.remove(0);
+	}
+		
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
