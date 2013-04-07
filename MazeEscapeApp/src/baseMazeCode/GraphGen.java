@@ -19,6 +19,7 @@ public class GraphGen {
 	private ArrayList<Vertex[]> vertexList;  //A list of Vertex arrays to help create the graph
 	private int globalRow;          //The current row of the maze being constructed
 	private boolean debug=false;    //An internal toggle to aid debugging
+	private final int RAND_FACTOR = 2;  //The factor used when generating a random maze
 	
 	public GraphGen(File f)
 	{
@@ -342,19 +343,29 @@ public class GraphGen {
 		return file;
 	}
 	
+	/**
+	 * 
+	 * Generates a random maze.
+	 * 
+	 * @param n: The size of the maze
+	 * @return MyEntry<AlGraph, MazeInfo>: A key/value pair with the graph and maze info
+	 */
 	public MyEntry<ALGraph, MazeInfo> autoGenerate(int n)
 	{
+		//Maze info variables
 		int num=n;
 		int rStart=(int)(num*Math.random());
 		int cStart=0;
 		int rFinish=(int)(num*Math.random());
 		int cFinish=(num-1);
 		
+		//Generate the header line
 		String s=(num + " " + rStart + " " + cStart + " " + rFinish + " " + cFinish);
 		processLine1(s);
 		System.out.println(s);
 		line++;
 		
+		//Randomly generate the body lines and feed them to the processing algorithms
 		for(int x=1;x<=(2*num-1);x++)
 		{
 			line++;
@@ -363,7 +374,7 @@ public class GraphGen {
 			{
 				for(int y=1;y<=num;y++)
 				{
-					lne.append((int)(30*Math.random()) + " ");
+					lne.append((int)(RAND_FACTOR*Math.random()) + " ");
 				}
 					System.out.println(lne);
 					processBodyLine(lne.toString());
@@ -373,7 +384,7 @@ public class GraphGen {
 			{
 				for(int y=1;y<num;y++)
 				{
-					lne.append((int)(30*Math.random()) + " ");
+					lne.append((int)(RAND_FACTOR*Math.random()) + " ");
 				}
 					System.out.println(lne);
 					processBodyLine(lne.toString());
@@ -381,6 +392,7 @@ public class GraphGen {
 		}
 		System.out.println();
 		
+		//Package up the info and return it
 		MyEntry<ALGraph, MazeInfo> returnVals=new MyEntry<ALGraph, MazeInfo>(graph, mazeInfo);
 		return returnVals;
 	}
