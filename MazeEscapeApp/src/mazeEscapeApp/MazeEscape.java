@@ -3,6 +3,9 @@ package mazeEscapeApp;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
+import mazeEscapeUtils.ForfeitButton;
+import mazeEscapeUtils.MazeNavigateTool;
+
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.Tool;
 
