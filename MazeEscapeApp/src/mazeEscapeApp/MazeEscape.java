@@ -1,6 +1,7 @@
 package mazeEscapeApp;
 
 import javax.swing.JMenuBar;
+import javax.swing.JToolBar;
 
 import org.jhotdraw.application.DrawApplication;
 
@@ -34,6 +35,9 @@ public class MazeEscape extends DrawApplication {
 	private int timeScore = 0;
 	private int minSteps = 0;
 	private int stepsTaken = 0;
+	
+	private GUIDrawer guiDrawer;
+	private ForfeitButton fb;
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
@@ -107,6 +111,14 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
+	
+	protected void createTools(JToolBar tBar)
+	{
+
+		super.createTools(tBar);
+		fb = new ForfeitButton(this, guiDrawer);
+		tBar.add(createToolButton(IMAGES+"OCONN1", "Forfeit See Solution", fb));
+	}
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
@@ -118,6 +130,12 @@ public class MazeEscape extends DrawApplication {
 	 * Getters and setters below here
 	 */
 
+	public void setGUIDrawer(GUIDrawer gd)
+	{
+		guiDrawer = gd;
+		fb.setGUIDrawer(guiDrawer);
+	}
+	
 	public GCellArea[][] getgCellClickableArea() {
 		return gCellClickableArea;
 	}

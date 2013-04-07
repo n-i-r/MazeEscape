@@ -69,6 +69,7 @@ public class GUIDrawer {
 		ALGraph mst = mazeParts.getValue();
 		int steps = mazeFactory.getMinimumSteps();
 		mazeEscape.setSteps(steps);
+		mazeEscape.setGUIDrawer(this);
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
@@ -133,13 +134,14 @@ public class GUIDrawer {
 	
 	public void drawSolution()
 	{
-		/*VertexList vSoln = mazeFactory.getSolnVertices();
+		VertexList vSoln = mazeFactory.getVertexSoln();
 		
 		for(Vertex v : vSoln)
 		{
 			Coordinate c = v.getElement();
-			//mazeEscape.getGridCells()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
-		}*/
+		    mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+		}
+		mazeEscape.view().repairDamage();
 		
 	}
 	
