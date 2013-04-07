@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.List;
 
 import org.jhotdraw.figures.RectangleFigure;
+import org.jhotdraw.framework.DrawingView;
 import org.jhotdraw.framework.FigureAttributeConstant;
 import org.jhotdraw.framework.HandleEnumeration;
 import org.jhotdraw.standard.HandleEnumerator;
@@ -19,6 +20,11 @@ public class GCellArea extends RectangleFigure {
 	private static final long serialVersionUID = 4658070300128221307L;
 	private int row, column;
 	private MazeEscape maze;
+	private DrawingView view;
+	
+	// Variables for creation of player
+	private static Pinhead larry;
+	private static final int SHIFT = 50;
 
 	public GCellArea() {
 		super();
@@ -26,9 +32,10 @@ public class GCellArea extends RectangleFigure {
 
 	public GCellArea(Point origin, Point corner, MazeEscape m) {
 		super(origin, corner);
-
 		maze = m;
+		view = maze.view();
 	}
+
 	/*
 	 * Used by handleClick to check if two cells are adjacent.
 	 */
@@ -49,9 +56,18 @@ public class GCellArea extends RectangleFigure {
 	 */
 	private void handleClick() {
 		// Don't allow the user to move away from end cell after reached.
-
 		if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
+			int r = maze.getStartCell().row;
+			int c = maze.getStartCell().column;
+			larry = new Pinhead(new Point(SHIFT + c
+					* maze.getgCellPixelLength(), SHIFT + r
+					* maze.getgCellPixelLength()), new Point(SHIFT + c
+					* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
+					SHIFT + r * maze.getgCellPixelLength()
+							+ maze.getgCellPixelLength()));
+			larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
+			view.add(larry);
 			maze.setCurrentlySelected(maze.getStartCell());
 			maze.getStartCell().setAttribute(
 					FigureAttributeConstant.FILL_COLOR, Color.CYAN);
@@ -73,6 +89,19 @@ public class GCellArea extends RectangleFigure {
 
 			if (areCellsAdjacent(maze.getCurrentlySelected(), this)) {
 				maze.setCurrentlySelected(this);
+				int r = maze.getCurrentlySelected().row;
+				int c = maze.getCurrentlySelected().column;
+				// Removes the player from the previous cell
+				view.remove(larry);
+				// Creates player in newly selected cell
+				larry = new Pinhead(new Point(SHIFT + c
+						* maze.getgCellPixelLength(), SHIFT + r
+						* maze.getgCellPixelLength()), new Point(SHIFT + c
+						* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
+						SHIFT + r * maze.getgCellPixelLength()
+								+ maze.getgCellPixelLength()));
+				larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
+				view.add(larry);
 				this.setAttribute(FigureAttributeConstant.FILL_COLOR,
 						Color.CYAN);
 				maze.setStepsTaken(maze.getStepsTaken() + 1);

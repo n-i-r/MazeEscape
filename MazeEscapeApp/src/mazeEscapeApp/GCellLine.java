@@ -25,7 +25,7 @@ public class GCellLine extends LineFigure {
 	@Override
 	public HandleEnumeration handles() {
 		@SuppressWarnings("rawtypes")
-		List handles = CollectionsFactory.current().createList(fPoints.size());
+		List handles = CollectionsFactory.current().createList();
 		// for (int i = 0; i < fPoints.size(); i++) {
 		// handles.add(new PolyLineHandle(this, locator(i), i));
 		// }
