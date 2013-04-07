@@ -117,7 +117,7 @@ public class MazeEscape extends DrawApplication {
 
 		super.createTools(tBar);
 		fb = new ForfeitButton(this, guiDrawer);
-		tBar.add(createToolButton(IMAGES+"OCONN1", "Forfeit See Solution", fb));
+		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit See Solution", fb));
 	}
 
 	@Override
