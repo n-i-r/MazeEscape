@@ -79,6 +79,7 @@ public class GCellArea extends RectangleFigure {
 		} else if (this == maze.getEndCell()
 				&& maze.isReachedEndCell() == false
 				&& areCellsAdjacent(maze.getCurrentlySelected(), this)) {
+			view.remove(larry);
 			maze.setReachedEndCell(true);
 			System.out.println("You win.");
 			maze.setStepsTaken(maze.getStepsTaken() + 1);
