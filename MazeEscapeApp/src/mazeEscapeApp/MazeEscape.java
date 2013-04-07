@@ -1,7 +1,7 @@
 package mazeEscapeApp;
 
 import java.awt.Color;
-
+import mazeEscapeUtils.*;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
