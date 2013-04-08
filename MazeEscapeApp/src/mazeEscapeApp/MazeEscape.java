@@ -70,6 +70,10 @@ public class MazeEscape extends DrawApplication {
 			thread.start();
 			// Displays the time and steps taken by user
 			displayTimeAndSteps();
+			if (timePassed > timeScore) {
+				timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.BLACK);
+				timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.RED);
+			}
 			timePassed++;
 			// Checks if end of the maze has been reached
 			if (isReachedEndCell() == true) {
