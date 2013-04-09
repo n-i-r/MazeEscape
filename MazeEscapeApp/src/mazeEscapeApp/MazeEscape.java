@@ -52,6 +52,7 @@ public class MazeEscape extends DrawApplication {
 
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		setDifficultyMode(difficulty);
 
