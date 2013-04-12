@@ -17,8 +17,8 @@ public class MazeEscapeApp {
 	private static boolean old = false;
 	
 	public static void main(String[] args){
-		maze = new MazeEscape("Easy");
-		createMaze (maze, "Easy");
+		maze = new MazeEscape();
+		createMaze(maze);
 	}
 	
 	/*
@@ -26,8 +26,7 @@ public class MazeEscapeApp {
 	 * 
 	 * @return maze - the MazeEscape instance create
 	 */
-	public static void createMaze(MazeEscape maze, String difficulty) {
-		
+	public static void createMaze(MazeEscape maze) {
 		maze.open();
 		maze.setSize(900, 900);
 		DrawingView view = maze.view();
@@ -79,19 +78,19 @@ public class MazeEscapeApp {
 	public static void newGame(MazeEscape m){
 		m.setVisible(false);
 		// If track is already playing, it won't play new track
-		if (music.loop_times == 1) {
-			loop = false;
+		if (music.loops_done == 1) {
+			loop = true;
+			music.loops_done = 0;
 		}
 		else {
-			loop = true;
-			music.loop_times = 0;
+			loop = false;
 		}
 //		System.out.println(music.loop_times);
 //		System.out.println(loop);
 		oldMaze = m;
 		old = true;
-		MazeEscape newMaze = new MazeEscape("Easy");
+		MazeEscape newMaze = new MazeEscape();
 		maze = newMaze;
-		createMaze (maze, "Easy");
+		createMaze(maze);
 	}
 }

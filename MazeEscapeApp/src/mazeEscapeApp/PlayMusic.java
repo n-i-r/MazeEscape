@@ -114,7 +114,7 @@ public class PlayMusic {
 					// Allows a certain number of loopings
 					else if (loops_done < loop_times) {
 						loops_done++;
-						new Thread(play).start();
+						//new Thread(play).start();
 					}
 				}
 			}

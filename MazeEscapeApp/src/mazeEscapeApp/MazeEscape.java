@@ -50,10 +50,11 @@ public class MazeEscape extends DrawApplication {
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
 
-	public MazeEscape(String difficulty) {
+	public MazeEscape() {
 		super("MazeEscape");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		ReplayScreen screen = new ReplayScreen(this);
+		screen.selectDifficulty();
 		setDifficultyMode(difficulty);
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
@@ -129,7 +130,7 @@ public class MazeEscape extends DrawApplication {
 	}
 
 	public void setDifficulty(String d) {
-		difficulty = d;
+		this.difficulty = d;
 	}
 
 	public void setDifficultyMode(String difficulty) {
@@ -143,7 +144,7 @@ public class MazeEscape extends DrawApplication {
 			timeScore = 45;
 			levelPoints = 100;
 		} else if (difficulty.equals("Hard")) {
-			lengthMaze = 30;
+			lengthMaze = 20;
 			timeScore = 90;
 			levelPoints = 200;
 		}
