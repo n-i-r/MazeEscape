@@ -39,7 +39,20 @@ public class GCellArea extends RectangleFigure {
 	/*
 	 * Used by handleClick to check if two cells are adjacent.
 	 */
-	private boolean areCellsAdjacent(GCellArea cell1, GCellArea cell2) {
+	public boolean isValidMove(GCellArea cell1, GCellArea cell2) {
+		GCellArea[] adjCells = cell1.getAdjacentGCells();
+
+		for (GCellArea gc : adjCells) {
+			if (gc != null && gc.getRow() == cell2.getRow()
+					&& gc.getColumn() == cell2.getColumn()) {
+				return true;
+			}
+		}
+		return areCellsLinear(cell1, cell2);
+	}
+	
+	//Checks to see if two cells are next to each other w/o a wall between them
+	public boolean adjCheck(GCellArea cell1, GCellArea cell2) {
 		GCellArea[] adjCells = cell1.getAdjacentGCells();
 
 		for (GCellArea gc : adjCells) {
@@ -50,10 +63,68 @@ public class GCellArea extends RectangleFigure {
 		}
 		return false;
 	}
+	
+	/**
+	 * Recursively checks a line of cells to see if they're all adjacent
+	 * @param origin
+	 * @param destination
+	 * @return
+	 */
+	private boolean areCellsLinear(GCellArea origin, GCellArea destination)
+	{	
+		if(origin.getRow()==destination.getRow()){
+			if(origin.getColumn()==destination.getColumn())
+				return true;
+			else if(origin.getColumn()<destination.getColumn())
+			{
+				GCellArea nextCell = maze.getgCellClickableArea()[origin.getRow()][origin.getColumn() + 1];
+				if(adjCheck(origin, nextCell))
+					return areCellsLinear(nextCell, destination);
+				else
+					return false;
+			}
+			else if(origin.getColumn()>destination.getColumn())
+			{
+				GCellArea nextCell = maze.getgCellClickableArea()[origin.getRow()][origin.getColumn() - 1];
+				if(adjCheck(origin, nextCell))
+					return areCellsLinear(nextCell, destination);
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else if(origin.getColumn()==destination.getColumn()){
+			if(origin.getRow()==destination.getRow())
+				return true;
+			else if(origin.getRow()<destination.getRow())
+			{
+				GCellArea nextCell = maze.getgCellClickableArea()[origin.getRow() + 1][origin.getColumn()];
+				if(adjCheck(origin, nextCell))
+					return areCellsLinear(nextCell, destination);
+				else
+					return false;
+			}
+			else if(origin.getRow()>destination.getRow())
+			{
+				GCellArea nextCell = maze.getgCellClickableArea()[origin.getRow() - 1][origin.getColumn()];
+				if(adjCheck(origin, nextCell))
+					return areCellsLinear(nextCell, destination);
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+
 
 	/**
 	 * Handles the clicks on any given grid cell.
 	 */
+	
 	private void handleClick() {
 		// Don't allow the user to move away from end cell after reached.
 		if (maze.isFirstClick() == true) {
@@ -75,46 +146,66 @@ public class GCellArea extends RectangleFigure {
 			maze.setFirstClick(false);
 			System.out.println("First Click");
 			maze.setStepsTaken(maze.getStepsTaken() + 1);
-		} else if (maze.isReachedEndCell() == true) {
-
-		} else if (this == maze.getEndCell()
-				&& maze.isReachedEndCell() == false
-				&& areCellsAdjacent(maze.getCurrentlySelected(), this)) {
-			view.remove(larry);
-			maze.setReachedEndCell(true);
-			System.out.println("You win.");
-			maze.setStepsTaken(maze.getStepsTaken() + 1);
 		} else {
-			// Essentially, check to see if the currently selected gridcell is
-			// adjacent to the newly selected cell. If so, then move; otherwise,
-			// let nothing happen.
+			if(isValidMove(maze.getCurrentlySelected(),this))
+			{
+				move(maze.getCurrentlySelected(),this);
+			}
+		}
 
-			if (areCellsAdjacent(maze.getCurrentlySelected(), this)) {
-				maze.setCurrentlySelected(this);
-				int r = maze.getCurrentlySelected().row;
-				int c = maze.getCurrentlySelected().column;
-				// Removes the player from the previous cell
-				view.remove(larry);
+	}
+	private void move(GCellArea origin, GCellArea destination)
+	{
+		//Removes player + increments step counter
+		view.remove(larry);
+		maze.setStepsTaken(maze.getStepsTaken() + 1);
+		
+		//Check to see if the destination is right next to the beginning
+		if(adjCheck(origin, destination))
+		{
+			maze.setCurrentlySelected(destination);
+			int r = maze.getCurrentlySelected().row;
+			int c = maze.getCurrentlySelected().column;
+			
+			if(destination == maze.getEndCell())
+			{
+				maze.setReachedEndCell(true);
+				System.out.println("You win.");
+			}
+			else
+			{
 				// Creates player in newly selected cell
 				larry = new Pinhead(new Point(SHIFT + c
 						* maze.getgCellPixelLength(), SHIFT + r
 						* maze.getgCellPixelLength()), new Point(SHIFT + c
-						* maze.getgCellPixelLength()
-						+ maze.getgCellPixelLength(), SHIFT + r
-						* maze.getgCellPixelLength()
-						+ maze.getgCellPixelLength() - 1));
-				larry.setAttribute(FigureAttributeConstant.FILL_COLOR,
-						Color.PINK);
-				larry.setAttribute(FigureAttributeConstant.FRAME_COLOR,
-						Color.RED);
+						* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
+						SHIFT + r * maze.getgCellPixelLength()
+								+ maze.getgCellPixelLength()));
+				larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
+				larry.setAttribute(FigureAttributeConstant.FRAME_COLOR, Color.RED);
 				view.add(larry);
-				this.setAttribute(FigureAttributeConstant.FILL_COLOR,
+				destination.setAttribute(FigureAttributeConstant.FILL_COLOR,
 						Color.CYAN);
-				maze.setStepsTaken(maze.getStepsTaken() + 1);
-
 			}
 		}
-
+		else
+		{
+			GCellArea adjacent;
+			
+			if(origin.getRow()==destination.getRow() && origin.getColumn()<destination.getColumn())
+				adjacent = maze.getgCellClickableArea()[origin.getRow()][origin.getColumn()+1];
+			else if(origin.getRow()==destination.getRow() && origin.getColumn()>destination.getColumn())
+				adjacent = maze.getgCellClickableArea()[origin.getRow()][origin.getColumn()-1];
+			else if(origin.getColumn()==destination.getColumn() && origin.getRow()<destination.getRow())
+				adjacent = maze.getgCellClickableArea()[origin.getRow()+1][origin.getColumn()];
+			else
+				adjacent = maze.getgCellClickableArea()[origin.getRow()-1][origin.getColumn()];
+			
+			maze.setCurrentlySelected(adjacent);
+			adjacent.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.CYAN);
+			move(adjacent, destination);
+		}
+		
 	}
 
 	// Empty body so no translation happens

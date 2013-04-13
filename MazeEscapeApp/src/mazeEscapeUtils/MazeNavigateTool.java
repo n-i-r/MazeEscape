@@ -36,7 +36,7 @@ public class MazeNavigateTool extends SelectionTool {
 		else if (figure != null && !isValidMove(figure))
 		{
 			//TODO: Change the Wait cursor to a Restricted cursor (or even Default would be better)
-			view.setCursor(new AWTCursor(java.awt.Cursor.WAIT_CURSOR));
+			view.setCursor(new AWTCursor(java.awt.Cursor.DEFAULT_CURSOR));
 		}
 		else {
 			view.setCursor(new AWTCursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -54,14 +54,10 @@ public class MazeNavigateTool extends SelectionTool {
 		}
 		else
 		{
-			GCellArea curr = mazeEscape.getCurrentlySelected();
-			GCellArea[] adjCells = curr.getAdjacentGCells();
-	
-			for (GCellArea gc : adjCells) {
-				if ((Figure)gc == f)
-					return true;
-			}
+			if(f instanceof GCellArea)
+				return mazeEscape.getCurrentlySelected().isValidMove(mazeEscape.getCurrentlySelected(), (GCellArea)f);
+			else
+				return false;
 		}
-		return false;
 	}
 }
