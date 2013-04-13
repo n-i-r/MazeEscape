@@ -37,7 +37,7 @@ public class GCellArea extends RectangleFigure {
 	}
 
 	/*
-	 * Used by handleClick to check if two cells are adjacent.
+	 * Used by handleClick to check if the destination cell is a possible move
 	 */
 	public boolean isValidMove(GCellArea cell1, GCellArea cell2) {
 		GCellArea[] adjCells = cell1.getAdjacentGCells();
@@ -154,6 +154,12 @@ public class GCellArea extends RectangleFigure {
 		}
 
 	}
+	
+	/**
+	 * Recursively moves the player from its current location to the destination
+	 * @param origin
+	 * @param destination
+	 */
 	private void move(GCellArea origin, GCellArea destination)
 	{
 		//Removes player + increments step counter
