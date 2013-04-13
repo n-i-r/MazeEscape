@@ -3,7 +3,9 @@ package mazeEscapeApp;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import org.jhotdraw.figures.RectangleFigure;
 import org.jhotdraw.framework.DrawingView;
@@ -21,6 +23,9 @@ public class GCellArea extends RectangleFigure {
 	private int row, column;
 	private MazeEscape maze;
 	private DrawingView view;
+	
+	//For future use:
+	private ArrayList<GCellCoordinate> saveCells;
 
 	// Variables for creation of player
 	private static Pinhead larry;
@@ -28,12 +33,14 @@ public class GCellArea extends RectangleFigure {
 
 	public GCellArea() {
 		super();
+		saveCells = new ArrayList<GCellCoordinate>();
 	}
 
 	public GCellArea(Point origin, Point corner, MazeEscape m) {
 		super(origin, corner);
 		maze = m;
 		view = maze.view();
+		saveCells = new ArrayList<GCellCoordinate>();
 	}
 
 	/*
@@ -146,6 +153,7 @@ public class GCellArea extends RectangleFigure {
 			maze.setFirstClick(false);
 			System.out.println("First Click");
 			maze.setStepsTaken(maze.getStepsTaken() + 1);
+			saveCells.add(new GCellCoordinate(maze.getStartCell()));
 		} else {
 			if(isValidMove(maze.getCurrentlySelected(),this))
 			{
@@ -192,6 +200,7 @@ public class GCellArea extends RectangleFigure {
 				view.add(larry);
 				destination.setAttribute(FigureAttributeConstant.FILL_COLOR,
 						Color.CYAN);
+				saveCells.add(new GCellCoordinate(destination));
 			}
 		}
 		else
@@ -209,6 +218,7 @@ public class GCellArea extends RectangleFigure {
 			
 			maze.setCurrentlySelected(adjacent);
 			adjacent.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.CYAN);
+			saveCells.add(new GCellCoordinate(adjacent));
 			move(adjacent, destination);
 		}
 		
