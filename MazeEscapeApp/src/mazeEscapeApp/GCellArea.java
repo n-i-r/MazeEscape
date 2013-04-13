@@ -21,7 +21,7 @@ public class GCellArea extends RectangleFigure {
 	private int row, column;
 	private MazeEscape maze;
 	private DrawingView view;
-	
+
 	// Variables for creation of player
 	private static Pinhead larry;
 	private static final int SHIFT = 50;
@@ -65,7 +65,7 @@ public class GCellArea extends RectangleFigure {
 					* maze.getgCellPixelLength()), new Point(SHIFT + c
 					* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
 					SHIFT + r * maze.getgCellPixelLength()
-							+ maze.getgCellPixelLength()));
+							+ maze.getgCellPixelLength() - 1));
 			larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
 			larry.setAttribute(FigureAttributeConstant.FRAME_COLOR, Color.RED);
 			view.add(larry);
@@ -99,11 +99,14 @@ public class GCellArea extends RectangleFigure {
 				larry = new Pinhead(new Point(SHIFT + c
 						* maze.getgCellPixelLength(), SHIFT + r
 						* maze.getgCellPixelLength()), new Point(SHIFT + c
-						* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
-						SHIFT + r * maze.getgCellPixelLength()
-								+ maze.getgCellPixelLength()));
-				larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
-				larry.setAttribute(FigureAttributeConstant.FRAME_COLOR, Color.RED);
+						* maze.getgCellPixelLength()
+						+ maze.getgCellPixelLength(), SHIFT + r
+						* maze.getgCellPixelLength()
+						+ maze.getgCellPixelLength() - 1));
+				larry.setAttribute(FigureAttributeConstant.FILL_COLOR,
+						Color.PINK);
+				larry.setAttribute(FigureAttributeConstant.FRAME_COLOR,
+						Color.RED);
 				view.add(larry);
 				this.setAttribute(FigureAttributeConstant.FILL_COLOR,
 						Color.CYAN);
