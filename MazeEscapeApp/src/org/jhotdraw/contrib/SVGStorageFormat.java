@@ -16,13 +16,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.batik.dom.GenericDOMImplementation;
-import org.apache.batik.svggen.SVGGraphics2D;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-
 import org.jhotdraw.framework.Drawing;
 import org.jhotdraw.util.StandardStorageFormat;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 
 /**
@@ -81,16 +78,16 @@ public class SVGStorageFormat extends StandardStorageFormat {
    */
   public String store(String fileName, Drawing saveDrawing) throws IOException {
 		// Get a DOMImplementation
-		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+		//DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
 		// Create an instance of org.w3c.dom.Document
-		Document document = domImpl.createDocument(null, "svg", null);
+		//Document document = domImpl.createDocument(null, "svg", null);
 	
 		// Create an instance of the SVG Generator
-		SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
+		//SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
 	
 		// Ask the test to render into the SVG Graphics2D implementation
-		saveDrawing.draw(svgGenerator);
+		//saveDrawing.draw(svgGenerator);
 	
 		// Finally, stream out SVG to the standard output using UTF-8
 		// character to byte encoding
@@ -99,7 +96,7 @@ public class SVGStorageFormat extends StandardStorageFormat {
 		Writer out = new OutputStreamWriter(fos, "UTF-8");
 		
 		
-		svgGenerator.stream(out, true);
+		//svgGenerator.stream(out, true);
 		return fileName;
   }
 
