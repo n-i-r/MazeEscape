@@ -8,7 +8,7 @@ public class Vertex implements Markable, HeapAware {
 	private Coordinate identity;
 	private Markers state;
 	private boolean isInHeap;
-	private Entry<Double, MyEntry<Vertex, Edge>> parentEntry;
+	private Entry<Double, KeyValPair<Vertex, Edge>> parentEntry;
 	
 	public Vertex(Coordinate obj, IncidenceList il)
 	{
@@ -84,12 +84,12 @@ public class Vertex implements Markable, HeapAware {
 		isInHeap=b;
 	}
 	
-	public void setParentEntry(Entry<Double, MyEntry<Vertex, Edge>> pe)
+	public void setParentEntry(Entry<Double, KeyValPair<Vertex, Edge>> pe)
 	{
 		parentEntry=pe;
 	}
 	
-	public Entry<Double, MyEntry<Vertex, Edge>> getParentEntry()
+	public Entry<Double, KeyValPair<Vertex, Edge>> getParentEntry()
 	{
 		return parentEntry;
 	}

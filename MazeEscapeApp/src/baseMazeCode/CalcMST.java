@@ -37,7 +37,7 @@ public class CalcMST {
 			}
 
 			//Store the vertex in a key/value pair
-			MyEntry<Vertex, Edge> tempEntry = new MyEntry<Vertex, Edge>(u, null);
+			KeyValPair<Vertex, Edge> tempEntry = new KeyValPair<Vertex, Edge>(u, null);
 			
 			//Insert the key/value pair into pq
 			pq.insert(u.getLabel(), tempEntry);
@@ -45,7 +45,7 @@ public class CalcMST {
 
 		while (!(pq.isEmpty())) {
 			// Remove the smallest entry from the priority queue
-			Entry<Double, MyEntry<Vertex, Edge>> min = pq.removeMin();
+			Entry<Double, KeyValPair<Vertex, Edge>> min = pq.removeMin();
 			
 			/*Note about naming conventions:
 			  The "c" in names like "cVertex" stands for "current"
@@ -79,11 +79,11 @@ public class CalcMST {
 			for (IncidenceNode n : cVertex.getIncidenceList()) {
 				//*** Declarations for variables that be used momentarily... ***
 				//An arraylist that will be used to store the vertices that aren't the one that we're looking for
-				ArrayList<Entry<Double, MyEntry<Vertex, Edge>>> tempArr = new ArrayList<Entry<Double, MyEntry<Vertex, Edge>>>();
+				ArrayList<Entry<Double, KeyValPair<Vertex, Edge>>> tempArr = new ArrayList<Entry<Double, KeyValPair<Vertex, Edge>>>();
 				//A boolean for the search later
 				boolean found = false;
 				//The entry opposite from the current one (we will find this later, thus it's null for now)
-				Entry<Double, MyEntry<Vertex, Edge>> oEntry = null;
+				Entry<Double, KeyValPair<Vertex, Edge>> oEntry = null;
 				//The edge connected to our current vertex:
 				Edge oEdge = n.getEdge();
 				//The vertex opposite from our current one:
@@ -93,7 +93,7 @@ public class CalcMST {
 				// Searches through the heap to see if the vertex is in there
 				while (pq.size() > 0) {
 					//Create a temporary entry to hold the candidate entry that's being checked
-					Entry<Double, MyEntry<Vertex, Edge>> tempEntry = pq.removeMin();
+					Entry<Double, KeyValPair<Vertex, Edge>> tempEntry = pq.removeMin();
 					
 					//If the entry in tempEntry is the one that we're looking for,
 					//then store it in oEntry. Otherwise toss it in our arraylist.
@@ -102,7 +102,7 @@ public class CalcMST {
 						found = true;
 						break;
 					} else {
-						tempArr.add(new MyEntry<Double, MyEntry<Vertex, Edge>>(
+						tempArr.add(new KeyValPair<Double, KeyValPair<Vertex, Edge>>(
 								tempEntry.getKey(), tempEntry.getValue()));
 					}
 				}
@@ -120,7 +120,7 @@ public class CalcMST {
 						// Reassign the label in the vertex
 						//Remember, there's a chance that oVertex is equal to +Infinity
 						oVertex.setLabel((int) oEdge.getWeight());
-						oEntry.setValue(new MyEntry<Vertex, Edge>(oVertex, oEdge));
+						oEntry.setValue(new KeyValPair<Vertex, Edge>(oVertex, oEdge));
 						oEntry.setKey(oVertex.getLabel());
 						pq.insert(oEntry.getKey(), oEntry.getValue());
 					} else {

@@ -15,7 +15,7 @@ import AdjacencyListGraph.Edge;
 import AdjacencyListGraph.EdgeList;
 import AdjacencyListGraph.Vertex;
 import AdjacencyListGraph.VertexList;
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 
 /*
  * Used for doing GUI-related work for the maze
@@ -63,7 +63,7 @@ public class GUIDrawer {
 	 */
 	public void generateAndDrawMaze() {
 		// Create maze of size length * length (or n * n)
-		MyEntry<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
+		KeyValPair<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
 		// Retrieve relevant info and minimum spanning tree
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();

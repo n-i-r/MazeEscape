@@ -4,7 +4,7 @@ package baseMazeCode;
 
 import java.util.*;
 
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 import java.io.*;
 
 import AdjacencyListGraph.*;
@@ -82,7 +82,7 @@ public class GraphGen {
 		}
 	}		
 		
-	public MyEntry<ALGraph, MazeInfo> generate()
+	public KeyValPair<ALGraph, MazeInfo> generate()
 	{
 		//Set line to 0 since we're just starting the parse sequence
 		line=0;
@@ -110,11 +110,11 @@ public class GraphGen {
 		if(debug)System.out.println("Parse sequence completed.");
 		
 		//Combine the newly generated graph with the MazeInfo and return it
-		MyEntry<ALGraph, MazeInfo> returnVals=new MyEntry<ALGraph, MazeInfo>(graph, mazeInfo);
+		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
 		return returnVals;
 	}
 	
-	public MyEntry<ALGraph, MazeInfo> manualGenerate()
+	public KeyValPair<ALGraph, MazeInfo> manualGenerate()
 	{
 		scan=new Scanner(System.in);
 		line=1;
@@ -134,7 +134,7 @@ public class GraphGen {
 				throw new RestartProgramSignal();
 		}
 		
-		MyEntry<ALGraph, MazeInfo> returnVals=new MyEntry<ALGraph, MazeInfo>(graph, mazeInfo);
+		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
 		return returnVals;
 	}
 		
@@ -348,9 +348,9 @@ public class GraphGen {
 	 * Generates a random maze.
 	 * 
 	 * @param n: The size of the maze
-	 * @return MyEntry<AlGraph, MazeInfo>: A key/value pair with the graph and maze info
+	 * @return KeyValPair<AlGraph, MazeInfo>: A key/value pair with the graph and maze info
 	 */
-	public MyEntry<ALGraph, MazeInfo> autoGenerate(int n)
+	public KeyValPair<ALGraph, MazeInfo> autoGenerate(int n)
 	{
 		//Maze info variables
 		int num=n;
@@ -393,7 +393,7 @@ public class GraphGen {
 		System.out.println();
 		
 		//Package up the info and return it
-		MyEntry<ALGraph, MazeInfo> returnVals=new MyEntry<ALGraph, MazeInfo>(graph, mazeInfo);
+		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
 		return returnVals;
 	}
 			

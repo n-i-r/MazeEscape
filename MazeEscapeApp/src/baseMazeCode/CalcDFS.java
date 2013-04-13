@@ -3,7 +3,7 @@ package baseMazeCode;
 
 import AdjacencyListGraph.*;
 import java.util.*;
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 
 public class CalcDFS {
 	private ALGraph graph;           //The input graph to be solved
@@ -96,7 +96,7 @@ public class CalcDFS {
 		}
 	}
 	
-	public MyEntry<VertexList, EdgeList> findSoln()
+	public KeyValPair<VertexList, EdgeList> findSoln()
 	{
 		//Start the DFS process
 		findStartFinish();
@@ -104,7 +104,7 @@ public class CalcDFS {
 		//At this point, the solution is in the solnVertices and solnEdges
 		//Package them up and return them
 		//TODO: Throw exception if any list is null
-		MyEntry<VertexList, EdgeList> retVals= new MyEntry<VertexList, EdgeList>(solnVertices, solnEdges);
+		KeyValPair<VertexList, EdgeList> retVals= new KeyValPair<VertexList, EdgeList>(solnVertices, solnEdges);
 		return retVals;
 	}
 	

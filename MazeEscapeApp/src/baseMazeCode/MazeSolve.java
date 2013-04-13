@@ -2,7 +2,7 @@ package baseMazeCode;
 import java.util.*;
 import AdjacencyListGraph.*;
 import java.io.*;
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 
 public class MazeSolve {
 	public static void main(String args[]) {
@@ -63,7 +63,7 @@ public class MazeSolve {
 					loop = false;
 
 					System.out.println();
-					MyEntry<ALGraph, MazeInfo> vals = gGen.generate();
+					KeyValPair<ALGraph, MazeInfo> vals = gGen.generate();
 					ALGraph graph = vals.getKey();
 					MazeInfo mz = vals.getValue();
 					CalcMST cmst = new CalcMST(graph);
@@ -79,7 +79,7 @@ public class MazeSolve {
 					mzd.drawMaze();
 
 					CalcDFS cdfs = new CalcDFS(graph, mst, mz);
-					MyEntry<VertexList, EdgeList> lists = cdfs.findSoln();
+					KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
 					VertexList vSoln = lists.getKey();
 					EdgeList eSoln = lists.getValue();
 					for (Vertex v : vSoln)
@@ -91,7 +91,7 @@ public class MazeSolve {
 					loop = false;
 
 					System.out.println();
-					MyEntry<ALGraph, MazeInfo> vals = gGen.manualGenerate();
+					KeyValPair<ALGraph, MazeInfo> vals = gGen.manualGenerate();
 					ALGraph graph = vals.getKey();
 					MazeInfo mz = vals.getValue();
 					CalcMST cmst = new CalcMST(graph);
@@ -107,7 +107,7 @@ public class MazeSolve {
 					mzd.drawMaze();
 
 					CalcDFS cdfs = new CalcDFS(graph, mst, mz);
-					MyEntry<VertexList, EdgeList> lists = cdfs.findSoln();
+					KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
 					VertexList vSoln = lists.getKey();
 					EdgeList eSoln = lists.getValue();
 					for (Vertex v : vSoln)
@@ -125,7 +125,7 @@ public class MazeSolve {
 					System.out.println("Enter an N value:");
 					scan = new Scanner(System.in);
 					int n = scan.nextInt();
-					MyEntry<ALGraph, MazeInfo> vals = gGen.autoGenerate(n);
+					KeyValPair<ALGraph, MazeInfo> vals = gGen.autoGenerate(n);
 					ALGraph graph = vals.getKey();
 					MazeInfo mz = vals.getValue();
 					CalcMST cmst = new CalcMST(graph);
@@ -141,7 +141,7 @@ public class MazeSolve {
 					mzd.drawMaze();
 
 					CalcDFS cdfs = new CalcDFS(graph, mst, mz);
-					MyEntry<VertexList, EdgeList> lists = cdfs.findSoln();
+					KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
 					VertexList vSoln = lists.getKey();
 					EdgeList eSoln = lists.getValue();
 					for (Vertex v : vSoln)

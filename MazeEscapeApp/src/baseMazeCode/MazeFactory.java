@@ -2,7 +2,7 @@ package baseMazeCode;
 import AdjacencyListGraph.ALGraph;
 import AdjacencyListGraph.EdgeList;
 import AdjacencyListGraph.VertexList;
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 
 public class MazeFactory {
 	private int n;            //The size of the maze
@@ -20,10 +20,10 @@ public class MazeFactory {
 		GraphGen gGen = new GraphGen();
 
 		// GraphGen will generate the maze and the info for the maze
-		// This will be stored in a MyEntry (which holds two objects)
-		MyEntry<ALGraph, MazeInfo> vals = gGen.autoGenerate(nVal);
+		// This will be stored in a KeyValPair (which holds two objects)
+		KeyValPair<ALGraph, MazeInfo> vals = gGen.autoGenerate(nVal);
 
-		// Split the MyEntry into its corresponding parts
+		// Split the KeyValPair into its corresponding parts
 		graph = vals.getKey();
 		mz = vals.getValue();
 
@@ -33,7 +33,7 @@ public class MazeFactory {
 		
 		//Run the DFS algorithm on the maze to find the shortest path
 		CalcDFS cdfs = new CalcDFS(graph, mst, mz);
-		MyEntry<VertexList, EdgeList> lists = cdfs.findSoln();
+		KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
 		
 		//Store the VertexList and EdgeList in vSoln and eSoln
 		vSoln = lists.getKey();
@@ -43,11 +43,11 @@ public class MazeFactory {
 	/**
 	 * Returns the walls to be removed from a maze of size n
 	 * 
-	 * @return A MyEntry with the MazeInfo and ALGraph of the MST
+	 * @return A KeyValPair with the MazeInfo and ALGraph of the MST
 	 */
-	public MyEntry<MazeInfo, ALGraph> generateMaze() {
-		// Package up the maze info and the mst into a MyEntry
-		MyEntry<MazeInfo, ALGraph> mazeParts = new MyEntry<MazeInfo, ALGraph>(mz, mst);
+	public KeyValPair<MazeInfo, ALGraph> generateMaze() {
+		// Package up the maze info and the mst into a KeyValPair
+		KeyValPair<MazeInfo, ALGraph> mazeParts = new KeyValPair<MazeInfo, ALGraph>(mz, mst);
 		
 		//Return the relevant parts for the maze
 		return mazeParts;

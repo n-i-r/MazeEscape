@@ -4,7 +4,7 @@ import java.util.*;
 public class HeapPQ<K,V> implements PriorityQueue<K,V> {
 	protected CompleteBinaryTree<Entry<K,V>> heap;
 	protected DefaultComparator<K> comp;
-	protected MyEntry<K,V> myEntry;
+	protected KeyValPair<K,V> keyValPair;
 	
 	public HeapPQ()
 	{
@@ -32,7 +32,7 @@ public class HeapPQ<K,V> implements PriorityQueue<K,V> {
 	public Entry<K,V> insert(K k, V x) throws InvalidKeyException
 	{
 		checkKey(k);
-		Entry<K,V> entry = new MyEntry<K,V>(k,x);
+		Entry<K,V> entry = new KeyValPair<K,V>(k,x);
 		upHeap(heap.add(entry));
 		return entry;
 	}

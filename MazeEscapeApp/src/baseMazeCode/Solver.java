@@ -3,7 +3,7 @@ package baseMazeCode;
 import AdjacencyListGraph.ALGraph;
 import AdjacencyListGraph.EdgeList;
 import AdjacencyListGraph.VertexList;
-import HeapPriorityQueue.MyEntry;
+import HeapPriorityQueue.KeyValPair;
 
 public class Solver {
 	private CalcDFS dfsAlg;
@@ -24,7 +24,7 @@ public class Solver {
 	public void solve()
 	{
 		//Get the solution vertices and edges for the maze
-		MyEntry<VertexList,EdgeList> mazeSoln=dfsAlg.findSoln();
+		KeyValPair<VertexList,EdgeList> mazeSoln=dfsAlg.findSoln();
 		vSoln = mazeSoln.getKey();
 		eSoln = mazeSoln.getValue();
 	}
