@@ -13,7 +13,7 @@ import javax.sound.sampled.SourceDataLine;
 
 public class PlayMusic {
 
-	static File sound;
+	static String sound;
 	static boolean muted = false;
 	static float volume = 100.0f;
 	static float pan = 0.0f;
@@ -28,25 +28,28 @@ public class PlayMusic {
 		int x = generator.nextInt(3);
 		
 		if (x == 1) {
-			sound = new File("Prelude.wav");
+			sound = new String("Prelude.wav");
 			new Thread(play).start();
 		}
 		else if (x == 2) {
-			sound = new File("Spooky.wav");
+			sound = new String("Spooky.wav");
 			new Thread(play).start();
 		}
 		else {
-			sound = new File("Castle.wav");
+			sound = new String("Castle.wav");
 			new Thread(play).start();
 		}
 	}
 
+	
 	private final static Runnable play = new Runnable() {
 		public void run() {
 			try {
-				if (sound.getName().toLowerCase().contains(".wav")) {
-					AudioInputStream stream = AudioSystem
-							.getAudioInputStream(sound);
+				if (sound.toLowerCase().contains(".wav")) {
+					//AudioInputStream stream = AudioSystem
+					//		.getAudioInputStream(sound);
+					
+					AudioInputStream stream = AudioSystem.getAudioInputStream(getClass().getResource("/resources/" + sound));
 					AudioFormat format = stream.getFormat();
 
 					if (format.getEncoding() != AudioFormat.Encoding.PCM_SIGNED) {
