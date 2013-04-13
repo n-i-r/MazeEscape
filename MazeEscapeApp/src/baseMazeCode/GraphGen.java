@@ -396,6 +396,61 @@ public class GraphGen {
 		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
 		return returnVals;
 	}
+	
+	public KeyValPair<ALGraph, MazeInfo> autoGenerate(int n, boolean file) throws FileNotFoundException
+	{
+		//Maze info variables
+		int num=n;
+		int rStart=(int)(num*Math.random());
+		int cStart=0;
+		int rFinish=(int)(num*Math.random());
+		int cFinish=(num-1);
+		
+		//File for saving purposes
+		File maze = new File("maze.txt");
+		PrintWriter out = new PrintWriter(maze);
+		
+		//Generate the header line
+		String s=(num + " " + rStart + " " + cStart + " " + rFinish + " " + cFinish);
+		processLine1(s);
+		System.out.println(s);
+		out.println(s);
+		line++;
+		
+		//Randomly generate the body lines and feed them to the processing algorithms
+		for(int x=1;x<=(2*num-1);x++)
+		{
+			line++;
+			StringBuffer lne=new StringBuffer();
+			if(x%2==0)
+			{
+				for(int y=1;y<=num;y++)
+				{
+					lne.append((int)(RAND_FACTOR*Math.random()) + " ");
+				}
+					System.out.println(lne);
+					out.println(lne.toString());
+					processBodyLine(lne.toString());
+				
+			}
+			else
+			{
+				for(int y=1;y<num;y++)
+				{
+					lne.append((int)(RAND_FACTOR*Math.random()) + " ");
+				}
+					System.out.println(lne);
+					out.println(lne.toString());
+					processBodyLine(lne.toString());
+			}
+		}
+		System.out.println();
+		out.close();
+		
+		//Package up the info and return it
+		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
+		return returnVals;
+	}
 			
 		
 		
