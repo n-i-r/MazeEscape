@@ -264,6 +264,7 @@ public class MazeEscape extends DrawApplication {
 
 	public void setReachedEndCell(boolean reachedEndCell) {
 		//msl.saveGame();
+		//
 		this.reachedEndCell = reachedEndCell;	
 	}
 
