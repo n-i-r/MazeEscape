@@ -117,6 +117,7 @@ public class MazeEscape extends DrawApplication {
 			thread.sleep(1000);
 		}
 	}
+	
 
 	/**
 	 * Displays the time passed and steps taken on the maze
@@ -186,8 +187,7 @@ public class MazeEscape extends DrawApplication {
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
-		addMenuIfPossible(mb, createFileMenu());
-		addMenuIfPossible(mb, createEditMenu());
+
 	}
 
 	/*
