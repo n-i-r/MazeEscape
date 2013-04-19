@@ -2,6 +2,7 @@ package mazeEscapeApp;
 
 import java.awt.Color;
 import mazeEscapeUtils.*;
+import java.awt.Point;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
@@ -31,6 +32,7 @@ public class MazeEscape extends DrawApplication {
 	// Used in handleClick. Checks to see if first selected cell
 	private boolean isFirstClick = true;
 	private boolean reachedEndCell = false;
+	private boolean reset = false;
 
 	// Used for calculation of score
 	private boolean on = true;
@@ -291,12 +293,20 @@ public class MazeEscape extends DrawApplication {
 	}
 	
 	public void setTimePassed(int tPassed) {
-		//this.view().remove(timeCount);
 		this.timePassed = tPassed;
 		time = Integer.toString(timePassed);
 		timeCount.setText("Time: " + time + " sec");
-		//this.view().add(timeCount);
 	}
+	
+	public void setReset(boolean reset) {
+		this.reset = reset;
+		this.view().remove(GCellArea.larry);
+	}
+			
+	public boolean getReset() {
+		return reset;
+	}
+
 	
 	public void setMSL(MazeSaveLoad m)
 	{
