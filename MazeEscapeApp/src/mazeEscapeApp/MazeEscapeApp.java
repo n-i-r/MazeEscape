@@ -54,9 +54,6 @@ public class MazeEscapeApp {
 			loop = false;
 		}
 		
-		// Highlights start cell to be red.
-		maze.handleFirstClickAutomatically();
-		
 		// Calculates the final maze score
 		try {
 			maze.calculateScore();

@@ -128,12 +128,7 @@ public class GCellArea extends RectangleFigure {
 	private void handleClick() {
 		// Don't allow the user to move away from end cell after reached.
 
-		if (isActualFirstClick == true) {
-			maze.getStartCell().setAttribute(
-					FigureAttributeConstant.FILL_COLOR, Color.BLUE);
-			
-			isActualFirstClick = false;
-		} else if (maze.isFirstClick() == true) {
+		if (maze.isFirstClick() == true) {
 			// The first click should be the startCell.
 			int r = maze.getStartCell().row;
 			int c = maze.getStartCell().column;
