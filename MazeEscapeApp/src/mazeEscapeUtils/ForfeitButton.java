@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import mazeEscapeApp.GUIDrawer;
 import mazeEscapeApp.MazeEscape;
+import mazeEscapeApp.ReplayScreen;
 
 import org.jhotdraw.framework.DrawingEditor;
 import org.jhotdraw.standard.*;
@@ -26,7 +27,7 @@ public class ForfeitButton extends AbstractTool {
 
 	public void activate() {
 		JOptionPane.showMessageDialog(null,
-				"You have now lost the game. Click OK to see the solution. Click anywhere for more options.");
+				"You have now lost the game. Click OK to see the solution. Click anywhere to start new game.");
 
 			guiDrawer.drawSolution();
 			maze.setOn(false);
@@ -41,6 +42,6 @@ public class ForfeitButton extends AbstractTool {
 	
 	public void mouseDown(MouseEvent e, int x, int y)
 	{
-		JOptionPane.showMessageDialog(null, "Someone pls replace this line of code with real menu code. Thanks!");
+		new ReplayScreen(maze);
 	}
 }
