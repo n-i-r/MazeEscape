@@ -49,6 +49,7 @@ public class MazeEscape extends DrawApplication {
 	//Used for the toolbar code
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
+	private static final String IMAGE = "/resources/";
 
 	public MazeEscape() {
 		super("MazeEscape");
