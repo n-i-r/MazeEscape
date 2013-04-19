@@ -28,7 +28,7 @@ public class GCellArea extends RectangleFigure {
 	private ArrayList<GCellCoordinate> saveCells;
 
 	// Variables for creation of player
-	private static Pinhead larry;
+	protected static Pinhead larry;
 	private static final int SHIFT = 50;
 
 	public GCellArea() {
@@ -138,6 +138,9 @@ public class GCellArea extends RectangleFigure {
 			// The first click should be the startCell.
 			int r = maze.getStartCell().row;
 			int c = maze.getStartCell().column;
+			if (maze.getReset() == true) {
+				view.remove(larry);
+			}
 			larry = new Pinhead(new Point(SHIFT + c
 					* maze.getgCellPixelLength(), SHIFT + r
 					* maze.getgCellPixelLength()), new Point(SHIFT + c
