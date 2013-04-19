@@ -194,7 +194,7 @@ public class GCellArea extends RectangleFigure {
 						* maze.getgCellPixelLength()), new Point(SHIFT + c
 						* maze.getgCellPixelLength() + maze.getgCellPixelLength(),
 						SHIFT + r * maze.getgCellPixelLength()
-								+ maze.getgCellPixelLength()));
+								+ maze.getgCellPixelLength() - 1));
 				larry.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.PINK);
 				larry.setAttribute(FigureAttributeConstant.FRAME_COLOR, Color.RED);
 				view.add(larry);
