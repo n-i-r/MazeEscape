@@ -300,7 +300,9 @@ public class MazeEscape extends DrawApplication {
 	
 	public void setReset(boolean reset) {
 		this.reset = reset;
-		this.view().remove(GCellArea.larry);
+		if (this.reset == true) {
+			this.view().remove(GCellArea.larry);
+		}
 	}
 			
 	public boolean getReset() {

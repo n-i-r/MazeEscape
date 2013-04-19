@@ -139,6 +139,7 @@ public class GCellArea extends RectangleFigure {
 			int r = maze.getStartCell().row;
 			int c = maze.getStartCell().column;
 			if (maze.getReset() == true) {
+				maze.setReset(false);
 				view.remove(larry);
 			}
 
