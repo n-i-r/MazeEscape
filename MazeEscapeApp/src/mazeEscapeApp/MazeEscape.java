@@ -335,4 +335,90 @@ public class MazeEscape extends DrawApplication {
 		gCellClickableArea[1][1].callHandleClick();
 	}
 
+	public int getLevelPoints() {
+		return levelPoints;
+	}
+
+	public void setLevelPoints(int levelPoints) {
+		this.levelPoints = levelPoints;
+	}
+
+	public int getTimeScore() {
+		return timeScore;
+	}
+
+	public void setTimeScore(int timeScore) {
+		this.timeScore = timeScore;
+	}
+
+	public int getMinSteps() {
+		return minSteps;
+	}
+
+	public void setMinSteps(int minSteps) {
+		this.minSteps = minSteps;
+	}
+
+	public MazeText getStepCount() {
+		return stepCount;
+	}
+
+	public void setStepCount(MazeText stepCount) {
+		this.stepCount = stepCount;
+	}
+
+	public MazeText getTimeCount() {
+		return timeCount;
+	}
+
+	public void setTimeCount(MazeText timeCount) {
+		this.timeCount = timeCount;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public GUIDrawer getGuiDrawer() {
+		return guiDrawer;
+	}
+
+	public void setGuiDrawer(GUIDrawer guiDrawer) {
+		this.guiDrawer = guiDrawer;
+	}
+
+	public ForfeitButton getFb() {
+		return fb;
+	}
+
+	public void setFb(ForfeitButton fb) {
+		this.fb = fb;
+	}
+
+	public MazeSaveLoad getMsl() {
+		return msl;
+	}
+
+	public void setMsl(MazeSaveLoad msl) {
+		this.msl = msl;
+	}
+
+	public int getTimePassed() {
+		return timePassed;
+	}
+	
+	
+
 }
