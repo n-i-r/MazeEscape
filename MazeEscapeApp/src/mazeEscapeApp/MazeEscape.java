@@ -1,10 +1,15 @@
 package mazeEscapeApp;
 
 import java.awt.Color;
-import mazeEscapeUtils.*;
-import java.awt.Point;
+import java.util.ArrayList;
+
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
+
+import mazeEscapeUtils.ForfeitButton;
+import mazeEscapeUtils.MazeNavigateTool;
+import mazeEscapeUtils.QuitButton;
+import mazeEscapeUtils.ResetButton;
 
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.FigureAttributeConstant;
@@ -47,12 +52,12 @@ public class MazeEscape extends DrawApplication {
 	private MazeText timeCount;
 	private String time;
 	private String count;
-	
-	//Used for the toolbar code
+
+	// Used for the toolbar code
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
 	private static final String IMAGE = "/resources/";
-	
+
 	private MazeSaveLoad msl;
 
 	public MazeEscape() {
@@ -78,8 +83,10 @@ public class MazeEscape extends DrawApplication {
 			// Displays the time and steps taken by user
 			displayTimeAndSteps();
 			if (timePassed > timeScore) {
-				timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.BLACK);
-				timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.RED);
+				timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR,
+						Color.BLACK);
+				timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR,
+						Color.RED);
 			}
 			timePassed++;
 			// Checks if end of the maze has been reached
@@ -110,7 +117,7 @@ public class MazeEscape extends DrawApplication {
 			thread.sleep(1000);
 		}
 	}
-	
+
 	/**
 	 * Displays the time passed and steps taken on the maze
 	 */
@@ -129,7 +136,7 @@ public class MazeEscape extends DrawApplication {
 		stepCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 		stepCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
 		count = Integer.toString(stepsTaken);
-		stepCount.setText("Steps taken: " +count);
+		stepCount.setText("Steps taken: " + count);
 		this.view().add(timeCount);
 		this.view().add(stepCount);
 	}
@@ -158,26 +165,24 @@ public class MazeEscape extends DrawApplication {
 			levelPoints = 200;
 		}
 	}
-	
-	protected void createTools(JToolBar tBar)
-	{
-		//Instantiate the tools
+
+	protected void createTools(JToolBar tBar) {
+		// Instantiate the tools
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
 		QuitButton qb = new QuitButton(this);
 		ResetButton rb = new ResetButton(this, this);
-		
-		//Put the relevant tools on the toolbar
-		tBar.add(createToolButton(IMAGE+"RESET", "Reset Game", rb));
-		tBar.add(createToolButton(IMAGE+"FORFEIT", "Forfeit + See Solution", fb));
-		tBar.add(createToolButton(IMAGE+"QUIT", "Quit Game", qb));
+
+		// Put the relevant tools on the toolbar
+		tBar.add(createToolButton(IMAGE + "RESET", "Reset Game", rb));
+		tBar.add(createToolButton(IMAGE + "FORFEIT", "Forfeit + See Solution",
+				fb));
+		tBar.add(createToolButton(IMAGE + "QUIT", "Quit Game", qb));
 	}
-	
-	protected Tool createDefaultTool()
-	{
+
+	protected Tool createDefaultTool() {
 		return new MazeNavigateTool(this);
 	}
-		
 
 	@Override
 	protected void createMenus(JMenuBar mb) {
@@ -189,13 +194,11 @@ public class MazeEscape extends DrawApplication {
 	 * Getters and setters below here
 	 */
 
-	
-	public void setGUIDrawer(GUIDrawer gd)
-	{
+	public void setGUIDrawer(GUIDrawer gd) {
 		guiDrawer = gd;
 		fb.setGUIDrawer(guiDrawer);
 	}
-	
+
 	public GCellArea[][] getgCellClickableArea() {
 		return gCellClickableArea;
 	}
@@ -265,9 +268,9 @@ public class MazeEscape extends DrawApplication {
 	}
 
 	public void setReachedEndCell(boolean reachedEndCell) {
-		//msl.saveGame();
+		// msl.saveGame();
 		//
-		this.reachedEndCell = reachedEndCell;	
+		this.reachedEndCell = reachedEndCell;
 	}
 
 	public void setSteps(int mSteps) {
@@ -289,30 +292,36 @@ public class MazeEscape extends DrawApplication {
 	public void setStepsTaken(int stepsTaken) {
 		this.stepsTaken = stepsTaken;
 		count = Integer.toString(stepsTaken);
-		stepCount.setText("Steps taken: " +count);
+		stepCount.setText("Steps taken: " + count);
 	}
-	
+
 	public void setTimePassed(int tPassed) {
 		this.timePassed = tPassed;
 		time = Integer.toString(timePassed);
 		timeCount.setText("Time: " + time + " sec");
 	}
-	
+
 	public void setReset(boolean reset) {
 		this.reset = reset;
 		if (this.reset == true) {
 			this.view().remove(GCellArea.larry);
+			ArrayList<GCellCoordinate> list = msl.getCellArray();
+			for (GCellCoordinate c:list) {
+				c.getGCellArea().setAttribute(FigureAttributeConstant.FILL_COLOR, new Color(112, 219, 147));
+			}
 		}
 	}
-			
+
 	public boolean getReset() {
 		return reset;
 	}
 
-	
-	public void setMSL(MazeSaveLoad m)
-	{
-		msl=m;
+	public void setMSL(MazeSaveLoad m) {
+		this.msl = m;
+	}
+
+	public MazeSaveLoad getMSL() {
+		return msl;
 	}
 
 }
