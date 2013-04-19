@@ -66,6 +66,7 @@ public class MazeSaveLoad {
 				//Header
 				out.println("MazeEscape1 Save");
 				
+				//MazeFile
 				for(String s:mazeFile)
 				{
 					out.println(s);
@@ -74,10 +75,35 @@ public class MazeSaveLoad {
 				//Separator token
 				out.println("***===***");
 				
+				//SaveCells
 				for(GCellCoordinate c:saveCells)
 				{
 					out.println(c);
 				}
+				
+				//Currently Selected
+				
+				//isFirstClick
+				
+				//reachedEndCell
+				
+				//reset
+				
+				//on
+				
+				//levelPoints
+				
+				//timePassed
+				
+				//timeScore
+				
+				//minSteps
+				
+				//stepsTaken
+				
+				//time
+				
+				//count
 				
 				out.close();
 			} catch (FileNotFoundException e) {
