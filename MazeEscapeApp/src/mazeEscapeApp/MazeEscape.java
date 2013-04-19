@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
-import mazeEscapeUtils.ForfeitButton;
-import mazeEscapeUtils.LoadButton;
-import mazeEscapeUtils.MazeNavigateTool;
-import mazeEscapeUtils.QuitButton;
-import mazeEscapeUtils.ResetButton;
-import mazeEscapeUtils.SaveButton;
+import mazeEscapeUtils.*;
 
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.FigureAttributeConstant;
@@ -71,7 +66,6 @@ public class MazeEscape extends DrawApplication {
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
-
 	}
 
 	/**
@@ -143,6 +137,11 @@ public class MazeEscape extends DrawApplication {
 		stepCount.setText("Steps taken: " + count);
 		this.view().add(timeCount);
 		this.view().add(stepCount);
+	}
+	
+	public void displayLegend() {
+		MazeText legend = new MazeText(200, 0);
+		legend.setText("Maze Score Calculation: time constraint - time passed + bonus level points");
 	}
 
 	public String getDifficulty() {
