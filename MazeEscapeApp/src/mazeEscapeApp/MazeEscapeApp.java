@@ -42,7 +42,7 @@ public class MazeEscapeApp {
 
 		// Refresh view
 		view.repairDamage();
-		
+
 		// Destroys old maze if completed
 		if (old == true) {
 			destroyOldMaze(oldMaze);
@@ -60,6 +60,7 @@ public class MazeEscapeApp {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	private static void playMusic() {
@@ -93,5 +94,7 @@ public class MazeEscapeApp {
 		MazeEscape newMaze = new MazeEscape();
 		maze = newMaze;
 		createMaze(maze);
+		
+		
 	}
 }

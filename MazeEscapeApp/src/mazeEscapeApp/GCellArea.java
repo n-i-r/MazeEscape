@@ -288,5 +288,9 @@ public class GCellArea extends RectangleFigure {
 	public void setColumn(int column) {
 		this.column = column;
 	}
+	
+	public void callHandleClick(){
+		handleClick();
+	}
 
 }

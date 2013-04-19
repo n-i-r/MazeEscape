@@ -71,6 +71,7 @@ public class MazeEscape extends DrawApplication {
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
+
 	}
 
 	/**
@@ -330,5 +331,8 @@ public class MazeEscape extends DrawApplication {
 		return msl;
 	}
 	
+	public void handleFirstClickAutomatically(){
+		gCellClickableArea[1][1].callHandleClick();
+	}
 
 }
