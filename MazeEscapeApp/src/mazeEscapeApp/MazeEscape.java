@@ -329,5 +329,6 @@ public class MazeEscape extends DrawApplication {
 	public MazeSaveLoad getMSL() {
 		return msl;
 	}
+	
 
 }

@@ -88,18 +88,49 @@ public class MazeSaveLoad {
 
 	public void loadGame()
 	{
+		mazeFile=new ArrayList<String>();
+		saveCells=new ArrayList<GCellCoordinate>();
+		
 		int returnVal = fc.showOpenDialog(null);
 		
 		if(returnVal == JFileChooser.APPROVE_OPTION)
 		{
 			File file = fc.getSelectedFile();
-			//Scanner scan = new Scanner(file);
 			
-			//if(scan.nextLine().equals("MazeEscape1 Save"))
-			//{
-			//	boolean readingMazeFile = true;
-			//}
+			try
+			{
+				Scanner scan = new Scanner(file);
+				
+				if(scan.nextLine().equals("MazeEscape1 Save"))
+				{
+					boolean readingMazeFile = true;
+					boolean readingCoordinateFile=false;
+					
+					while(readingMazeFile)
+					{
+						String s = scan.nextLine();
+						if(s.equals("***===***"))
+						{
+							readingCoordinateFile=true;
+							readingMazeFile=false;
+						}
+						else
+						{
+							mazeFile.add(s);
+						}
+					}
+					
+					while(readingCoordinateFile && scan.hasNext())
+					{
+						String s = scan.next();
+						saveCells.add(new GCellCoordinate(s));
+					}
+						
+				}
+			}catch(FileNotFoundException e)
+			{
+				//Implement me!
+			}
 		}
 	}
-
 }

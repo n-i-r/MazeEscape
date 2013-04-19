@@ -17,6 +17,7 @@ public class SaveButton extends AbstractTool {
 
 	public void activate() {
 		maze.setTool(new MazeNavigateTool(maze), "maze tool");
+		maze.getMSL().saveGame();
 		deactivate();
 	}
 }
