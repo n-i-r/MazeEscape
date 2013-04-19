@@ -160,9 +160,9 @@ public class MazeEscape extends DrawApplication {
 		ResetButton rb = new ResetButton(this);
 		
 		//Put the relevant tools on the toolbar
-		tBar.add(createToolButton(IMAGES+"POLYGON", "Reset Game", rb));
-		tBar.add(createToolButton(IMAGES+"OCONN", "Forfeit + See Solution", fb));
-		tBar.add(createToolButton("/resources/FORFEIT", "Quit Game", qb));
+		tBar.add(createToolButton(IMAGE+"RESET", "Reset Game", rb));
+		tBar.add(createToolButton(IMAGE+"FORFEIT", "Forfeit + See Solution", fb));
+		tBar.add(createToolButton(IMAGE+"QUIT", "Quit Game", qb));
 	}
 	
 	protected Tool createDefaultTool()
