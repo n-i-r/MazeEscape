@@ -20,7 +20,4 @@ public class SaveTest {
 		msl.saveGame();
 		msl.loadGame();
 	}
-		
-		
-
 }

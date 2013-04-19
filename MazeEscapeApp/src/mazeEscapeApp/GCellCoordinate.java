@@ -5,18 +5,29 @@ import java.util.Scanner;
 public class GCellCoordinate {
 	private int row;
 	private int col;
+	private GCellArea area;
 	
 	public GCellCoordinate(int r, int c)
 	{
 		row=r;
 		col=c;
+		area=null;
 	}
+	
+	public GCellCoordinate(int r, int c, GCellArea a)
+	{
+		row=r;
+		col=c;
+		area=a;
+	}
+		
 	
 	public GCellCoordinate(String s)
 	{
 		Scanner scan = new Scanner(s);
 		row=scan.nextInt();
 		col=scan.nextInt();
+		area=null;
 		scan.close();
 	}
 	
@@ -24,6 +35,7 @@ public class GCellCoordinate {
 	{
 		row=cell.getRow();
 		col=cell.getColumn();
+		area=cell;
 	}
 
 	public int getRow() {
@@ -42,9 +54,22 @@ public class GCellCoordinate {
 		this.col = col;
 	}
 	
+	public GCellArea getGCellArea()
+	{
+		if(area!=null)
+			return area;
+		else
+			return null;
+	}
+	
 	public String toString()
 	{
 		return row + " " + col;
+	}
+	
+	public boolean isGCellAreaValid()
+	{
+		return (area!=null);
 	}
 	
 	

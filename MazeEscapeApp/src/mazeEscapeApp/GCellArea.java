@@ -23,8 +23,6 @@ public class GCellArea extends RectangleFigure {
 	private int row, column;
 	private MazeEscape maze;
 	private DrawingView view;
-	
-	//For future use:
 	private ArrayList<GCellCoordinate> saveCells;
 
 	// Variables for creation of player
