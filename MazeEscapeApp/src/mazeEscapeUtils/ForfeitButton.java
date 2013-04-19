@@ -1,14 +1,16 @@
 package mazeEscapeUtils;
 
 import java.awt.event.MouseEvent;
+
 import javax.swing.JOptionPane;
 
 import mazeEscapeApp.GUIDrawer;
 import mazeEscapeApp.MazeEscape;
-import mazeEscapeApp.ReplayScreen;
+import mazeEscapeApp.MazeEscapeApp;
+import mazeEscapeApp.WinnerScreen;
 
 import org.jhotdraw.framework.DrawingEditor;
-import org.jhotdraw.standard.*;
+import org.jhotdraw.standard.AbstractTool;
 
 public class ForfeitButton extends AbstractTool {
 
@@ -28,20 +30,23 @@ public class ForfeitButton extends AbstractTool {
 	public void activate() {
 		JOptionPane.showMessageDialog(null,
 				"You have now lost the game. Click OK to see the solution. Click anywhere to start new game.");
-
-			guiDrawer.drawSolution();
 			maze.setOn(false);
+			guiDrawer.drawSolution();
+			WinnerScreen screen = new WinnerScreen(maze);
+			screen.forfeit();
+
 			//TODO: Insert other "game over" code here to lock the maze
 	}
 	
 	public void deactivate()
 	{
 		JOptionPane.showMessageDialog(null, "The maze will now implode.");
-		System.exit(0);
+		maze.exit();
 	}
 	
 	public void mouseDown(MouseEvent e, int x, int y)
 	{
-		new ReplayScreen(maze);
+		//WinnerScreen screen = new WinnerScreen(maze);
+		//screen.forfeit();
 	}
 }

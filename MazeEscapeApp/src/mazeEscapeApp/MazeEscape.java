@@ -111,6 +111,10 @@ public class MazeEscape extends DrawApplication {
 	 * Displays the time passed and steps taken on the maze
 	 */
 	public void displayTimeAndSteps() {
+		if (timeCount != null || stepCount != null) {
+			this.view().remove(timeCount);
+			this.view().remove(stepCount);
+		}
 		timeCount = new MazeText();
 		timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 		timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
@@ -157,7 +161,7 @@ public class MazeEscape extends DrawApplication {
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
 		QuitButton qb = new QuitButton(this);
-		ResetButton rb = new ResetButton(this);
+		ResetButton rb = new ResetButton(this, this);
 		
 		//Put the relevant tools on the toolbar
 		tBar.add(createToolButton(IMAGE+"RESET", "Reset Game", rb));
@@ -280,6 +284,14 @@ public class MazeEscape extends DrawApplication {
 		this.stepsTaken = stepsTaken;
 		count = Integer.toString(stepsTaken);
 		stepCount.setText("Steps taken: " +count);
+	}
+	
+	public void setTimePassed(int tPassed) {
+		//this.view().remove(timeCount);
+		this.timePassed = tPassed;
+		time = Integer.toString(timePassed);
+		timeCount.setText("Time: " + time + " sec");
+		//this.view().add(timeCount);
 	}
 
 }

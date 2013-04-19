@@ -138,7 +138,7 @@ public class GUIDrawer {
 		//TODO: change this to come from the Solver (unless we don't mind ignoring our UML lol)
 		VertexList vSoln = mazeFactory.getVertexSoln();
 		
-		//Iteraate through the VertexList and change the color of the relevant cells
+		//Iterate through the VertexList and change the color of the relevant cells
 		for(Vertex v : vSoln)
 		{
 			Coordinate c = v.getElement();

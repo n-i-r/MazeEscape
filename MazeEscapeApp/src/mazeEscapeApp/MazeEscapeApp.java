@@ -76,7 +76,8 @@ public class MazeEscapeApp {
 	 * Creates a new game. Used for every instance after the first one.
 	 */
 	public static void newGame(MazeEscape m){
-		m.setVisible(false);
+		oldMaze = m;
+		oldMaze.setVisible(false);
 		// If track is already playing, it won't play new track
 		if (music.loops_done == 1) {
 			loop = true;
@@ -87,7 +88,7 @@ public class MazeEscapeApp {
 		}
 //		System.out.println(music.loop_times);
 //		System.out.println(loop);
-		oldMaze = m;
+		//oldMaze = m;
 		old = true;
 		MazeEscape newMaze = new MazeEscape();
 		maze = newMaze;
