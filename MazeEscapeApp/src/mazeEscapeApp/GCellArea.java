@@ -36,11 +36,11 @@ public class GCellArea extends RectangleFigure {
 		saveCells = new ArrayList<GCellCoordinate>();
 	}
 
-	public GCellArea(Point origin, Point corner, MazeEscape m) {
+	public GCellArea(Point origin, Point corner, MazeEscape m, ArrayList<GCellCoordinate> a) {
 		super(origin, corner);
 		maze = m;
 		view = maze.view();
-		saveCells = new ArrayList<GCellCoordinate>();
+		saveCells = a;
 	}
 
 	/*

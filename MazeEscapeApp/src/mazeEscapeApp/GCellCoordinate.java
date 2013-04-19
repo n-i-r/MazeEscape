@@ -1,5 +1,7 @@
 package mazeEscapeApp;
 
+import java.util.Scanner;
+
 public class GCellCoordinate {
 	private int row;
 	private int col;
@@ -8,6 +10,14 @@ public class GCellCoordinate {
 	{
 		row=r;
 		col=c;
+	}
+	
+	public GCellCoordinate(String s)
+	{
+		Scanner scan = new Scanner(s);
+		row=scan.nextInt();
+		col=scan.nextInt();
+		scan.close();
 	}
 	
 	public GCellCoordinate(GCellArea cell)
@@ -30,6 +40,11 @@ public class GCellCoordinate {
 
 	public void setCol(int col) {
 		this.col = col;
+	}
+	
+	public String toString()
+	{
+		return row + " " + col;
 	}
 	
 	

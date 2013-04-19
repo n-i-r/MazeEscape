@@ -50,6 +50,8 @@ public class MazeEscape extends DrawApplication {
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
 	private static final String IMAGE = "/resources/";
+	
+	private MazeSaveLoad msl;
 
 	public MazeEscape() {
 		super("MazeEscape");
@@ -261,7 +263,8 @@ public class MazeEscape extends DrawApplication {
 	}
 
 	public void setReachedEndCell(boolean reachedEndCell) {
-		this.reachedEndCell = reachedEndCell;
+		//msl.saveGame();
+		this.reachedEndCell = reachedEndCell;	
 	}
 
 	public void setSteps(int mSteps) {
@@ -292,6 +295,11 @@ public class MazeEscape extends DrawApplication {
 		time = Integer.toString(timePassed);
 		timeCount.setText("Time: " + time + " sec");
 		//this.view().add(timeCount);
+	}
+	
+	public void setMSL(MazeSaveLoad m)
+	{
+		msl=m;
 	}
 
 }

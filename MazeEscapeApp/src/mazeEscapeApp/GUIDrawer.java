@@ -25,11 +25,13 @@ public class GUIDrawer {
 	private DrawingView view;
 	private static final int SHIFT = 50;
 	private MazeFactory mazeFactory;
-
+	private MazeSaveLoad msl;
+	
 	public GUIDrawer(MazeEscape m) {
 		mazeEscape = m;
 		view = m.view();
 		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
+		msl = new MazeSaveLoad(mazeFactory.getMazeFile());
 	}
 
 	/**
@@ -45,7 +47,7 @@ public class GUIDrawer {
 						new Point(SHIFT + c * mazeEscape.getgCellPixelLength()
 								+ mazeEscape.getgCellPixelLength(), SHIFT + r
 								* mazeEscape.getgCellPixelLength()
-								+ mazeEscape.getgCellPixelLength()), mazeEscape);
+								+ mazeEscape.getgCellPixelLength()), mazeEscape, msl.getCellArray());
 				mazeEscape.getgCellClickableArea()[r][c].setRow(r);
 				mazeEscape.getgCellClickableArea()[r][c].setColumn(c);
 
@@ -70,6 +72,7 @@ public class GUIDrawer {
 		int steps = mazeFactory.getMinimumSteps();
 		mazeEscape.setSteps(steps);
 		mazeEscape.setGUIDrawer(this);
+		mazeEscape.setMSL(msl);
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
@@ -88,7 +91,6 @@ public class GUIDrawer {
 				.getRFinish()][mazeInfo.getCFinish()]);
 		mazeEscape.getEndCell().setAttribute(
 				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
-
 	}
 
 	/**

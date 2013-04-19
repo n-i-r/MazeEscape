@@ -1,5 +1,7 @@
 package baseMazeCode;
-import java.io.FileNotFoundException;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import AdjacencyListGraph.ALGraph;
 import AdjacencyListGraph.EdgeList;
@@ -13,6 +15,7 @@ public class MazeFactory {
 	private ALGraph mst;      //The MST through graph. These are walls to be removed
 	private VertexList vSoln; //The vertices that are a part of the maze's solution
 	private EdgeList eSoln;   //The edges that are a part the maze's solution
+	private ArrayList<String> mazeFile; //The file representation of the maze;
 
 	public MazeFactory(int nVal) {
 		//Store the size of the maze
@@ -21,30 +24,56 @@ public class MazeFactory {
 		// The graph generator that will auto-generate the maze
 		GraphGen gGen = new GraphGen();
 
-		try {
-			// GraphGen will generate the maze and the info for the maze
-			// This will be stored in a KeyValPair (which holds two objects)
-			KeyValPair<ALGraph, MazeInfo> vals = gGen.autoGenerate(nVal, true);
+		
+		// GraphGen will generate the maze and the info for the maze
+		// This will be stored in a KeyValPair (which holds two objects)
+		KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> mazeComponents = gGen.autoGenerate(nVal, true);
+		KeyValPair<ALGraph, MazeInfo> vals = mazeComponents.getKey();
+		mazeFile = mazeComponents.getValue();
 
-			// Split the KeyValPair into its corresponding parts
-			graph = vals.getKey();
-			mz = vals.getValue();
+		// Split the KeyValPair into its corresponding parts
+		graph = vals.getKey();
+		mz = vals.getValue();
 
-			// Run the MST alg on the generated graph and store it in mst
-			CalcMST cmst = new CalcMST(graph);
-			mst = cmst.solve();
-			
-			//Run the DFS algorithm on the maze to find the shortest path
-			CalcDFS cdfs = new CalcDFS(graph, mst, mz);
-			KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
-			
-			//Store the VertexList and EdgeList in vSoln and eSoln
-			vSoln = lists.getKey();
-			eSoln = lists.getValue();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Run the MST alg on the generated graph and store it in mst
+		CalcMST cmst = new CalcMST(graph);
+		mst = cmst.solve();
+		
+		//Run the DFS algorithm on the maze to find the shortest path
+		CalcDFS cdfs = new CalcDFS(graph, mst, mz);
+		KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
+		
+		//Store the VertexList and EdgeList in vSoln and eSoln
+		vSoln = lists.getKey();
+		eSoln = lists.getValue();
+	}
+	
+	public MazeFactory(File f)
+	{
+		//Pass file to the generator
+		GraphGen gGen = new GraphGen(f);
+		
+		// GraphGen will generate the maze and the info for the maze
+		// This will be stored in a KeyValPair (which holds two objects)
+		KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> mazeComponents = gGen.generateWithFile();
+		KeyValPair<ALGraph, MazeInfo> vals = mazeComponents.getKey();
+		mazeFile = mazeComponents.getValue();
+
+		// Split the KeyValPair into its corresponding parts
+		graph = vals.getKey();
+		mz = vals.getValue();
+
+		// Run the MST alg on the generated graph and store it in mst
+		CalcMST cmst = new CalcMST(graph);
+		mst = cmst.solve();
+		
+		//Run the DFS algorithm on the maze to find the shortest path
+		CalcDFS cdfs = new CalcDFS(graph, mst, mz);
+		KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
+		
+		//Store the VertexList and EdgeList in vSoln and eSoln
+		vSoln = lists.getKey();
+		eSoln = lists.getValue();
 	}
 
 	/**
@@ -77,5 +106,10 @@ public class MazeFactory {
 	public VertexList getVertexSoln()
 	{
 		return vSoln;
+	}
+	
+	public ArrayList<String> getMazeFile()
+	{
+		return mazeFile;
 	}
 }
