@@ -7,9 +7,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 
 import mazeEscapeUtils.ForfeitButton;
+import mazeEscapeUtils.LoadButton;
 import mazeEscapeUtils.MazeNavigateTool;
 import mazeEscapeUtils.QuitButton;
 import mazeEscapeUtils.ResetButton;
+import mazeEscapeUtils.SaveButton;
 
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.framework.FigureAttributeConstant;
@@ -171,11 +173,15 @@ public class MazeEscape extends DrawApplication {
 		// Instantiate the tools
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
-		QuitButton qb = new QuitButton(this);
 		ResetButton rb = new ResetButton(this, this);
+		LoadButton lb = new LoadButton(this, this);
+		SaveButton sb = new SaveButton(this, this);
+		QuitButton qb = new QuitButton(this);
 
 		// Put the relevant tools on the toolbar
 		tBar.add(createToolButton(IMAGE + "RESET", "Reset Game", rb));
+		tBar.add(createToolButton(IMAGE + "SAVE", "Load Game", lb));
+		tBar.add(createToolButton(IMAGE + "LOAD", "Save Game", sb));
 		tBar.add(createToolButton(IMAGE + "FORFEIT", "Forfeit + See Solution",
 				fb));
 		tBar.add(createToolButton(IMAGE + "QUIT", "Quit Game", qb));
