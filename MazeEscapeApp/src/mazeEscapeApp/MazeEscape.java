@@ -185,16 +185,16 @@ public class MazeEscape extends DrawApplication {
 	public void setDifficultyMode(String difficulty) {
 		this.difficulty = difficulty;
 		if (difficulty.equals("Easy")) {
-			lengthMaze = 5;
-			timeScore = 30;
+			lengthMaze = 10;
+			timeScore = 15;
 			levelPoints = 50;
 		} else if (difficulty.equals("Medium")) {
 			lengthMaze = 15;
-			timeScore = 45;
+			timeScore = 20;
 			levelPoints = 100;
 		} else if (difficulty.equals("Hard")) {
 			lengthMaze = 20;
-			timeScore = 90;
+			timeScore = 30;
 			levelPoints = 200;
 		}
 	}
