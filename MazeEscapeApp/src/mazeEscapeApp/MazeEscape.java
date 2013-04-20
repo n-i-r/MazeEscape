@@ -251,6 +251,7 @@ public class MazeEscape extends DrawApplication {
 
 	public void setStartCell(GCellArea startCell) {
 		this.startCell = startCell;
+		this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 	}
 
 	public GCellArea getEndCell() {
@@ -311,10 +312,13 @@ public class MazeEscape extends DrawApplication {
 		this.reset = reset;
 		if (this.reset == true) {
 			this.view().remove(GCellArea.larry);
+			guiDrawer.resetSolution();
 			ArrayList<GCellCoordinate> list = msl.getCellArray();
 			for (GCellCoordinate c:list) {
 				c.getGCellArea().setAttribute(FigureAttributeConstant.FILL_COLOR, new Color(112, 219, 147));
 			}
+			this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+			this.endCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.WHITE);
 		}
 	}
 	

@@ -66,7 +66,7 @@ public class MazeEscapeApp {
 		
 		// Start cell blue
 		//WOW NEW COMMENT
-		maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+		//maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 
 		// Destroys old maze if completed
 		if (old == true) {
