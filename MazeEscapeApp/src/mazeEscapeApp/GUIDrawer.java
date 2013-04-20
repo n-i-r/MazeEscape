@@ -26,7 +26,7 @@ public class GUIDrawer {
 	private static final int SHIFT = 50;
 	private MazeFactory mazeFactory;
 	private MazeSaveLoad msl;
-	
+
 	public GUIDrawer(MazeEscape m) {
 		mazeEscape = m;
 		view = m.view();
@@ -47,7 +47,8 @@ public class GUIDrawer {
 						new Point(SHIFT + c * mazeEscape.getgCellPixelLength()
 								+ mazeEscape.getgCellPixelLength(), SHIFT + r
 								* mazeEscape.getgCellPixelLength()
-								+ mazeEscape.getgCellPixelLength()), mazeEscape, msl.getCellArray());
+								+ mazeEscape.getgCellPixelLength()),
+						mazeEscape, msl.getCellArray());
 				mazeEscape.getgCellClickableArea()[r][c].setRow(r);
 				mazeEscape.getgCellClickableArea()[r][c].setColumn(c);
 
@@ -133,23 +134,41 @@ public class GUIDrawer {
 				mazeEscape.getGridCells()[r2][c2].removeLine(GridCell.DOWN);
 			}
 	}
-	
-	public void drawSolution()
-	{
-		//Get the list of "solution" vertices from the mazeFactory
-		//TODO: change this to come from the Solver (unless we don't mind ignoring our UML lol)
+
+	public void drawSolution() {
+		// Get the list of "solution" vertices from the mazeFactory
+		// TODO: change this to come from the Solver (unless we don't mind
+		// ignoring our UML lol)
 		VertexList vSoln = mazeFactory.getVertexSoln();
-		
-		//Iterate through the VertexList and change the color of the relevant cells
-		for(Vertex v : vSoln)
-		{
+
+		// Iterate through the VertexList and change the color of the relevant
+		// cells
+		for (Vertex v : vSoln) {
 			Coordinate c = v.getElement();
-		    mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+			mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()]
+					.setAttribute(FigureAttributeConstant.FILL_COLOR,
+							Color.YELLOW);
 		}
-		
-		//Refresh the view so we can see the solution
+
+		// Refresh the view so we can see the solution
 		mazeEscape.view().repairDamage();
-		
+
 	}
-	
+
+	public void resetSolution() {
+		VertexList vSoln = mazeFactory.getVertexSoln();
+
+		// Iterate through the VertexList and change the color of the relevant
+		// cells
+		for (Vertex v : vSoln) {
+			Coordinate c = v.getElement();
+			mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()]
+					.setAttribute(FigureAttributeConstant.FILL_COLOR,
+							new Color(112, 219, 147));
+		}
+
+		// Refresh the view so we can see the solution
+		mazeEscape.view().repairDamage();
+	}
+
 }
