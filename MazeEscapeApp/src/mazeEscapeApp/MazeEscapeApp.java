@@ -1,4 +1,5 @@
 package mazeEscapeApp;
+
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import org.jhotdraw.framework.DrawingView;
@@ -40,7 +41,8 @@ public class MazeEscapeApp {
 				+ "straight line instead of constantly needing to hit each \n"
 				+ "grid cell, hit the end cell you'd like to move to. \n\n"
 				+ "Hover over the buttons in the toolbar to see what each \n"
-				+ "respective button does";
+				+ "respective button does. Reset button (first button) \n"
+				+ "is disabled until user starts playing.";
 
 		JFrame aFrame = new JFrame("Instructions");
 
