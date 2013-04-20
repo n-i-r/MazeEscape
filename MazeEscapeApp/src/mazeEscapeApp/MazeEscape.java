@@ -330,6 +330,7 @@ public class MazeEscape extends DrawApplication {
 		this.stepsTaken = stepsTaken;
 		if (this.stepsTaken > 0) {
 			rb.setEnabled(true);
+			fb.setEnabled(true);
 		}
 		count = Integer.toString(stepsTaken);
 		stepCount.setText("Steps taken: " + count);
@@ -460,14 +461,4 @@ public class MazeEscape extends DrawApplication {
 		return timePassed;
 	}
 	
-	public void setStart(boolean start) {
-		this.start = start;
-	}
-	
-	public boolean getStart() {
-		return start;
-	}
-	
-	
-
 }

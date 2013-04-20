@@ -15,10 +15,8 @@ public class ResetButton extends AbstractTool{
 	public ResetButton(DrawingEditor newDrawingEditor, MazeEscape m) {
 		super(newDrawingEditor);
 		maze = m;
-		if (maze.getStart() == true) {
-			this.setEnabled(false);
-			maze.setStart(false);
-		}
+		// Disables this button on launch to prevent errors
+		this.setEnabled(false);
 	}
 	
 	// Resets the maze by setting everything back to initial state

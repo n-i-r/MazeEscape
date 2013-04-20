@@ -17,10 +17,13 @@ public class ForfeitButton extends AbstractTool {
 	private GUIDrawer guiDrawer;
 	private MazeEscape maze;
 
-	public ForfeitButton(DrawingEditor newDrawingEditor, GUIDrawer gd, MazeEscape me) {
+	public ForfeitButton(DrawingEditor newDrawingEditor, GUIDrawer gd,
+			MazeEscape m) {
 		super(newDrawingEditor);
 		guiDrawer = gd;
-		maze = me;
+		maze = m;
+		// Disables this button on launch to prevent errors
+		this.setEnabled(false);
 	}
 
 	public void setGUIDrawer(GUIDrawer gd) {
@@ -28,17 +31,18 @@ public class ForfeitButton extends AbstractTool {
 	}
 
 	public void activate() {
-		JOptionPane.showMessageDialog(null,
-				"You have now lost the game. Click OK to see the solution. Click reset to play again.");
-			guiDrawer.drawSolution();
-			deactivate();
-			//WinnerScreen screen = new WinnerScreen(maze);
-			//screen.forfeit();
+		JOptionPane
+				.showMessageDialog(
+						null,
+						"You have now lost the game. Click OK to see the solution. Click reset to play again.");
+		guiDrawer.drawSolution();
+		deactivate();
+		// WinnerScreen screen = new WinnerScreen(maze);
+		// screen.forfeit();
 	}
-	
-	public void mouseDown(MouseEvent e, int x, int y)
-	{
-		//WinnerScreen screen = new WinnerScreen(maze);
-		//screen.forfeit();
+
+	public void mouseDown(MouseEvent e, int x, int y) {
+		// WinnerScreen screen = new WinnerScreen(maze);
+		// screen.forfeit();
 	}
 }
