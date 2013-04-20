@@ -47,7 +47,12 @@ public class MazeSaveLoad {
 		mazeFile = m;
 	}
 	
-	public void saveGame()
+	public void saveGame(MazeEscape m)
+	{
+		
+	}
+	private void saveGame(GCellArea cS, boolean iFC, boolean rEC, boolean reset,
+			boolean on, int lvlPts, int tP, int tS, int mS, int sT, String t, String c)
 	{
 		//Have the user select the save location
 		fc.setSelectedFile(new File("MazeSave"));
@@ -76,34 +81,49 @@ public class MazeSaveLoad {
 				out.println("***===***");
 				
 				//SaveCells
-				for(GCellCoordinate c:saveCells)
+				for(GCellCoordinate gc:saveCells)
 				{
-					out.println(c);
+					out.println(gc);
 				}
 				
+				//Separator
+				out.println("***===***");
+				
 				//Currently Selected
+				out.println(new GCellCoordinate(cS));
 				
 				//isFirstClick
+				out.println(iFC);
 				
 				//reachedEndCell
+				out.println(rEC);
 				
 				//reset
+				out.println(reset);
 				
 				//on
+				out.println(on);
 				
 				//levelPoints
+				out.println(lvlPts);
 				
 				//timePassed
+				out.println(tP);
 				
 				//timeScore
+				out.println(tS);
 				
 				//minSteps
+				out.println(mS);
 				
 				//stepsTaken
+				out.println(sT);
 				
 				//time
+				out.println(t);
 				
 				//count
+				out.println(s);
 				
 				out.close();
 			} catch (FileNotFoundException e) {

@@ -317,6 +317,11 @@ public class MazeEscape extends DrawApplication {
 			}
 		}
 	}
+	
+	public void saveGame()
+	{
+		msl.saveGame(this);
+	}
 
 	public boolean getReset() {
 		return reset;
