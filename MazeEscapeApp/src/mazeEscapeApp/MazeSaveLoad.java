@@ -10,6 +10,18 @@ public class MazeSaveLoad {
 	private ArrayList<String> mazeFile;                 //The ArrayList that holds the initial maze numberings
 	private ArrayList<GCellCoordinate> saveCells;       //The modified cells since the game began
 	private final JFileChooser fc = new JFileChooser(); //The file chooser for save/load purposes
+	private GCellArea currentlySelected;
+	private boolean isFirstClick;
+	private boolean reachedEndCell;
+	private boolean reset;
+	private boolean on;
+	private int levelPoints;
+	private int timePassed;
+	private int timeScore;
+	private int minSteps;
+	private int stepsTaken;
+	private String time;
+	private String count;
 	
 	public MazeSaveLoad(ArrayList<String> maze)
 	{
@@ -49,7 +61,21 @@ public class MazeSaveLoad {
 	
 	public void saveGame(MazeEscape m)
 	{
+		currentlySelected=m.getCurrentlySelected();
+		isFirstClick=m.isFirstClick();
+		reachedEndCell=m.isReachedEndCell();
+		reset=m.getReset();
+		on=m.isOn();
+		levelPoints=m.getLevelPoints();
+		timePassed=m.getTimePassed();
+		timeScore=m.getTimeScore();
+		minSteps=m.getMinSteps();
+		stepsTaken=m.getStepsTaken();
+		time=m.getTime();
+		count=m.getCount();
 		
+		saveGame(currentlySelected, isFirstClick, reachedEndCell, reset, on,
+				levelPoints, timePassed,timeScore, minSteps, stepsTaken, time, count);
 	}
 	private void saveGame(GCellArea cS, boolean iFC, boolean rEC, boolean reset,
 			boolean on, int lvlPts, int tP, int tS, int mS, int sT, String t, String c)
@@ -123,7 +149,7 @@ public class MazeSaveLoad {
 				out.println(t);
 				
 				//count
-				out.println(s);
+				out.println(c);
 				
 				out.close();
 			} catch (FileNotFoundException e) {
@@ -151,8 +177,9 @@ public class MazeSaveLoad {
 				{
 					boolean readingMazeFile = true;
 					boolean readingCoordinateFile=false;
+					boolean readingVariables=false;
 					
-					while(readingMazeFile)
+					while(readingMazeFile && scan.hasNext())
 					{
 						String s = scan.nextLine();
 						if(s.equals("***===***"))
@@ -170,8 +197,10 @@ public class MazeSaveLoad {
 					{
 						String s = scan.next();
 						saveCells.add(new GCellCoordinate(s));
-					}
 						
+						//String s = scan.hasNext();
+					}
+					
 				}
 			}catch(FileNotFoundException e)
 			{
