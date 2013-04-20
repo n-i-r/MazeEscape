@@ -1,6 +1,9 @@
 package mazeEscapeApp;
 
+import java.awt.Color;
+
 import org.jhotdraw.framework.DrawingView;
+import org.jhotdraw.framework.FigureAttributeConstant;
 
 /**
  * Main class for the MazeEscape game.
@@ -42,6 +45,8 @@ public class MazeEscapeApp {
 
 		// Refresh view
 		view.repairDamage();
+		
+		maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR, Color.RED);
 
 		// Destroys old maze if completed
 		if (old == true) {
