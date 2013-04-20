@@ -46,7 +46,8 @@ public class MazeEscapeApp {
 		// Refresh view
 		view.repairDamage();
 		
-		maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR, Color.RED);
+		// Start cell blue
+		maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 
 		// Destroys old maze if completed
 		if (old == true) {
