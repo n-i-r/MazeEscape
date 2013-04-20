@@ -12,7 +12,7 @@ public class QuitButton extends AbstractTool{
 	
 	public void activate()
 	{
-		JOptionPane.showMessageDialog(null, "The maze will now implode.");
+		JOptionPane.showMessageDialog(null, "MazeEscape will now close.");
 		System.exit(0);
 	}
 }
