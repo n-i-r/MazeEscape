@@ -145,7 +145,7 @@ public class MazeEscape extends DrawApplication {
 	 * Method to display the legend with score formula and color keys
 	 */
 	public void displayLegend() {
-		MazeText legend = new MazeText(250, 0);
+		MazeText legend = new MazeText(150, 0);
 		MazeText score = new MazeText(250, 15);
 		MazeText accuracy = new MazeText(250, 30);
 		MazeText start = new MazeText(150, 15);
