@@ -52,7 +52,7 @@ public class MazeEscapeApp {
 		txt.setCursor(null);
 		txt.setOpaque(false);
 		txt.setFocusable(false);
-		aFrame.setSize(350, 550);
+		aFrame.setSize(350, 350);
 		aFrame.setLocationRelativeTo(null);
 		aFrame.setVisible(true);
 	}
