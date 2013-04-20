@@ -57,6 +57,7 @@ public class WinnerScreen {
 			}
 		});
 		dialog.pack();
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 
 		// If yes option selected, new maze will generate
@@ -94,6 +95,7 @@ public class WinnerScreen {
 			}
 		});
 		dialog.pack();
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 
 		// If yes option selected, new maze will generate

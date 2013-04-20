@@ -48,6 +48,7 @@ public class ReplayScreen {
 			}
 		});
 		dialog.pack();
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 
 		// Allows to set difficulty of maze, based on selection

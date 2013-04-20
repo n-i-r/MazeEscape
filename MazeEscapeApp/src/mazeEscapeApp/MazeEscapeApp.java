@@ -53,7 +53,6 @@ public class MazeEscapeApp {
 		txt.setOpaque(false);
 		txt.setFocusable(false);
 		aFrame.setSize(350, 350);
-		aFrame.setLocationRelativeTo(null);
 		aFrame.setVisible(true);
 	}
 
@@ -65,6 +64,7 @@ public class MazeEscapeApp {
 	public static void createMaze(MazeEscape maze) {
 		maze.open();
 		maze.setSize(900, 900);
+		maze.setLocationRelativeTo(null);
 		DrawingView view = maze.view();
 
 		GUIDrawer guiDrawer = new GUIDrawer(maze);
