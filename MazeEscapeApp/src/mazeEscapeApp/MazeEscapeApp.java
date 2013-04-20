@@ -2,6 +2,9 @@ package mazeEscapeApp;
 
 import java.awt.Color;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import org.jhotdraw.framework.DrawingView;
 import org.jhotdraw.framework.FigureAttributeConstant;
 
@@ -20,10 +23,25 @@ public class MazeEscapeApp {
 	private static boolean old = false;
 	
 	public static void main(String[] args){
+		createInstructionsScreen();
+		
 		maze = new MazeEscape();
 		createMaze(maze);
 	}
 	
+	private static void createInstructionsScreen() {
+		JFrame instructions = new JFrame ("Instructions");
+		instructions.setSize(300,500);
+		instructions.setVisible(true);
+		instructions.setLocationRelativeTo(null);
+		
+		String instructionString = null;
+		JLabel inst = new JLabel (instructionString);
+		instructions.add(inst);
+		inst.setBounds(0, 0, 300, 500);
+		
+	}
+
 	/*
 	 * Creates a new maze of the given difficulty level
 	 * 
