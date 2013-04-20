@@ -79,6 +79,8 @@ public class MazeEscape extends DrawApplication {
 			thread.start();
 			// Displays the time and steps taken by user
 			displayTimeAndSteps();
+			// Displays legend to show formula on score calculation
+			displayLegend();
 			if (timePassed > timeScore) {
 				timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR,
 						Color.BLACK);
@@ -139,9 +141,35 @@ public class MazeEscape extends DrawApplication {
 		this.view().add(stepCount);
 	}
 	
+	/**
+	 * Method to display the legend with score formula and color keys
+	 */
 	public void displayLegend() {
-		MazeText legend = new MazeText(200, 0);
-		legend.setText("Maze Score Calculation: time constraint - time passed + bonus level points");
+		MazeText legend = new MazeText(150, 0);
+		MazeText score = new MazeText(250, 15);
+		MazeText accuracy = new MazeText(250, 30);
+		MazeText start = new MazeText(150, 15);
+		MazeText end = new MazeText(150, 30);
+		legend.setText("Legend:");
+		score.setText("Maze Score Calculation: time constraint - time passed + bonus level points");
+		accuracy.setText("Maze Accuracy Calculation: 100 x (minimum steps taken / your steps taken)");
+		start.setText("Start Cell Color");
+		end.setText("End Cell Color");
+		legend.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLACK);
+		legend.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.RED);
+		score.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+		score.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.BLUE);
+		accuracy.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.YELLOW);
+		accuracy.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.BLUE);
+		start.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+		start.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
+		end.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.WHITE);
+		end.setAttribute(FigureAttributeConstant.TEXT_COLOR, Color.GREEN);
+		this.view().add(legend);
+		this.view().add(score);
+		this.view().add(accuracy);
+		this.view().add(start);
+		this.view().add(end);
 	}
 
 	public String getDifficulty() {

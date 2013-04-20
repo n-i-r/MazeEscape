@@ -21,6 +21,7 @@ public class ResetButton extends AbstractTool{
 	public void activate()
 	{
 		JOptionPane.showMessageDialog(null, "Maze is now reset, click OK to continue!");
+		maze.setOn(true);
 		maze.setStepsTaken(0);
 		maze.setTimePassed(0);
 		// Sets the maze to be in the reset state

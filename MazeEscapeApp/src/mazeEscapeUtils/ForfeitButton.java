@@ -29,13 +29,11 @@ public class ForfeitButton extends AbstractTool {
 
 	public void activate() {
 		JOptionPane.showMessageDialog(null,
-				"You have now lost the game. Click OK to see the solution. Click anywhere to start new game.");
-			maze.setOn(false);
+				"You have now lost the game. Click OK to see the solution. Click reset to play again.");
 			guiDrawer.drawSolution();
 			deactivate();
 			//WinnerScreen screen = new WinnerScreen(maze);
 			//screen.forfeit();
-			//TODO: Insert other "game over" code here to lock the maze
 	}
 	
 	public void mouseDown(MouseEvent e, int x, int y)
