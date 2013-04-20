@@ -35,6 +35,7 @@ public class MazeEscape extends DrawApplication {
 	private boolean isFirstClick = true;
 	private boolean reachedEndCell = false;
 	private boolean reset = false;
+	private boolean start = true;
 
 	// Used for calculation of score
 	private boolean on = true;
@@ -53,6 +54,7 @@ public class MazeEscape extends DrawApplication {
 	// Used for the toolbar code
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
+	private ResetButton rb;
 	private static final String IMAGE = "/resources/";
 
 	private MazeSaveLoad msl;
@@ -201,7 +203,7 @@ public class MazeEscape extends DrawApplication {
 		// Instantiate the tools
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
-		ResetButton rb = new ResetButton(this, this);
+		rb = new ResetButton(this, this);
 		LoadButton lb = new LoadButton(this, this);
 		SaveButton sb = new SaveButton(this, this);
 		QuitButton qb = new QuitButton(this);
@@ -326,6 +328,9 @@ public class MazeEscape extends DrawApplication {
 
 	public void setStepsTaken(int stepsTaken) {
 		this.stepsTaken = stepsTaken;
+		if (this.stepsTaken > 0) {
+			rb.setEnabled(true);
+		}
 		count = Integer.toString(stepsTaken);
 		stepCount.setText("Steps taken: " + count);
 	}
@@ -453,6 +458,14 @@ public class MazeEscape extends DrawApplication {
 
 	public int getTimePassed() {
 		return timePassed;
+	}
+	
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+	
+	public boolean getStart() {
+		return start;
 	}
 	
 	
