@@ -17,11 +17,15 @@ public class MazeEscapeApp {
 	private static PlayMusic music;
 	private static boolean loop = true;
 	private static boolean old = false;
+	
+	//Load Code
+	private static MazeSaveLoad msl;
+	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) {
 		createInstructionsScreen();
-
 		maze = new MazeEscape();
+		msl = new MazeSaveLoad();
 		createMaze(maze);
 	}
 
@@ -67,14 +71,23 @@ public class MazeEscapeApp {
 		maze.setLocationRelativeTo(null);
 		DrawingView view = maze.view();
 
-		GUIDrawer guiDrawer = new GUIDrawer(maze);
+		GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
 
 		// Draws plain n x n grid
 		guiDrawer.drawMaze();
 
 		// Generates internal maze representation and updates graphical
 		// representation
-		guiDrawer.generateAndDrawMaze();
+		if(loadMazeOnCreation)
+		{
+			//Placeholder for load methods
+			
+			unmarkForLoad();
+		}
+		else
+		{
+			guiDrawer.generateAndDrawMaze();
+		}
 
 		// Refresh view
 		view.repairDamage();
@@ -134,5 +147,15 @@ public class MazeEscapeApp {
 		maze = newMaze;
 		createMaze(maze);
 
+	}
+	
+	public static void markForLoad()
+	{
+		loadMazeOnCreation = true;
+	}
+	
+	public static void unmarkForLoad()
+	{
+		loadMazeOnCreation = false;
 	}
 }

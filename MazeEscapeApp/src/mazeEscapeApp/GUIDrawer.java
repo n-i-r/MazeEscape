@@ -27,11 +27,13 @@ public class GUIDrawer {
 	private MazeFactory mazeFactory;
 	private MazeSaveLoad msl;
 
-	public GUIDrawer(MazeEscape m) {
+	public GUIDrawer(MazeEscape m, MazeSaveLoad mazeSaveLoad) {
 		mazeEscape = m;
 		view = m.view();
 		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
-		msl = new MazeSaveLoad(mazeFactory.getMazeFile());
+		//msl = new MazeSaveLoad(mazeFactory.getMazeFile());
+		msl = mazeSaveLoad;
+		msl.setMazeFile(mazeFactory.getMazeFile());
 	}
 
 	/**
