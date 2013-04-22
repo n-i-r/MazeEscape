@@ -1,9 +1,13 @@
 package mazeEscapeApp;
 
 import java.util.*;
+import java.awt.Color;
 import java.io.*;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import org.jhotdraw.framework.FigureAttributeConstant;
+
 import mazeEscapeUtils.MazeFileFilter;
 
 public class MazeSaveLoad {
@@ -22,6 +26,7 @@ public class MazeSaveLoad {
 	private int stepsTaken;
 	private String time;
 	private String count;
+	private GCellCoordinate currentlySelectedCoord;
 	
 	public MazeSaveLoad(ArrayList<String> maze)
 	{
@@ -158,8 +163,10 @@ public class MazeSaveLoad {
 		}
 	}
 
-	public void loadGame()
+	public void loadGame(MazeEscape m, GUIDrawer gd)
 	{
+		System.out.println("=== Start Load Method ===");
+		
 		mazeFile=new ArrayList<String>();
 		saveCells=new ArrayList<GCellCoordinate>();
 		
@@ -177,8 +184,9 @@ public class MazeSaveLoad {
 				{
 					boolean readingMazeFile = true;
 					boolean readingCoordinateFile=false;
-					boolean readingVariables=false;
 					
+					System.out.println("Import Maze Info");
+					//Import maze info
 					while(readingMazeFile && scan.hasNext())
 					{
 						String s = scan.nextLine();
@@ -189,17 +197,47 @@ public class MazeSaveLoad {
 						}
 						else
 						{
+							System.out.println(s);
 							mazeFile.add(s);
 						}
 					}
 					
+					//Import modified cells info
+					System.out.println("\nImport Modified Cells Info");
 					while(readingCoordinateFile && scan.hasNext())
 					{
-						String s = scan.next();
-						saveCells.add(new GCellCoordinate(s));
-						
-						//String s = scan.hasNext();
+						String s = scan.nextLine();
+						if(s.equals("***===***"))
+						{
+							readingCoordinateFile=false;
+						}
+						else
+						{
+							System.out.println(s);
+							saveCells.add(new GCellCoordinate(s));
+						}
 					}
+					
+					//Import variable state info
+					System.out.println("\nStart Variable Import");
+					currentlySelectedCoord = new GCellCoordinate(scan.nextLine());
+					isFirstClick = scan.nextBoolean();
+					reachedEndCell=scan.nextBoolean();
+					reset = scan.nextBoolean();
+					on = scan.nextBoolean();
+					levelPoints = scan.nextInt();
+					timePassed = scan.nextInt();
+					timeScore = scan.nextInt();
+					minSteps = scan.nextInt();
+					stepsTaken = scan.nextInt();
+					time = scan.nextLine();
+					count = scan.nextLine();
+					System.out.println("End Variable Import");
+					
+					scan.close();
+					
+					updateMaze(m, gd);
+					
 					
 				}
 			}catch(FileNotFoundException e)
@@ -207,5 +245,32 @@ public class MazeSaveLoad {
 				//Implement me!
 			}
 		}
+	}
+	
+	private void updateMaze(MazeEscape m, GUIDrawer gd)
+	{
+		System.out.println("Updating maze...");
+		gd.loadMaze(mazeFile);
+		
+		System.out.println("Updating modified cells");
+		for(GCellCoordinate c:saveCells)
+		{
+			m.getgCellClickableArea()[c.getRow()][c.getCol()].setAttribute(FigureAttributeConstant.FILL_COLOR, Color.CYAN);
+		}
+		
+		System.out.println("Updating variables");
+		currentlySelected = m.getgCellClickableArea()[currentlySelectedCoord.getRow()][currentlySelectedCoord.getCol()];
+		m.setCurrentlySelected(currentlySelected);
+		m.setFirstClick(isFirstClick);
+		m.setReachedEndCell(reachedEndCell);
+		m.setReset(reset);
+		m.setOn(on);
+		m.setLevelPoints(levelPoints);
+		m.setTimePassed(timePassed);
+		m.setMinSteps(minSteps);
+		m.setStepsTaken(stepsTaken);
+		m.setTime(time);
+		m.setCount(count);
+		currentlySelected.drawLarry();
 	}
 }

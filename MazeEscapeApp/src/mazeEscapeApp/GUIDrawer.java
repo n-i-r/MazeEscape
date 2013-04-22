@@ -2,6 +2,7 @@ package mazeEscapeApp;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import org.jhotdraw.framework.DrawingView;
 import org.jhotdraw.framework.FigureAttributeConstant;
@@ -33,7 +34,7 @@ public class GUIDrawer {
 		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
 		//msl = new MazeSaveLoad(mazeFactory.getMazeFile());
 		msl = mazeSaveLoad;
-		msl.setMazeFile(mazeFactory.getMazeFile());
+		//msl.setMazeFile(mazeFactory.getMazeFile());
 	}
 
 	/**
@@ -69,6 +70,7 @@ public class GUIDrawer {
 	public void generateAndDrawMaze() {
 		// Create maze of size length * length (or n * n)
 		KeyValPair<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
+		msl.setMazeFile(mazeFactory.getMazeFile());
 		// Retrieve relevant info and minimum spanning tree
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();
@@ -82,6 +84,45 @@ public class GUIDrawer {
 		EdgeList el = mst.edges();
 		for (Edge e : el) {
 			Coordinate c = e.getIdentity();
+			removeLine(c.getRow(), c.getCol(), c.getRow2(), c.getCol2());
+		}
+		// Remove start and end edges
+		removeStartOrEndLine(mazeInfo.getRStart(), mazeInfo.getCStart());
+		removeStartOrEndLine(mazeInfo.getRFinish(), mazeInfo.getCFinish());
+
+		mazeEscape.setStartCell(mazeEscape.getgCellClickableArea()[mazeInfo
+				.getRStart()][mazeInfo.getCStart()]);
+		mazeEscape.setEndCell(mazeEscape.getgCellClickableArea()[mazeInfo
+				.getRFinish()][mazeInfo.getCFinish()]);
+		mazeEscape.getEndCell().setAttribute(
+				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
+	}
+	
+	public void loadMaze(ArrayList<String> a)
+	{
+		// Create maze of size length * length (or n * n)
+		System.out.println("Creating special instance of MazeFactory");
+		mazeFactory = new MazeFactory(a);
+		System.out.println("MazeFactory re-creation complete");
+		System.out.println("Generating maze");
+		KeyValPair<MazeInfo, ALGraph> mazeParts = mazeFactory.generateMaze();
+		msl.setMazeFile(mazeFactory.getMazeFile());
+		// Retrieve relevant info and minimum spanning tree
+		MazeInfo mazeInfo = mazeParts.getKey();
+		ALGraph mst = mazeParts.getValue();
+		int steps = mazeFactory.getMinimumSteps();
+		mazeEscape.setSteps(steps);
+		mazeEscape.setGUIDrawer(this);
+		mazeEscape.setMSL(msl);
+
+		// Retrieve edges that need to be removed from base grid to generate
+		// a maze
+		System.out.println("Removing edges...");
+		System.out.println("MST Edges:");
+		EdgeList el = mst.edges();
+		for (Edge e : el) {
+			Coordinate c = e.getIdentity();
+			System.out.println(c);
 			removeLine(c.getRow(), c.getCol(), c.getRow2(), c.getCol2());
 		}
 		// Remove start and end edges

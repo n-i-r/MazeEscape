@@ -160,6 +160,24 @@ public class GCellArea extends RectangleFigure {
 		}
 
 	}
+	
+	public void drawLarry()
+	{
+		int r = maze.getCurrentlySelected().row;
+		int c = maze.getCurrentlySelected().column;
+		larry = new Pinhead(new Point(SHIFT + c
+				* maze.getgCellPixelLength(), SHIFT + r
+				* maze.getgCellPixelLength()), new Point(SHIFT + c
+				* maze.getgCellPixelLength()
+				+ maze.getgCellPixelLength(), SHIFT + r
+				* maze.getgCellPixelLength()
+				+ maze.getgCellPixelLength() - 1));
+		larry.setAttribute(FigureAttributeConstant.FILL_COLOR,
+				Color.PINK);
+		larry.setAttribute(FigureAttributeConstant.FRAME_COLOR,
+				Color.RED);
+		view.add(larry);
+	}
 
 	/**
 	 * Recursively moves the player from its current location to the destination

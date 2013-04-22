@@ -19,13 +19,12 @@ public class MazeEscapeApp {
 	private static boolean old = false;
 	
 	//Load Code
-	private static MazeSaveLoad msl;
+	private static MazeSaveLoad msl=new MazeSaveLoad();
 	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) {
 		createInstructionsScreen();
 		maze = new MazeEscape();
-		msl = new MazeSaveLoad();
 		createMaze(maze);
 	}
 
@@ -81,7 +80,7 @@ public class MazeEscapeApp {
 		if(loadMazeOnCreation)
 		{
 			//Placeholder for load methods
-			
+			msl.loadGame(maze, guiDrawer);
 			unmarkForLoad();
 		}
 		else
@@ -93,7 +92,6 @@ public class MazeEscapeApp {
 		view.repairDamage();
 
 		// Start cell blue
-		// WOW NEW COMMENT
 		// maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR,
 		// Color.BLUE);
 

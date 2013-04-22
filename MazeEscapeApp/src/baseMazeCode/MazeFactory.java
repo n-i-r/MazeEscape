@@ -75,6 +75,34 @@ public class MazeFactory {
 		vSoln = lists.getKey();
 		eSoln = lists.getValue();
 	}
+	
+	public MazeFactory(ArrayList<String> a)
+	{
+		//Pass file to the generator
+		GraphGen gGen = new GraphGen();
+		
+		// GraphGen will generate the maze and the info for the maze
+		// This will be stored in a KeyValPair (which holds two objects)
+		KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> mazeComponents = gGen.generateWithArray(a);
+		KeyValPair<ALGraph, MazeInfo> vals = mazeComponents.getKey();
+		mazeFile = mazeComponents.getValue();
+
+		// Split the KeyValPair into its corresponding parts
+		graph = vals.getKey();
+		mz = vals.getValue();
+
+		// Run the MST alg on the generated graph and store it in mst
+		CalcMST cmst = new CalcMST(graph);
+		mst = cmst.solve();
+		
+		//Run the DFS algorithm on the maze to find the shortest path
+		CalcDFS cdfs = new CalcDFS(graph, mst, mz);
+		KeyValPair<VertexList, EdgeList> lists = cdfs.findSoln();
+		
+		//Store the VertexList and EdgeList in vSoln and eSoln
+		vSoln = lists.getKey();
+		eSoln = lists.getValue();
+	}
 
 	/**
 	 * Returns the walls to be removed from a maze of size n

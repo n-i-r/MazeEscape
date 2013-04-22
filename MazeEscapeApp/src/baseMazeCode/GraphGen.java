@@ -494,6 +494,40 @@ public class GraphGen {
 		KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> mazeReturn = new KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>>(returnVals, mazeFile);
 		return mazeReturn;
 	}
+	
+	public KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> generateWithArray(ArrayList<String> a)
+	{
+		ArrayList<String> mazeFile = a;
+		//Set line to 0 since we're just starting the parse sequence
+		line=0;
+		
+		while(line<a.size())
+		{
+			line++;
+			if(line==1)
+			{
+				//This condition is for the very first line of the input
+				//Since this line has values like n, rStart, etc, it needs to be handles differently
+				boolean response=processLine1(a.get(line-1));
+				if(response==false)
+					throw new RestartProgramSignal();
+			}
+			else
+			{
+				//The other lines of the input is handled by this
+				boolean response=processBodyLine(a.get(line-1));
+				if(response==false)
+					throw new RestartProgramSignal();
+			}
+		}
+		
+		if(debug)System.out.println("Parse sequence completed.");
+		
+		//Combine the newly generated graph with the MazeInfo and return it
+		KeyValPair<ALGraph, MazeInfo> returnVals=new KeyValPair<ALGraph, MazeInfo>(graph, mazeInfo);
+		KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>> mazeReturn = new KeyValPair<KeyValPair<ALGraph, MazeInfo>, ArrayList<String>>(returnVals, mazeFile);
+		return mazeReturn;
+	}
 			
 		
 		

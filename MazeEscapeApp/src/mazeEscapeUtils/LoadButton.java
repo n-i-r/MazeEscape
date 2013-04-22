@@ -17,6 +17,7 @@ public class LoadButton extends AbstractTool {
 
 	public void activate() {
 		maze.setTool(new MazeNavigateTool(maze), "maze tool");
+		maze.loadGame();
 		deactivate();
 	}
 }
