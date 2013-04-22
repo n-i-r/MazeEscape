@@ -286,4 +286,10 @@ public class MazeSaveLoad {
 		
 		m.view().repairDamage();
 	}
+	
+	public void resetMSL()
+	{
+		mazeFile = new ArrayList<String>();
+		saveCells = new ArrayList<GCellCoordinate>();
+	}
 }

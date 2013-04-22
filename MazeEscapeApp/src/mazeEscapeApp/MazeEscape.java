@@ -224,7 +224,7 @@ public class MazeEscape extends DrawApplication {
 
 		// Put the relevant tools on the toolbar
 		tBar.add(createToolButton(IMAGE + "RESET", "Reset Game", rb));
-		tBar.add(createToolButton(IMAGE + "LOAD", "Load Game", lb));
+		//tBar.add(createToolButton(IMAGE + "LOAD", "Load Game", lb));
 		tBar.add(createToolButton(IMAGE + "SAVE", "Save Game", sb));
 		tBar.add(createToolButton(IMAGE + "FORFEIT", "Forfeit + See Solution",
 				fb));

@@ -1,6 +1,11 @@
 package mazeEscapeApp;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import org.jhotdraw.framework.DrawingView;
 
@@ -23,6 +28,7 @@ public class MazeEscapeApp {
 	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) {
+		createLoadOptions();
 		createInstructionsScreen();
 		if(loadMazeOnCreation)
 			maze = new MazeEscape(true);
@@ -61,6 +67,48 @@ public class MazeEscapeApp {
 		aFrame.setSize(350, 350);
 		aFrame.setVisible(true);
 	}
+	
+	private static void createLoadOptions()
+	{
+		Object[] options = { "New Game", "Load Game" };
+
+		// Creates message and options for dialog box
+		final JOptionPane optionPane = new JOptionPane(
+				"Welcome to MazeEscape. \nWould you like to start a new game or resume an existing one?",
+				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION, null,
+				options, options[0]);
+
+		// Creates dialog box displaying the message
+		final JDialog dialog = new JDialog(new JFrame(), "MazeEsape v1.0", true);
+		dialog.setContentPane(optionPane);
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+		optionPane.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent e) {
+				String prop = e.getPropertyName();
+
+				// Will execute a specific method right before closing.
+				if (dialog.isVisible() && (e.getSource() == optionPane)
+						&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
+					System.out.println("Closed!");
+					dialog.setVisible(false);
+				}
+			}
+		});
+		dialog.pack();
+		dialog.setLocationRelativeTo(null);
+		dialog.setVisible(true);
+
+		// Allows to set difficulty of maze, based on selection
+		String value = optionPane.getValue().toString();
+		System.out.println(value);
+		if (value == "Load Game") {
+			markForLoad();
+		} else if (value == "New Game") {
+			unmarkForLoad();
+		}
+	}
+	
 
 	/*
 	 * Creates a new maze of the given difficulty level
@@ -77,7 +125,6 @@ public class MazeEscapeApp {
 		// representation
 		if(loadMazeOnCreation)
 		{
-			System.out.println("lm");
 			msl.loadGame(maze);
 			GUIDrawer guiDrawer = new GUIDrawer(maze,msl);
 			msl.updateMaze(maze,guiDrawer);
@@ -85,6 +132,7 @@ public class MazeEscapeApp {
 		}
 		else
 		{
+			msl.resetMSL();
 			GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
 			// Draws plain n x n grid
 			guiDrawer.drawMaze();
