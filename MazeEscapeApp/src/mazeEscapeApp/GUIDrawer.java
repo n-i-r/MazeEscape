@@ -59,6 +59,7 @@ public class GUIDrawer {
 						* mazeEscape.getgCellPixelLength(), mazeEscape);
 			}
 		}
+		
 	}
 	
 	public void drawMaze(int n) {
@@ -117,6 +118,8 @@ public class GUIDrawer {
 				.getRFinish()][mazeInfo.getCFinish()]);
 		mazeEscape.getEndCell().setAttribute(
 				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
+		
+		
 	}
 	
 	public void loadMaze(ArrayList<String> a, String difficulty)
