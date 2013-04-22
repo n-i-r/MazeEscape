@@ -96,7 +96,17 @@ public class MazeSaveLoad {
 		{
 			//Add the .maze extension to the file
 			File file = fc.getSelectedFile();
-			file = new File(file.getPath() + ".maze");
+			
+			String str = file.getName();
+			String extension=null;
+			int i=str.lastIndexOf('.');
+			
+			if(i>0 && i<str.length()-1)
+				extension = str.substring(i+1).toLowerCase();
+			
+			if(extension==null || !extension.equals("maze"))
+				file = new File(file.getPath() + ".maze");
+			
 			try {
 				//Write mazeFile and saveCells to the file
 				PrintWriter out = new PrintWriter(file);
@@ -123,7 +133,10 @@ public class MazeSaveLoad {
 				out.println("***===***");
 				
 				//Currently Selected
-				out.println(new GCellCoordinate(cS));
+				if(cS!=null)
+					out.println(new GCellCoordinate(cS));
+				else
+					out.println();
 				
 				//time
 				out.println(t);
@@ -227,7 +240,9 @@ public class MazeSaveLoad {
 					
 					//Import variable state info
 					System.out.println("\nStart Variable Import");
-					currentlySelectedCoord = new GCellCoordinate(scan.nextLine());
+					String cSC=scan.nextLine();
+					if(!cSC.equals(""))
+						currentlySelectedCoord = new GCellCoordinate(cSC);
 					time = scan.nextLine();
 					count = scan.nextLine();
 					difficulty = scan.nextLine();
@@ -267,7 +282,8 @@ public class MazeSaveLoad {
 		}
 		
 		System.out.println("Updating variables");
-		currentlySelected = m.getgCellClickableArea()[currentlySelectedCoord.getRow()][currentlySelectedCoord.getCol()];
+		if(currentlySelectedCoord!=null)
+			currentlySelected = m.getgCellClickableArea()[currentlySelectedCoord.getRow()][currentlySelectedCoord.getCol()];
 		m.setCurrentlySelected(currentlySelected);
 		m.setFirstClick(isFirstClick);
 		m.setReachedEndCell(reachedEndCell);
