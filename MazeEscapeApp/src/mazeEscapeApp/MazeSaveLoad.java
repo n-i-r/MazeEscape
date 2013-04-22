@@ -264,13 +264,18 @@ public class MazeSaveLoad {
 		m.setFirstClick(isFirstClick);
 		m.setReachedEndCell(reachedEndCell);
 		m.setReset(reset);
-		m.setOn(on);
-		m.setLevelPoints(levelPoints);
+
+		m.displayTimeAndSteps();
 		m.setTimePassed(timePassed);
+		m.setLevelPoints(levelPoints);
 		m.setMinSteps(minSteps);
 		m.setStepsTaken(stepsTaken);
 		m.setTime(time);
 		m.setCount(count);
 		currentlySelected.drawLarry();
+		m.setOn(on);
+		
+		
+		m.view().repairDamage();
 	}
 }
