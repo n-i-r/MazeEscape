@@ -79,7 +79,7 @@ public class MazeEscapeApp {
 				options, options[0]);
 
 		// Creates dialog box displaying the message
-		final JDialog dialog = new JDialog(new JFrame(), "MazeEsape v1.0", true);
+		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.0", true);
 		dialog.setContentPane(optionPane);
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
