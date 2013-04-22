@@ -27,6 +27,7 @@ public class MazeSaveLoad {
 	private String time;
 	private String count;
 	private GCellCoordinate currentlySelectedCoord;
+	private String difficulty;
 	
 	public MazeSaveLoad(ArrayList<String> maze)
 	{
@@ -78,12 +79,13 @@ public class MazeSaveLoad {
 		stepsTaken=m.getStepsTaken();
 		time=m.getTime();
 		count=m.getCount();
+		difficulty=m.getDifficulty();
 		
 		saveGame(currentlySelected, isFirstClick, reachedEndCell, reset, on,
-				levelPoints, timePassed,timeScore, minSteps, stepsTaken, time, count);
+				levelPoints, timePassed,timeScore, minSteps, stepsTaken, time, count, difficulty);
 	}
 	private void saveGame(GCellArea cS, boolean iFC, boolean rEC, boolean reset,
-			boolean on, int lvlPts, int tP, int tS, int mS, int sT, String t, String c)
+			boolean on, int lvlPts, int tP, int tS, int mS, int sT, String t, String c, String diff)
 	{
 		//Have the user select the save location
 		fc.setSelectedFile(new File("MazeSave"));
@@ -123,6 +125,15 @@ public class MazeSaveLoad {
 				//Currently Selected
 				out.println(new GCellCoordinate(cS));
 				
+				//time
+				out.println(t);
+				
+				//count
+				out.println(c);
+				
+				//difficulty
+				out.println(diff);
+				
 				//isFirstClick
 				out.println(iFC);
 				
@@ -150,11 +161,7 @@ public class MazeSaveLoad {
 				//stepsTaken
 				out.println(sT);
 				
-				//time
-				out.println(t);
 				
-				//count
-				out.println(c);
 				
 				out.close();
 			} catch (FileNotFoundException e) {
@@ -163,7 +170,7 @@ public class MazeSaveLoad {
 		}
 	}
 
-	public void loadGame(MazeEscape m, GUIDrawer gd)
+	public void loadGame(MazeEscape m)
 	{
 		System.out.println("=== Start Load Method ===");
 		
@@ -221,6 +228,9 @@ public class MazeSaveLoad {
 					//Import variable state info
 					System.out.println("\nStart Variable Import");
 					currentlySelectedCoord = new GCellCoordinate(scan.nextLine());
+					time = scan.nextLine();
+					count = scan.nextLine();
+					difficulty = scan.nextLine();
 					isFirstClick = scan.nextBoolean();
 					reachedEndCell=scan.nextBoolean();
 					reset = scan.nextBoolean();
@@ -230,13 +240,11 @@ public class MazeSaveLoad {
 					timeScore = scan.nextInt();
 					minSteps = scan.nextInt();
 					stepsTaken = scan.nextInt();
-					time = scan.nextLine();
-					count = scan.nextLine();
 					System.out.println("End Variable Import");
 					
 					scan.close();
 					
-					updateMaze(m, gd);
+					//updateMaze(m, gd);
 					
 					
 				}
@@ -247,10 +255,10 @@ public class MazeSaveLoad {
 		}
 	}
 	
-	private void updateMaze(MazeEscape m, GUIDrawer gd)
+	public void updateMaze(MazeEscape m, GUIDrawer gd)
 	{
 		System.out.println("Updating maze...");
-		gd.loadMaze(mazeFile);
+		gd.loadMaze(mazeFile, difficulty);
 		
 		System.out.println("Updating modified cells");
 		for(GCellCoordinate c:saveCells)

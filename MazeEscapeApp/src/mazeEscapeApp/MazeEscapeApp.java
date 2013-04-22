@@ -24,7 +24,10 @@ public class MazeEscapeApp {
 
 	public static void main(String[] args) {
 		createInstructionsScreen();
-		maze = new MazeEscape();
+		if(loadMazeOnCreation)
+			maze = new MazeEscape(true);
+		else
+			maze = new MazeEscape();
 		createMaze(maze);
 	}
 
@@ -69,22 +72,22 @@ public class MazeEscapeApp {
 		maze.setSize(900, 900);
 		maze.setLocationRelativeTo(null);
 		DrawingView view = maze.view();
-
-		GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
-
-		// Draws plain n x n grid
-		guiDrawer.drawMaze();
-
+		
 		// Generates internal maze representation and updates graphical
 		// representation
 		if(loadMazeOnCreation)
 		{
-			//Placeholder for load methods
-			msl.loadGame(maze, guiDrawer);
+			System.out.println("lm");
+			msl.loadGame(maze);
+			GUIDrawer guiDrawer = new GUIDrawer(maze,msl);
+			msl.updateMaze(maze,guiDrawer);
 			unmarkForLoad();
 		}
 		else
 		{
+			GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
+			// Draws plain n x n grid
+			guiDrawer.drawMaze();
 			guiDrawer.generateAndDrawMaze();
 		}
 
@@ -141,7 +144,16 @@ public class MazeEscapeApp {
 		// System.out.println(loop);
 		// oldMaze = m;
 		old = true;
-		MazeEscape newMaze = new MazeEscape();
+		MazeEscape newMaze = null;
+		if(loadMazeOnCreation)
+		{	
+			newMaze = new MazeEscape(true);
+		}
+		else
+		{
+			newMaze = new MazeEscape();
+		}
+		
 		maze = newMaze;
 		createMaze(maze);
 

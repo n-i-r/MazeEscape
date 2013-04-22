@@ -31,17 +31,38 @@ public class GUIDrawer {
 	public GUIDrawer(MazeEscape m, MazeSaveLoad mazeSaveLoad) {
 		mazeEscape = m;
 		view = m.view();
-		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
-		//msl = new MazeSaveLoad(mazeFactory.getMazeFile());
 		msl = mazeSaveLoad;
-		//msl.setMazeFile(mazeFactory.getMazeFile());
 	}
 
 	/**
 	 * Draws the maze onto the given view
 	 */
 	public void drawMaze() {
+		mazeFactory = new MazeFactory(mazeEscape.getLengthMaze());
 		int n = mazeEscape.getLengthMaze();
+		for (int r = 0; r < n; r++) {
+			for (int c = 0; c < n; c++) {
+				mazeEscape.getgCellClickableArea()[r][c] = new GCellArea(
+						new Point(SHIFT + c * mazeEscape.getgCellPixelLength(),
+								SHIFT + r * mazeEscape.getgCellPixelLength()),
+						new Point(SHIFT + c * mazeEscape.getgCellPixelLength()
+								+ mazeEscape.getgCellPixelLength(), SHIFT + r
+								* mazeEscape.getgCellPixelLength()
+								+ mazeEscape.getgCellPixelLength()),
+						mazeEscape, msl.getCellArray());
+				mazeEscape.getgCellClickableArea()[r][c].setRow(r);
+				mazeEscape.getgCellClickableArea()[r][c].setColumn(c);
+
+				view.add(mazeEscape.getgCellClickableArea()[r][c]);
+				mazeEscape.getGridCells()[r][c] = new GridCell(SHIFT + c
+						* mazeEscape.getgCellPixelLength(), SHIFT + r
+						* mazeEscape.getgCellPixelLength(), mazeEscape);
+			}
+		}
+	}
+	
+	public void drawMaze(int n) {
+		System.out.println(mazeEscape.getDifficulty());
 		for (int r = 0; r < n; r++) {
 			for (int c = 0; c < n; c++) {
 				mazeEscape.getgCellClickableArea()[r][c] = new GCellArea(
@@ -98,7 +119,7 @@ public class GUIDrawer {
 				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
 	}
 	
-	public void loadMaze(ArrayList<String> a)
+	public void loadMaze(ArrayList<String> a, String difficulty)
 	{
 		// Create maze of size length * length (or n * n)
 		System.out.println("Creating special instance of MazeFactory");
@@ -111,9 +132,15 @@ public class GUIDrawer {
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();
 		int steps = mazeFactory.getMinimumSteps();
+		
+		mazeEscape.setDifficulty(difficulty);
+		mazeEscape.setDifficultyMode(difficulty);
+		mazeEscape.construct();
+		drawMaze(mazeInfo.getN());
 		mazeEscape.setSteps(steps);
 		mazeEscape.setGUIDrawer(this);
 		mazeEscape.setMSL(msl);
+		
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
