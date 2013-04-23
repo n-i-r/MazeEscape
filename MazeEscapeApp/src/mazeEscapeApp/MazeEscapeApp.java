@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import org.jhotdraw.framework.DrawingView;
 
+import baseMazeCode.RestartProgramSignal;
+
 /**
  * Main class for the MazeEscape game.
  * 
@@ -28,13 +30,35 @@ public class MazeEscapeApp {
 	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) {
-		createLoadOptions();
-		createInstructionsScreen();
-		if(loadMazeOnCreation)
-			maze = new MazeEscape(true);
-		else
-			maze = new MazeEscape();
-		createMaze(maze);
+		boolean loop=true;
+		boolean multiple=false;
+		while(loop)
+		{
+			try
+			{
+				if(multiple)
+				{
+					oldMaze = maze;
+					oldMaze.setVisible(false);
+				}
+				
+				loop=false;
+				createLoadOptions();
+				if(!multiple)
+					createInstructionsScreen();
+				if(loadMazeOnCreation)
+					maze = new MazeEscape(true);
+				else
+					maze = new MazeEscape();
+
+				multiple=false;
+				createMaze(maze);
+			}catch(RestartProgramSignal e)
+			{
+				loop = true;
+				multiple = true;
+			}
+		}
 	}
 
 	/**
