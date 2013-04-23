@@ -44,14 +44,13 @@ public class MazeEscapeApp {
 				
 				loop=false;
 				createLoadOptions();
-				createInstructionsScreen();
+				if(!multiple)
+					createInstructionsScreen();
 				if(loadMazeOnCreation)
 					maze = new MazeEscape(true);
 				else
 					maze = new MazeEscape();
-				
-				if(multiple)
-					//destroyOldMaze(oldMaze);
+
 				multiple=false;
 				createMaze(maze);
 			}catch(RestartProgramSignal e)
