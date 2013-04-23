@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 
 import org.jhotdraw.framework.FigureAttributeConstant;
 
+import baseMazeCode.RestartProgramSignal;
+
 import mazeEscapeUtils.MazeFileFilter;
 
 public class MazeSaveLoad {
@@ -268,6 +270,8 @@ public class MazeSaveLoad {
 				//Implement me!
 			}
 		}
+		else
+			throw new RestartProgramSignal();
 	}
 	
 	public void updateMaze(MazeEscape m, GUIDrawer gd)
