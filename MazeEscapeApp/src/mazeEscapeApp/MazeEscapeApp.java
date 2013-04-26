@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+
 import org.jhotdraw.framework.DrawingView;
 
 import baseMazeCode.RestartProgramSignal;
@@ -24,12 +25,14 @@ public class MazeEscapeApp {
 	private static PlayMusic music;
 	private static boolean loop = true;
 	private static boolean old = false;
+	private static boolean load = true;
 	
 	//Load Code
 	private static MazeSaveLoad msl=new MazeSaveLoad();
 	private static boolean loadMazeOnCreation = false;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+		loadSplash();
 		boolean loop=true;
 		boolean multiple=false;
 		while(loop)
@@ -58,6 +61,29 @@ public class MazeEscapeApp {
 				loop = true;
 				multiple = true;
 			}
+		}
+	}
+	
+	/**
+	 * Loads up the splash screen on application launch
+	 * @throws InterruptedException 
+	 */
+	private static void loadSplash() throws InterruptedException {
+		SplashScreen screen = new SplashScreen();
+		screen.show();
+		int i = 0;
+		while(load == true) {
+			Thread thread = new Thread();
+			thread.start();
+			screen.setProgress(i);
+			screen.setStatus("Loading: "+i+"% loaded");
+			i++;
+			System.out.println(i);
+			if (i > 100) {
+				screen.close();
+				load = false;
+			}
+			thread.sleep(50);
 		}
 	}
 
@@ -103,7 +129,7 @@ public class MazeEscapeApp {
 				options, options[0]);
 
 		// Creates dialog box displaying the message
-		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.0", true);
+		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.1", true);
 		dialog.setContentPane(optionPane);
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
