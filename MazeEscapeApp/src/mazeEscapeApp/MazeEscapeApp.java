@@ -78,7 +78,6 @@ public class MazeEscapeApp {
 			screen.setProgress(i);
 			screen.setStatus("Loading: "+i+"% loaded");
 			i++;
-			System.out.println(i);
 			if (i > 100) {
 				screen.close();
 				load = false;
