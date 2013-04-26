@@ -30,6 +30,8 @@ public class ResetButton extends AbstractTool{
 		maze.setCurrentlySelected(maze.getStartCell());
 		maze.setFirstClick(true);
 		maze.setTool(new MazeNavigateTool(maze), "maze tool");
+		maze.setForfeitButton(true);
+		maze.setSaveButton(true);
 		deactivate();
 	}
 	

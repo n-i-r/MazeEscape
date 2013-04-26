@@ -55,6 +55,7 @@ public class MazeEscape extends DrawApplication {
 	private GUIDrawer guiDrawer;
 	private ForfeitButton fb;
 	private ResetButton rb;
+	private SaveButton sb;
 	private static final String IMAGE = "/resources/";
 
 	//Save and Load Code
@@ -218,8 +219,8 @@ public class MazeEscape extends DrawApplication {
 		setDefaultTool(createDefaultTool());
 		fb = new ForfeitButton(this, guiDrawer, this);
 		rb = new ResetButton(this, this);
-		LoadButton lb = new LoadButton(this, this);
-		SaveButton sb = new SaveButton(this, this);
+		sb = new SaveButton(this, this);
+		//LoadButton lb = new LoadButton(this, this);
 		QuitButton qb = new QuitButton(this);
 
 		// Put the relevant tools on the toolbar
@@ -341,6 +342,14 @@ public class MazeEscape extends DrawApplication {
 	public void setOn(boolean on) {
 		this.on = on;
 	}
+	
+	public void setForfeitButton(boolean action) {
+		fb.setEnabled(action);
+	}
+	
+	public void setSaveButton(boolean action) {
+		sb.setEnabled(action);
+	}
 
 	public int getStepsTaken() {
 		return stepsTaken;
@@ -350,7 +359,7 @@ public class MazeEscape extends DrawApplication {
 		this.stepsTaken = stepsTaken;
 		if (this.stepsTaken > 0) {
 			rb.setEnabled(true);
-			fb.setEnabled(true);
+			this.setForfeitButton(true);
 		}
 		count = Integer.toString(stepsTaken);
 		stepCount.setText("Steps taken: " + count);

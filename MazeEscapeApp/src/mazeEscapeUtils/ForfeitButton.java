@@ -36,6 +36,8 @@ public class ForfeitButton extends AbstractTool {
 						null,
 						"You have now lost the game. Click OK to see the solution. Click reset to play again.");
 		guiDrawer.drawSolution();
+		maze.setSaveButton(false);
+		maze.setForfeitButton(false);
 		deactivate();
 		// WinnerScreen screen = new WinnerScreen(maze);
 		// screen.forfeit();
