@@ -32,7 +32,7 @@ public class MazeEscapeApp {
 	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) throws InterruptedException {
-		// loadSplash();
+		loadSplash();
 		boolean loop = true;
 		boolean multiple = false;
 		while (loop) {
