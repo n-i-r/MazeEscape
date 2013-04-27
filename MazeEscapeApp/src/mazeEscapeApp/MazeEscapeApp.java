@@ -26,57 +26,54 @@ public class MazeEscapeApp {
 	private static boolean loop = true;
 	private static boolean old = false;
 	private static boolean load = true;
-	
-	//Load Code
-	private static MazeSaveLoad msl=new MazeSaveLoad();
+
+	// Load Code
+	private static MazeSaveLoad msl = new MazeSaveLoad();
 	private static boolean loadMazeOnCreation = false;
 
 	public static void main(String[] args) throws InterruptedException {
-		loadSplash();
-		boolean loop=true;
-		boolean multiple=false;
-		while(loop)
-		{
-			try
-			{
-				if(multiple)
-				{
+		// loadSplash();
+		boolean loop = true;
+		boolean multiple = false;
+		while (loop) {
+			try {
+				if (multiple) {
 					oldMaze = maze;
 					oldMaze.setVisible(false);
 				}
-				
-				loop=false;
+
+				loop = false;
 				createLoadOptions();
-				if(!multiple)
+				if (!multiple)
 					createInstructionsScreen();
-				if(loadMazeOnCreation)
+				if (loadMazeOnCreation)
 					maze = new MazeEscape(true);
 				else
 					maze = new MazeEscape();
 
-				multiple=false;
+				multiple = false;
 				createMaze(maze);
-			}catch(RestartProgramSignal e)
-			{
+			} catch (RestartProgramSignal e) {
 				loop = true;
 				multiple = true;
 			}
 		}
 	}
-	
+
 	/**
 	 * Loads up the splash screen on application launch
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
 	private static void loadSplash() throws InterruptedException {
 		SplashScreen screen = new SplashScreen();
 		screen.show();
 		int i = 0;
-		while(load == true) {
+		while (load == true) {
 			Thread thread = new Thread();
 			thread.start();
 			screen.setProgress(i);
-			screen.setStatus("Loading: "+i+"% loaded");
+			screen.setStatus("Loading: " + i + "% loaded");
 			i++;
 			if (i > 100) {
 				screen.close();
@@ -91,9 +88,9 @@ public class MazeEscapeApp {
 	 */
 	private static void createInstructionsScreen() {
 		String instructionString = "Instructions: \n\n"
-				+ "The blue cell is the start cell, and the\n"
-				+ " white cell is the \"light\" at the end of \n"
-				+ " the tunnel. Click on the blue cell to enter into the maze \n"
+				+ "The blue cell is the start cell, and the white cell \n"
+				+ "is the \"light\" at the end ofthe tunnel. \n"
+				+ "Click on the blue cell to enter into the maze \n"
 				+ "i.e. start the game. Then navigate through the maze by \n"
 				+ "clicks. \n\n"
 				+ "The game is grid based, although you may not see \n"
@@ -102,8 +99,9 @@ public class MazeEscapeApp {
 				+ "straight line instead of constantly needing to hit each \n"
 				+ "grid cell, hit the end cell you'd like to move to. \n\n"
 				+ "Hover over the buttons in the toolbar to see what each \n"
-				+ "respective button does. Reset button (first button) \n"
-				+ "is disabled until user starts playing.";
+				+ "respective button does. The reset button (first button) \n"
+				+ "and forfeit button (third button) are disabled until \n"
+				+ "the user starts playing.";
 
 		JFrame aFrame = new JFrame("Instructions");
 
@@ -116,9 +114,8 @@ public class MazeEscapeApp {
 		aFrame.setSize(350, 350);
 		aFrame.setVisible(true);
 	}
-	
-	private static void createLoadOptions()
-	{
+
+	private static void createLoadOptions() {
 		Object[] options = { "New Game", "Load Game" };
 
 		// Creates message and options for dialog box
@@ -128,7 +125,8 @@ public class MazeEscapeApp {
 				options, options[0]);
 
 		// Creates dialog box displaying the message
-		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.1", true);
+		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.1",
+				true);
 		dialog.setContentPane(optionPane);
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
@@ -157,7 +155,6 @@ public class MazeEscapeApp {
 			unmarkForLoad();
 		}
 	}
-	
 
 	/*
 	 * Creates a new maze of the given difficulty level
@@ -169,18 +166,15 @@ public class MazeEscapeApp {
 		maze.setSize(900, 900);
 		maze.setLocationRelativeTo(null);
 		DrawingView view = maze.view();
-		
+
 		// Generates internal maze representation and updates graphical
 		// representation
-		if(loadMazeOnCreation)
-		{
+		if (loadMazeOnCreation) {
 			msl.loadGame(maze);
-			GUIDrawer guiDrawer = new GUIDrawer(maze,msl);
-			msl.updateMaze(maze,guiDrawer);
+			GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
+			msl.updateMaze(maze, guiDrawer);
 			unmarkForLoad();
-		}
-		else
-		{
+		} else {
 			msl.resetMSL();
 			GUIDrawer guiDrawer = new GUIDrawer(maze, msl);
 			// Draws plain n x n grid
@@ -194,7 +188,6 @@ public class MazeEscapeApp {
 		// Start cell blue
 		// maze.getStartCell().setAttribute(FigureAttributeConstant.FILL_COLOR,
 		// Color.BLUE);
-
 
 		// Destroys old maze if completed
 		if (old == true) {
@@ -243,27 +236,22 @@ public class MazeEscapeApp {
 		// oldMaze = m;
 		old = true;
 		MazeEscape newMaze = null;
-		if(loadMazeOnCreation)
-		{	
+		if (loadMazeOnCreation) {
 			newMaze = new MazeEscape(true);
-		}
-		else
-		{
+		} else {
 			newMaze = new MazeEscape();
 		}
-		
+
 		maze = newMaze;
 		createMaze(maze);
 
 	}
-	
-	public static void markForLoad()
-	{
+
+	public static void markForLoad() {
 		loadMazeOnCreation = true;
 	}
-	
-	public static void unmarkForLoad()
-	{
+
+	public static void unmarkForLoad() {
 		loadMazeOnCreation = false;
 	}
 }
