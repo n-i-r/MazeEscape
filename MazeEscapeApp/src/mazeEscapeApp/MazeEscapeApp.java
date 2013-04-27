@@ -91,9 +91,9 @@ public class MazeEscapeApp {
 	 */
 	private static void createInstructionsScreen() {
 		String instructionString = "Instructions: \n\n"
-				+ "The red cell is the start cell, and the\n"
+				+ "The blue cell is the start cell, and the\n"
 				+ " white cell is the \"light\" at the end of \n"
-				+ " the tunnel. Click on the red cell to enter into the maze \n"
+				+ " the tunnel. Click on the blue cell to enter into the maze \n"
 				+ "i.e. start the game. Then navigate through the maze by \n"
 				+ "clicks. \n\n"
 				+ "The game is grid based, although you may not see \n"
