@@ -378,7 +378,7 @@ public class MazeEscape extends DrawApplication {
 			guiDrawer.resetSolution();
 			ArrayList<GCellCoordinate> list = msl.getCellArray();
 			for (GCellCoordinate c:list) {
-				c.getGCellArea().setAttribute(FigureAttributeConstant.FILL_COLOR, new Color(112, 219, 147));
+				c.getGCellArea(this).setAttribute(FigureAttributeConstant.FILL_COLOR, new Color(112, 219, 147));		
 			}
 			this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
 			this.endCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.WHITE);

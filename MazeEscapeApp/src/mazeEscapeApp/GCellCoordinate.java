@@ -72,6 +72,16 @@ public class GCellCoordinate {
 		return (area!=null);
 	}
 	
+	public GCellArea getGCellArea(MazeEscape m)
+	{
+		if(getGCellArea()!=null)
+			return getGCellArea();
+		else
+		{
+			return m.getgCellClickableArea()[row][col];
+		}
+	}
+	
 	
 
 }
