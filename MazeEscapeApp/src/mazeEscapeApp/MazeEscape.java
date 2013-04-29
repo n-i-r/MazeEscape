@@ -73,6 +73,17 @@ public class MazeEscape extends DrawApplication {
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
 	}
 	
+	public MazeEscape(String difficulty) {
+		super("MazeEscape");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		setDifficulty(difficulty);
+		setDifficultyMode(difficulty);
+
+		gridCells = new GridCell[lengthMaze][lengthMaze];
+		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
+	}
+	
 	public MazeEscape(boolean load) {
 		super("MazeEscape");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

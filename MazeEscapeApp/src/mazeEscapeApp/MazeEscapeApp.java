@@ -26,6 +26,7 @@ public class MazeEscapeApp {
 	private static boolean loop = true;
 	private static boolean old = false;
 	private static boolean load = true;
+	private static String difficulty = "";
 
 	// Load Code
 	private static MazeSaveLoad msl = new MazeSaveLoad();
@@ -49,7 +50,12 @@ public class MazeEscapeApp {
 				if (loadMazeOnCreation)
 					maze = new MazeEscape(true);
 				else
-					maze = new MazeEscape();
+				{
+					if(difficulty.equals(""))
+						maze = new MazeEscape();
+					else
+						maze=new MazeEscape(difficulty);
+				}
 
 				multiple = false;
 				createMaze(maze);
@@ -116,11 +122,11 @@ public class MazeEscapeApp {
 	}
 
 	private static void createLoadOptions() {
-		Object[] options = { "New Game", "Load Game" };
+		Object[] options = { "Easy", "Medium", "Hard", "Load Game" };
 
 		// Creates message and options for dialog box
 		final JOptionPane optionPane = new JOptionPane(
-				"Welcome to MazeEscape. \nWould you like to start a new game or resume an existing one?",
+				"Welcome to MazeEscape \nSelect a maze difficulty or choose Load Game to resume an existing game.",
 				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION, null,
 				options, options[0]);
 
@@ -128,7 +134,7 @@ public class MazeEscapeApp {
 		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.1",
 				true);
 		dialog.setContentPane(optionPane);
-		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		optionPane.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent e) {
@@ -151,9 +157,15 @@ public class MazeEscapeApp {
 		System.out.println(value);
 		if (value == "Load Game") {
 			markForLoad();
-		} else if (value == "New Game") {
-			unmarkForLoad();
+		} else if (value == "Easy") {
+			unmarkForLoad("Easy");
 		}
+		else if (value == "Medium")
+			unmarkForLoad("Medium");
+		else if (value == "Hard")
+			unmarkForLoad("Hard");
+		else
+			System.exit(0);
 	}
 
 	/*
@@ -249,5 +261,12 @@ public class MazeEscapeApp {
 
 	public static void unmarkForLoad() {
 		loadMazeOnCreation = false;
+		difficulty = "";
+	}
+	
+	public static void unmarkForLoad(String diff)
+	{
+		loadMazeOnCreation = false;
+		difficulty = diff;
 	}
 }
