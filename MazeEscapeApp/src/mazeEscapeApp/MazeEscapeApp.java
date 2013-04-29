@@ -85,7 +85,7 @@ public class MazeEscapeApp {
 				screen.close();
 				load = false;
 			}
-			thread.sleep(50);
+			thread.sleep(35);
 		}
 	}
 

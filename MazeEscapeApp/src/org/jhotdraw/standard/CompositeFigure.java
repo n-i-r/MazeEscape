@@ -349,7 +349,14 @@ public abstract class CompositeFigure
 	 */
 	public void draw(Graphics g, FigureEnumeration fe) {
 		while (fe.hasNextFigure()) {
-			fe.nextFigure().draw(g);
+			try
+			{
+				fe.nextFigure().draw(g);
+			}
+			catch(java.lang.NullPointerException e)
+			{
+				System.out.println("A NullPointerException was thrown, but thanks to this muzzle\nit has been shut up! :)");
+			}
 		}
 	}
 
