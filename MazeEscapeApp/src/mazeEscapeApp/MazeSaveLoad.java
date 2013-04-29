@@ -265,9 +265,16 @@ public class MazeSaveLoad {
 					
 					
 				}
+				else
+				{
+					scan.close();
+					JOptionPane.showMessageDialog(null, "Sorry, but the file that you selected is corrupted. Please try again.");
+					throw new RestartProgramSignal();
+				}
 			}catch(FileNotFoundException e)
 			{
-				//Implement me!
+				JOptionPane.showMessageDialog(null, "An error was encountered while trying to access that file. Please try again.");
+				throw new RestartProgramSignal();
 			}
 		}
 		else
