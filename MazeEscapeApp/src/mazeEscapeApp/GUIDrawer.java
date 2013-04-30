@@ -27,6 +27,7 @@ public class GUIDrawer {
 	private static final int SHIFT = 50;
 	private MazeFactory mazeFactory;
 	private MazeSaveLoad msl;
+	private VertexList vl;
 
 	public GUIDrawer(MazeEscape m, MazeSaveLoad mazeSaveLoad) {
 		mazeEscape = m;
@@ -59,9 +60,9 @@ public class GUIDrawer {
 						* mazeEscape.getgCellPixelLength(), mazeEscape);
 			}
 		}
-		
+
 	}
-	
+
 	public void drawMaze(int n) {
 		System.out.println(mazeEscape.getDifficulty());
 		for (int r = 0; r < n; r++) {
@@ -104,11 +105,21 @@ public class GUIDrawer {
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
 		EdgeList el = mst.edges();
+		vl = mst.vertices();
 		for (Edge e : el) {
 			Coordinate c = e.getIdentity();
 			removeLine(c.getRow(), c.getCol(), c.getRow2(), c.getCol2());
 		}
-		// Remove start and end edges
+
+		// Iterate through the VertexList and change the color of the relevant
+		// cells before maze starts
+		for (Vertex v : vl) {
+			Coordinate c = v.getElement();
+			mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()]
+					.setAttribute(FigureAttributeConstant.FILL_COLOR,
+							Color.BLACK);
+		}
+		
 		removeStartOrEndLine(mazeInfo.getRStart(), mazeInfo.getCStart());
 		removeStartOrEndLine(mazeInfo.getRFinish(), mazeInfo.getCFinish());
 
@@ -118,12 +129,10 @@ public class GUIDrawer {
 				.getRFinish()][mazeInfo.getCFinish()]);
 		mazeEscape.getEndCell().setAttribute(
 				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
-		
-		
+
 	}
-	
-	public void loadMaze(ArrayList<String> a, String difficulty)
-	{
+
+	public void loadMaze(ArrayList<String> a, String difficulty) {
 		// Create maze of size length * length (or n * n)
 		System.out.println("Creating special instance of MazeFactory");
 		mazeFactory = new MazeFactory(a);
@@ -135,7 +144,7 @@ public class GUIDrawer {
 		MazeInfo mazeInfo = mazeParts.getKey();
 		ALGraph mst = mazeParts.getValue();
 		int steps = mazeFactory.getMinimumSteps();
-		
+
 		mazeEscape.setDifficulty(difficulty);
 		mazeEscape.setDifficultyMode(difficulty);
 		mazeEscape.construct();
@@ -143,7 +152,6 @@ public class GUIDrawer {
 		mazeEscape.setSteps(steps);
 		mazeEscape.setGUIDrawer(this);
 		mazeEscape.setMSL(msl);
-		
 
 		// Retrieve edges that need to be removed from base grid to generate
 		// a maze
@@ -165,6 +173,7 @@ public class GUIDrawer {
 				.getRFinish()][mazeInfo.getCFinish()]);
 		mazeEscape.getEndCell().setAttribute(
 				FigureAttributeConstant.FILL_COLOR, Color.WHITE);
+		mazeEscape.view().repairDamage();
 	}
 
 	/**
@@ -228,19 +237,33 @@ public class GUIDrawer {
 
 	}
 
-	public void resetSolution() {
-		VertexList vSoln = mazeFactory.getVertexSoln();
+	public void resetOrConcealMaze() {
 
 		// Iterate through the VertexList and change the color of the relevant
-		// cells
-		for (Vertex v : vSoln) {
+		// cells for resetting
+		for (Vertex v : vl) {
+			Coordinate c = v.getElement();
+			mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()]
+					.setAttribute(FigureAttributeConstant.FILL_COLOR,
+							Color.BLACK);
+		}
+
+		// Refresh the view after resetting
+		mazeEscape.view().repairDamage();
+	}
+
+	public void revealMaze() {
+
+		// Iterate through the VertexList and change the color of the relevant
+		// cells for starting
+		for (Vertex v : vl) {
 			Coordinate c = v.getElement();
 			mazeEscape.getgCellClickableArea()[c.getRow()][c.getCol()]
 					.setAttribute(FigureAttributeConstant.FILL_COLOR,
 							new Color(112, 219, 147));
 		}
 
-		// Refresh the view so we can see the solution
+		// Refresh the view after starting
 		mazeEscape.view().repairDamage();
 	}
 

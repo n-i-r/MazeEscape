@@ -58,43 +58,42 @@ public class MazeEscape extends DrawApplication {
 	private SaveButton sb;
 	private static final String IMAGE = "/resources/";
 
-	//Save and Load Code
+	// Save and Load Code
 	private MazeSaveLoad msl;
-	
-	//Campaign
+
+	// Campaign
 	private boolean campaign = false;
 
 	public MazeEscape() {
 		super("MazeEscape");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		ReplayScreen screen = new ReplayScreen(this);
-		
+
 		screen.selectDifficulty();
 		setDifficultyMode(difficulty);
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
 	}
-	
+
 	public MazeEscape(String difficulty) {
 		super("MazeEscape");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		setDifficulty(difficulty);
 		setDifficultyMode(difficulty);
 
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
 	}
-	
+
 	public MazeEscape(boolean load) {
 		super("MazeEscape");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-	
-	public void construct()
-	{
+
+	public void construct() {
 		gridCells = new GridCell[lengthMaze][lengthMaze];
 		gCellClickableArea = new GCellArea[lengthMaze][lengthMaze];
 	}
@@ -155,7 +154,6 @@ public class MazeEscape extends DrawApplication {
 			thread.sleep(1000);
 		}
 	}
-	
 
 	/**
 	 * Displays the time passed and steps taken on the maze
@@ -179,7 +177,7 @@ public class MazeEscape extends DrawApplication {
 		this.view().add(timeCount);
 		this.view().add(stepCount);
 	}
-	
+
 	/**
 	 * Method to display the legend with score formula and color keys
 	 */
@@ -233,21 +231,19 @@ public class MazeEscape extends DrawApplication {
 			lengthMaze = 20;
 			timeScore = 30;
 			levelPoints = 200;
-		}else if (difficulty.equals("Campaign"))
-		{
+		} else if (difficulty.equals("Campaign")) {
 			initializeForCampaign();
 		}
 	}
-	
-	private void initializeForCampaign()
-	{
+
+	private void initializeForCampaign() {
 		CampaignStore cs = MazeEscapeApp.getCampaignStore();
 		cs.increment();
 		lengthMaze = cs.getLengthMaze();
 		timeScore = cs.getTimeScore();
 		levelPoints = cs.getLevelPoints();
 		campaign = true;
-		
+
 	}
 
 	protected void createTools(JToolBar tBar) {
@@ -256,12 +252,12 @@ public class MazeEscape extends DrawApplication {
 		fb = new ForfeitButton(this, guiDrawer, this);
 		rb = new ResetButton(this, this);
 		sb = new SaveButton(this, this);
-		//LoadButton lb = new LoadButton(this, this);
+		// LoadButton lb = new LoadButton(this, this);
 		QuitButton qb = new QuitButton(this);
 
 		// Put the relevant tools on the toolbar
 		tBar.add(createToolButton(IMAGE + "RESET", "Reset Game", rb));
-		//tBar.add(createToolButton(IMAGE + "LOAD", "Load Game", lb));
+		// tBar.add(createToolButton(IMAGE + "LOAD", "Load Game", lb));
 		tBar.add(createToolButton(IMAGE + "SAVE", "Save Game", sb));
 		tBar.add(createToolButton(IMAGE + "FORFEIT", "Forfeit + See Solution",
 				fb));
@@ -271,9 +267,8 @@ public class MazeEscape extends DrawApplication {
 	protected Tool createDefaultTool() {
 		return new MazeNavigateTool(this);
 	}
-	
-	public void loadGame()
-	{
+
+	public void loadGame() {
 		MazeEscapeApp.markForLoad();
 		MazeEscapeApp.newGame(this);
 	}
@@ -338,7 +333,8 @@ public class MazeEscape extends DrawApplication {
 
 	public void setStartCell(GCellArea startCell) {
 		this.startCell = startCell;
-		this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
+		this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR,
+				Color.BLUE);
 	}
 
 	public GCellArea getEndCell() {
@@ -378,11 +374,11 @@ public class MazeEscape extends DrawApplication {
 	public void setOn(boolean on) {
 		this.on = on;
 	}
-	
+
 	public void setForfeitButton(boolean action) {
 		fb.setEnabled(action);
 	}
-	
+
 	public void setSaveButton(boolean action) {
 		sb.setEnabled(action);
 	}
@@ -393,6 +389,13 @@ public class MazeEscape extends DrawApplication {
 
 	public void setStepsTaken(int stepsTaken) {
 		this.stepsTaken = stepsTaken;
+		if (this.stepsTaken == 1) {
+			guiDrawer.revealMaze();
+			this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR,
+					Color.BLUE);
+			this.endCell.setAttribute(FigureAttributeConstant.FILL_COLOR,
+					Color.WHITE);
+		}
 		if (this.stepsTaken > 0) {
 			rb.setEnabled(true);
 			this.setForfeitButton(true);
@@ -411,18 +414,20 @@ public class MazeEscape extends DrawApplication {
 		this.reset = reset;
 		if (this.reset == true) {
 			this.view().remove(GCellArea.larry);
-			guiDrawer.resetSolution();
+			guiDrawer.resetOrConcealMaze();
 			ArrayList<GCellCoordinate> list = msl.getCellArray();
-			for (GCellCoordinate c:list) {
-				c.getGCellArea(this).setAttribute(FigureAttributeConstant.FILL_COLOR, new Color(112, 219, 147));		
+			for (GCellCoordinate c : list) {
+				c.getGCellArea(this).setAttribute(
+						FigureAttributeConstant.FILL_COLOR, Color.BLACK);
 			}
-			this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.BLUE);
-			this.endCell.setAttribute(FigureAttributeConstant.FILL_COLOR, Color.WHITE);
+			this.startCell.setAttribute(FigureAttributeConstant.FILL_COLOR,
+					Color.BLUE);
+			this.endCell.setAttribute(FigureAttributeConstant.FILL_COLOR,
+					Color.WHITE);
 		}
 	}
-	
-	public void saveGame()
-	{
+
+	public void saveGame() {
 		msl.saveGame(this);
 	}
 
@@ -437,8 +442,8 @@ public class MazeEscape extends DrawApplication {
 	public MazeSaveLoad getMSL() {
 		return msl;
 	}
-	
-	public void handleFirstClickAutomatically(){
+
+	public void handleFirstClickAutomatically() {
 		gCellClickableArea[1][1].callHandleClick();
 	}
 
@@ -533,5 +538,5 @@ public class MazeEscape extends DrawApplication {
 	public void setCampaign(boolean campaign) {
 		this.campaign = campaign;
 	}
-	
+
 }
