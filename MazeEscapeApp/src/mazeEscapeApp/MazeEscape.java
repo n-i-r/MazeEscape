@@ -60,6 +60,9 @@ public class MazeEscape extends DrawApplication {
 
 	//Save and Load Code
 	private MazeSaveLoad msl;
+	
+	//Campaign
+	private boolean campaign = false;
 
 	public MazeEscape() {
 		super("MazeEscape");
@@ -124,6 +127,9 @@ public class MazeEscape extends DrawApplication {
 						double score = getStepsTaken();
 						int points = timeScore - timePassed + levelPoints;
 						double accuracy = minSteps / score * 100;
+						CampaignStore cs = MazeEscapeApp.getCampaignStore();
+						cs.updateScore(points);
+						cs.updateAccuracy(accuracy);
 						WinnerScreen win = new WinnerScreen(this);
 						win.writeOutput(accuracy, points);
 						// System.out.println("Your score is: " + points + "!");
@@ -133,6 +139,9 @@ public class MazeEscape extends DrawApplication {
 					} else {
 						double score = getStepsTaken();
 						double accuracy = minSteps / score * 100;
+						CampaignStore cs = MazeEscapeApp.getCampaignStore();
+						cs.updateScore(levelPoints);
+						cs.updateAccuracy(accuracy);
 						WinnerScreen win = new WinnerScreen(this);
 						win.writeOutput(accuracy, levelPoints);
 						// System.out.println("Your score is: " + levelPoints +
@@ -224,7 +233,21 @@ public class MazeEscape extends DrawApplication {
 			lengthMaze = 20;
 			timeScore = 30;
 			levelPoints = 200;
+		}else if (difficulty.equals("Campaign"))
+		{
+			initializeForCampaign();
 		}
+	}
+	
+	private void initializeForCampaign()
+	{
+		CampaignStore cs = MazeEscapeApp.getCampaignStore();
+		cs.increment();
+		lengthMaze = cs.getLengthMaze();
+		timeScore = cs.getTimeScore();
+		levelPoints = cs.getLevelPoints();
+		campaign = true;
+		
 	}
 
 	protected void createTools(JToolBar tBar) {
@@ -501,6 +524,14 @@ public class MazeEscape extends DrawApplication {
 
 	public int getTimePassed() {
 		return timePassed;
+	}
+
+	public boolean isCampaign() {
+		return campaign;
+	}
+
+	public void setCampaign(boolean campaign) {
+		this.campaign = campaign;
 	}
 	
 }

@@ -2,6 +2,7 @@ package mazeEscapeApp;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ public class WinnerScreen {
 	private int accuracy;
 	private int points;
 	private MazeEscape maze;
+	private JOptionPane optionPane = null;
 
 	public WinnerScreen(MazeEscape m) {
 		super();
@@ -29,15 +31,37 @@ public class WinnerScreen {
 	 * @param points
 	 */
 	public void writeOutput(double accuracy, int points) {
-		this.accuracy = (int) accuracy;
 		this.points = points;
 
 		// Creates message and options for dialog box
-		final JOptionPane optionPane = new JOptionPane(
-				"Your completion accuracy is " + this.accuracy + "%!\n"
-						+ "Your maze score is " + this.points + " points!\n"
-						+ "Play Again?", JOptionPane.QUESTION_MESSAGE,
-				JOptionPane.YES_NO_OPTION);
+		if(!maze.isCampaign())
+		{
+			this.accuracy=(int)accuracy;
+			optionPane = new JOptionPane(
+					"Your completion accuracy is " + this.accuracy + "%!\n"
+							+ "Your maze score is " + this.points + " points!\n"
+							+ "Play Again?", JOptionPane.QUESTION_MESSAGE,
+					JOptionPane.YES_NO_OPTION);
+		}
+		else
+		{
+			CampaignStore cs = MazeEscapeApp.getCampaignStore();
+			double totalScore = cs.getScore();
+			double totalAcc = cs.getAccuracy();
+			
+			System.out.println("Total Score: "+totalScore);
+			System.out.println("Total Acc: "+totalAcc);
+			
+			DecimalFormat fmt = new DecimalFormat("#.##");
+			
+			optionPane = new JOptionPane(
+					"Your completion accuracy is " + fmt.format(accuracy) + "%!\n"
+							+ "Your maze score is " + this.points + " points!\n\n"
+							+ "Overall Campaign Stats:\nAccuracy: "+fmt.format(totalAcc)
+							+ "\nPoints: " + fmt.format(totalScore)
+							+ "\n\nContinue Campaign?", JOptionPane.QUESTION_MESSAGE,
+					JOptionPane.YES_NO_OPTION);
+		}
 
 		// Creates dialog box displaying the message
 		final JDialog dialog = new JDialog(new JFrame(), "You won!", true);

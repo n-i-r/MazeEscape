@@ -27,6 +27,7 @@ public class MazeEscapeApp {
 	private static boolean old = false;
 	private static boolean load = true;
 	private static String difficulty = "";
+	private static CampaignStore cs = new CampaignStore();
 
 	// Load Code
 	private static MazeSaveLoad msl = new MazeSaveLoad();
@@ -124,7 +125,7 @@ public class MazeEscapeApp {
 	}
 
 	private static void createLoadOptions() {
-		Object[] options = { "Easy", "Medium", "Hard", "Load Game" };
+		Object[] options = { "Easy", "Medium", "Hard", "Campaign", "Load Game" };
 
 		// Creates message and options for dialog box
 		final JOptionPane optionPane = new JOptionPane(
@@ -166,6 +167,8 @@ public class MazeEscapeApp {
 			unmarkForLoad("Medium");
 		else if (value == "Hard")
 			unmarkForLoad("Hard");
+		else if (value == "Campaign")
+			unmarkForLoad("Campaign");
 		else
 			System.exit(0);
 	}
@@ -232,6 +235,7 @@ public class MazeEscapeApp {
 	 * Creates a new game. Used for every instance after the first one.
 	 */
 	public static void newGame(MazeEscape m) {
+		boolean campaign = m.isCampaign();
 		oldMaze = m;
 		oldMaze.setVisible(false);
 		// If track is already playing, it won't play new track
@@ -249,7 +253,10 @@ public class MazeEscapeApp {
 		if (loadMazeOnCreation) {
 			newMaze = new MazeEscape(true);
 		} else {
-			newMaze = new MazeEscape();
+			if(campaign)
+				newMaze = new MazeEscape("Campaign");
+			else
+				newMaze = new MazeEscape();
 		}
 
 		maze = newMaze;
@@ -270,5 +277,9 @@ public class MazeEscapeApp {
 	{
 		loadMazeOnCreation = false;
 		difficulty = diff;
+	}
+	public static CampaignStore getCampaignStore()
+	{
+		return cs;
 	}
 }
