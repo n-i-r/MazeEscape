@@ -14,50 +14,56 @@ public class SplashScreen {
 	protected JLabel version;
 	protected JProgressBar pbar;
 	
-	/*
-	 * Default constructor
-	 */
-	public SplashScreen(ImageIcon image) {
-		//this(image, "");
-	}
-	
-	public SplashScreen() {		
-		load = new JFrame();
+	public SplashScreen(String fileName, String option) {		
+		load = new JFrame(fileName);
 		load.setLayout(new BoxLayout(load.getContentPane(), BoxLayout.Y_AXIS));
 		
 		// gets the image from resource directory
-		ImageIcon image = new ImageIcon(this.getClass().getResource("/resources/ESCAPE.gif"));
+		ImageIcon image = new ImageIcon(this.getClass().getResource("/resources/"+fileName+".gif"));
 		System.out.println("Reached");
 		this.icon = new JLabel(image);
 		// adds the image to the frame
-		load.add(icon);	
+		load.add(icon);
 		
-		String vers = "Version 1.1";
-		this.version = new JLabel(vers);
-		// adds the version number to frame
-		load.add(version);
-		
-		String stat = "Loading: ";
-		this.status = new JLabel(stat);
-		// adds the status to the frame
-		load.add(status);
-		
-		pbar = new JProgressBar(0, 100);
-		// adds the progress bar to the frame
-		load.add(pbar);	
-		
-		// prevents the window from being decorated with extras
-		load.setUndecorated(true);
-		// sets the size of screen to be exactly of image with added progress bar
-		load.setSize(image.getIconWidth(), image.getIconHeight() + 40);
+		if (option == "Yes") {
+			
+			String vers = "Version 1.4";
+			this.version = new JLabel(vers);
+			// adds the version number to frame
+			load.add(version);
+			
+			String stat = "Loading: ";
+			this.status = new JLabel(stat);
+			// adds the status to the frame
+			load.add(status);
+			
+			pbar = new JProgressBar(0, 100);
+			// adds the progress bar to the frame
+			load.add(pbar);	
+			
+			// prevents the window from being decorated with extras
+			load.setUndecorated(true);
+			// sets the size of screen to be exactly of image with added progress bar
+			load.setSize(image.getIconWidth(), image.getIconHeight() + 40);
+		}
+		else if(option == "No"){
+			load.setSize(image.getIconWidth(), image.getIconHeight() + 25);
+		}
 	}
 	
 	/*
-	 * Displays the splash screen and centers it
+	 * Displays the splash screen and centers it or creates a window in the corner
 	 */
-	public void show() {
-		load.setLocationRelativeTo(null);
-		load.setVisible(true);
+	public void show(String layout) {
+		if (layout == "Center") {
+			load.setLocationRelativeTo(null);
+			load.setResizable(false);
+			load.setVisible(true);
+		}
+		else if (layout == "Corner") {
+			load.setResizable(false);
+			load.setVisible(true);
+		}
 	}
 	
 	/*

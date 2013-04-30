@@ -109,36 +109,38 @@ public class MazeEscape extends DrawApplication {
 			displayTimeAndSteps();
 			// Displays legend to show formula on score calculation
 			displayLegend();
-			if (timePassed > timeScore) {
-				timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR,
-						Color.BLACK);
-				timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR,
-						Color.RED);
-			}
-			timePassed++;
-			// Checks if end of the maze has been reached
-			if (isReachedEndCell() == true) {
-				// Calculates maze points as well as completion accuracy
-				if (timePassed <= timeScore) {
-					double score = getStepsTaken();
-					int points = timeScore - timePassed + levelPoints;
-					double accuracy = minSteps / score * 100;
-					WinnerScreen win = new WinnerScreen(this);
-					win.writeOutput(accuracy, points);
-					// System.out.println("Your score is: " + points + "!");
-					// System.out.println("Maze completion accuracy is: " +
-					// accuracy +"%!");
-					on = false;
-				} else {
-					double score = getStepsTaken();
-					double accuracy = minSteps / score * 100;
-					WinnerScreen win = new WinnerScreen(this);
-					win.writeOutput(accuracy, levelPoints);
-					// System.out.println("Your score is: " + levelPoints +
-					// "!");
-					// System.out.println("Maze completion accuracy: " +
-					// accuracy +"%!");
-					on = false;
+			if (stepsTaken > 0) {
+				if (timePassed > timeScore) {
+					timeCount.setAttribute(FigureAttributeConstant.TEXT_COLOR,
+							Color.BLACK);
+					timeCount.setAttribute(FigureAttributeConstant.FILL_COLOR,
+							Color.RED);
+				}
+				timePassed++;
+				// Checks if end of the maze has been reached
+				if (isReachedEndCell() == true) {
+					// Calculates maze points as well as completion accuracy
+					if (timePassed <= timeScore) {
+						double score = getStepsTaken();
+						int points = timeScore - timePassed + levelPoints;
+						double accuracy = minSteps / score * 100;
+						WinnerScreen win = new WinnerScreen(this);
+						win.writeOutput(accuracy, points);
+						// System.out.println("Your score is: " + points + "!");
+						// System.out.println("Maze completion accuracy is: " +
+						// accuracy +"%!");
+						on = false;
+					} else {
+						double score = getStepsTaken();
+						double accuracy = minSteps / score * 100;
+						WinnerScreen win = new WinnerScreen(this);
+						win.writeOutput(accuracy, levelPoints);
+						// System.out.println("Your score is: " + levelPoints +
+						// "!");
+						// System.out.println("Maze completion accuracy: " +
+						// accuracy +"%!");
+						on = false;
+					}
 				}
 			}
 			thread.sleep(1000);

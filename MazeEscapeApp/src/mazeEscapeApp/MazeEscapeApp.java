@@ -72,8 +72,8 @@ public class MazeEscapeApp {
 	 * @throws InterruptedException
 	 */
 	private static void loadSplash() throws InterruptedException {
-		SplashScreen screen = new SplashScreen();
-		screen.show();
+		SplashScreen screen = new SplashScreen("ESCAPE", "Yes");
+		screen.show("Center");
 		int i = 0;
 		while (load == true) {
 			Thread thread = new Thread();
@@ -93,32 +93,34 @@ public class MazeEscapeApp {
 	 * Sets up instructions screen
 	 */
 	private static void createInstructionsScreen() {
-		String instructionString = "Instructions: \n\n"
-				+ "The blue cell is the start cell, and the white cell \n"
-				+ "is the \"light\" at the end ofthe tunnel. \n"
-				+ "Click on the blue cell to enter into the maze \n"
-				+ "i.e. start the game. Then navigate through the maze by \n"
-				+ "clicks. \n\n"
-				+ "The game is grid based, although you may not see \n"
-				+ "the grid itself. Click adjacent/valid cells to progress \n"
-				+ "through the maze. If wishing to travel in a valid \n"
-				+ "straight line instead of constantly needing to hit each \n"
-				+ "grid cell, hit the end cell you'd like to move to. \n\n"
-				+ "Hover over the buttons in the toolbar to see what each \n"
-				+ "respective button does. The reset button (first button) \n"
-				+ "and forfeit button (third button) are disabled until \n"
-				+ "the user starts playing.";
-
-		JFrame aFrame = new JFrame("Instructions");
-
-		JTextArea txt = new JTextArea(instructionString);
-		aFrame.add(txt);
-		txt.setEditable(false);
-		txt.setCursor(null);
-		txt.setOpaque(false);
-		txt.setFocusable(false);
-		aFrame.setSize(350, 350);
-		aFrame.setVisible(true);
+		SplashScreen instructions = new SplashScreen("INSTRUCTIONS", "No");
+		instructions.show("Corner");
+//		String instructionString = "Instructions: \n\n"
+//				+ "The blue cell is the start cell, and the white cell \n"
+//				+ "is the \"light\" at the end ofthe tunnel. \n"
+//				+ "Click on the blue cell to enter into the maze \n"
+//				+ "i.e. start the game. Then navigate through the maze by \n"
+//				+ "clicks. \n\n"
+//				+ "The game is grid based, although you may not see \n"
+//				+ "the grid itself. Click adjacent/valid cells to progress \n"
+//				+ "through the maze. If wishing to travel in a valid \n"
+//				+ "straight line instead of constantly needing to hit each \n"
+//				+ "grid cell, hit the end cell you'd like to move to. \n\n"
+//				+ "Hover over the buttons in the toolbar to see what each \n"
+//				+ "respective button does. The reset button (first button) \n"
+//				+ "and forfeit button (third button) are disabled until \n"
+//				+ "the user starts playing.";
+//
+//		JFrame aFrame = new JFrame("Instructions");
+//
+//		JTextArea txt = new JTextArea(instructionString);
+//		aFrame.add(txt);
+//		txt.setEditable(false);
+//		txt.setCursor(null);
+//		txt.setOpaque(false);
+//		txt.setFocusable(false);
+//		aFrame.setSize(350, 350);
+//		aFrame.setVisible(true);
 	}
 
 	private static void createLoadOptions() {
@@ -131,7 +133,7 @@ public class MazeEscapeApp {
 				options, options[0]);
 
 		// Creates dialog box displaying the message
-		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.1",
+		final JDialog dialog = new JDialog(new JFrame(), "MazeEscape v1.4",
 				true);
 		dialog.setContentPane(optionPane);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
