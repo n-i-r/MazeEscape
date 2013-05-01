@@ -27,7 +27,7 @@ public class SplashScreen {
 		
 		if (option == "Yes") {
 			
-			String vers = "Version 1.4";
+			String vers = "Version 1.4.7";
 			this.version = new JLabel(vers);
 			// adds the version number to frame
 			load.add(version);
